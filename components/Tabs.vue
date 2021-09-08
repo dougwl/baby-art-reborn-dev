@@ -4,8 +4,9 @@
             <legend>Outras Informações</legend>
             <div class="tab" :id="'tab-1'">
                 <div class="title">
-                    <input type="radio" id="tab-1__input" name="option">
-                    <label for="tab-1__input" @click="activeTab = 'tab-1'">O que acompanha?</label>
+                    <input type="radio" class="tab__input" id="input-1" name="option-1" value="tab-1" tabindex="0" v-model="activeTab" 
+                        @focus="enableTab({tab:'tab-1'})" checked="true">
+                    <label for="input-1" v-on:click.prevent="enableTab({tab:'tab-1', focus:true},$event);">O que acompanha?</label>
                 </div>
                 <div class="content" v-bind:class="{active: activeTab == 'tab-1'}">
                     <p>Hic ea minima animi quae maiores odio deserunt unde. A ipsam voluptas nostrum voluptatem. Debitis nam harum. Et ut porro doloribus at rerum occaecati id rem quo. Eveniet assumenda dolor accusamus mollitia debitis et quidem sint.
@@ -15,8 +16,9 @@ Amet et ut maiores numquam. Sequi earum sunt cum laboriosam suscipit iste repell
             </div>
             <div class="tab" :id="'tab-2'">
                 <div class="title">
-                    <input type="radio" id="tab-2__input" name="option">
-                    <label for="tab-2__input" @click="activeTab = 'tab-2'"> Materiais Utilizados.</label>
+                    <input type="radio" class="tab__input" id="input-2" name="option-2" value="tab-2"  tabindex="0" v-model="activeTab" 
+                        @focus="enableTab({tab:'tab-2'})">
+                    <label for="input-2" v-on:click.prevent="enableTab({tab:'tab-2', focus:true},$event)"> Materiais Utilizados.</label>
                 </div>
                  <div class="content" v-bind:class="{active: activeTab == 'tab-2'}">
                     <p>Nam repellendus numquam. Minus nemo est voluptate debitis deserunt assumenda perferendis et. Minima vel veniam aspernatur possimus sequi a maxime voluptates vel. Et reiciendis molestiae necessitatibus. Et iusto ipsam.
@@ -105,9 +107,6 @@ input{
     pointer-events: none;
     height: 0;
     width: 0;
-    top: 0;
-    left: 0;
-    opacity: 0;
 }
 
 label{
@@ -115,6 +114,11 @@ label{
     text-transform: uppercase;
     text-decoration: underline;
     font-size: 10px;
+}
+
+input:focus + label,
+input:checked + label{
+    color: orange;
 }
 
 </style>
@@ -126,5 +130,15 @@ export default {
             activeTab: "tab-1"
         }
     },
+    methods: {
+        debug(e){
+            console.log(e);
+        },
+        enableTab({tab = '', focus = false},e){
+            console.log(tab);
+            this.activeTab = tab;
+            if(focus) e.target.previousElementSibling.focus();
+        }
+    }
 }
 </script>

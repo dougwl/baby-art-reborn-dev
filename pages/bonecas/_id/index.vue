@@ -22,9 +22,7 @@
                     </p>
                 </div>
                 <div class="adicionar-ao-carrinho">
-                    <button class="adicionar-ao-carrinho-botao adicionar-ao-carrinho-botao--menos">-</button>
-                    <input id="quantidade" value="1" type="text" class="adicionar-ao-carrinho__quantidade">
-                    <button class="adicionar-ao-carrinho-botao adicionar-ao-carrinho-botao--mais">+</button>
+                    <AddToCart />
                 </div>
                 <div class="outras-informacoes">
                     <Tabs />

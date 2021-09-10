@@ -3,7 +3,7 @@
         <button class="--less" @click="productAmount--">-</button>
         <input id="amount" v-bind:value="productAmount" type="text" class="--amount" disabled>
         <button class="--more" @click="productAmount++">+</button>
-        <button id="add-to" class="--add" @click="debug(productAmount)">Add to Cart</button>
+        <button id="add-to" class="--add" @click="moveToCart" v-bind:disabled="inventory.empty && productAmount <= 1">Add to Cart</button>
     </div>
 </template>
 
@@ -59,20 +59,32 @@ export default {
                 get total() { return this.value}
             },
             inventory: { 
-                max: 5, 
-                free: 5,
+                max: 6, 
+                free: this.max,
                 get full () { return this.free == this.max},
-                get empty() { return this.free == 0}
+                get empty() { return this.free == 0},
+                reset: function() { this.free = this.max}
             }
         }
     },
     methods: {
-        debug: (arg) => console.log(arg), 
+        debug: (arg) => console.log(arg),
+        moveToCart: ({inventory,productAmount}) => {
+            if(!inventory.empty && productAmount > 0){
+                inventory.max -= productAmount;
+            }
+            console.log('Moving to Cart --- [Replace this line with an appropriate method.]');
+            productAmount = 0;
+        }
     },
     computed: {
         freeInventory: {
             get: ({inventory}) => inventory.free,
             set: function (val, {inventory} = this){
+                if (val.empty === true){
+                    inventory.reset();
+                    return;
+                }
                 if(val > inventory.free && val <= inventory.max){
                     inventory.free++;
                 }
@@ -84,6 +96,11 @@ export default {
         productAmount: {
             get: ({selectedAmount}) => selectedAmount.total,
             set: function(val, {selectedAmount, inventory} = this){
+                if(val == 0){
+                    selectedAmount.value = 0;
+                    this.freeInventory = {empty: true};
+                    return;
+                }
                 if(val > selectedAmount.total){
                     if(inventory.empty == false){
                         selectedAmount.value++;

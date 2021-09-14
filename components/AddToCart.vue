@@ -3,7 +3,7 @@
         <button class="--less" @click="productAmount--">-</button>
         <input id="amount" v-bind:value="productAmount" type="text" class="--amount" disabled>
         <button class="--more" @click="productAmount++">+</button>
-        <button id="add-to" class="--add" @click="moveToCart" v-bind:disabled="inventory.empty && productAmount <= 1">Add to Cart</button>
+        <button id="add-to" class="--add" @click="moveToCart" v-bind:disabled="inventory.max < 1 && productAmount <= 1">Add to Cart</button>
     </div>
 </template>
 
@@ -55,7 +55,8 @@ export default {
     data(){
         return {
             selectedAmount: {
-                value: 1,
+                get value() { return this._value != undefined ? this._value : 1},
+                set value (val) { this._value = val},
                 get total() { return this.value}
             },
             inventory: { 
@@ -63,9 +64,9 @@ export default {
                 set max (val) { this._max = val;}, 
                 get free () { return this._free != undefined ? this._free : this._free = this.max - 1},
                 set free (val) { this._free = val; },
-                get full () { return this.free == this.max},
+                get full () { return this.max > 0 ? this.free == this.max : false},
                 get empty() { return this.free == 0 || this.max == 0},
-                reset: function() { this.free = this.max - 1}
+                reset: function() { this.free =  this.max > 0 ? this.max - 1 : 0}
             }
         }
     },
@@ -77,10 +78,17 @@ export default {
                     this.inventory.max -= this.productAmount;
                     console.log('Moving to Cart --- [Replace this line with an appropriate method.]');
                     this.productAmount = 0;
-                    console.log(this.inventory.free)
-                    console.log(this.inventory.max);
                 }
             }
+        },
+        loadSession: function(){
+            this.inventory.free = this.$storage.get('inventory').key.free; 
+            this.inventory.max = this.$storage.get('inventory').key.max;
+            this.selectedAmount.value = this.$storage.get('selectedAmount').key.value;
+        },
+        saveSession: function(){
+            this.$storage.set('selectedAmount',{key: this.selectedAmount});
+            this.$storage.set('inventory', {key: this.inventory});
         }
     },
     computed: {
@@ -102,10 +110,10 @@ export default {
         productAmount: {
             get: ({selectedAmount}) => selectedAmount.total,
             set: function(val, {selectedAmount, inventory} = this){
-                /* console.log(inventory.empty); */
                 if(val == 0){
                     selectedAmount.value = 1;
                     this.freeInventory = {empty: true};
+                    this.saveSession();
                     return;
                 }
                 if(val > selectedAmount.total && inventory.max > 0){
@@ -120,9 +128,18 @@ export default {
                         this.freeInventory++;
                     }
                 }
+                this.saveSession();
             }
         },
-    }
+    },
+    mounted(){
+        if(this.$storage.has('selectedAmount') && this.$storage.has('inventory')){
+            this.loadSession();
+        }
+        else{
+            this.saveSession();
+        }
+    },
     
 }
 </script>

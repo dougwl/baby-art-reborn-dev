@@ -9,15 +9,15 @@
                 
                 <div class="detalhes">
                     <div class="peso">
-                        <span>Peso</span>
+                        <span>Peso: {{product.weight}}</span>
                     </div>
                     <div class="preco">
                         <span>Preço: </span>
-                        <span class="valor">R$0</span>
+                        <span class="valor">R$ {{product.price}}</span>
                     </div>
                     <p class="descricao">
                         <span>
-                            Excepturi facere voluptatem itaque placeat. Ducimus adipisci rerum et et esse nostrum dolorem cum. A quisquam voluptatem est fugit ullam ut rerum.
+                            {{product.description}}
                         </span>
                     </p>
                 </div>
@@ -58,6 +58,7 @@
 </template>
 
 <style scoped>
+
 .boneca-pagina{
     display: flex;
     flex-direction: column;
@@ -161,3 +162,31 @@
 }
 
 </style>
+
+<script>
+export default {
+    data (){
+        return {
+            product: {
+                price: this.$props.price,
+                weight: this.$props.weight,
+                description: this.$props.description
+            }
+        }
+    },
+    props: {
+        price: {
+            default: 0,
+            type: Number
+        },
+        weight: {
+            default: '0',
+            type: String
+        },
+        description: {
+            default: "Excepturi facere voluptatem itaque placeat. Ducimus adipisci rerum et et esse nostrum dolorem cum. A quisquam voluptatem est fugit ullam ut rerum.",
+            type: String
+        }
+    }
+}
+</script>

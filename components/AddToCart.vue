@@ -59,22 +59,28 @@ export default {
                 get total() { return this.value}
             },
             inventory: { 
-                max: 6, 
-                free: this.max,
+                get max () { return this._max != undefined ? this._max : this._max = 6},
+                set max (val) { this._max = val;}, 
+                get free () { return this._free != undefined ? this._free : this._free = this.max - 1},
+                set free (val) { this._free = val; },
                 get full () { return this.free == this.max},
-                get empty() { return this.free == 0},
-                reset: function() { this.free = this.max}
+                get empty() { return this.free == 0 || this.max == 0},
+                reset: function() { this.free = this.max - 1}
             }
         }
     },
     methods: {
         debug: (arg) => console.log(arg),
-        moveToCart: ({inventory,productAmount}) => {
-            if(!inventory.empty && productAmount > 0){
-                inventory.max -= productAmount;
+        moveToCart: function() {
+            if(this.inventory.max > 0){
+                if(this.productAmount > 0 && this.productAmount <= this.inventory.max){
+                    this.inventory.max -= this.productAmount;
+                    console.log('Moving to Cart --- [Replace this line with an appropriate method.]');
+                    this.productAmount = 0;
+                    console.log(this.inventory.free)
+                    console.log(this.inventory.max);
+                }
             }
-            console.log('Moving to Cart --- [Replace this line with an appropriate method.]');
-            productAmount = 0;
         }
     },
     computed: {
@@ -96,18 +102,19 @@ export default {
         productAmount: {
             get: ({selectedAmount}) => selectedAmount.total,
             set: function(val, {selectedAmount, inventory} = this){
+                /* console.log(inventory.empty); */
                 if(val == 0){
-                    selectedAmount.value = 0;
+                    selectedAmount.value = 1;
                     this.freeInventory = {empty: true};
                     return;
                 }
-                if(val > selectedAmount.total){
+                if(val > selectedAmount.total && inventory.max > 0){
                     if(inventory.empty == false){
                         selectedAmount.value++;
                         this.freeInventory--;
                     }
                 }
-                else if(val < selectedAmount.total && selectedAmount.total > 1){
+                else if(val < selectedAmount.total && selectedAmount.total >= 2){
                     if(inventory.full == false){
                         selectedAmount.value--;
                         this.freeInventory++;

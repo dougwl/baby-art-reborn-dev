@@ -165,6 +165,7 @@
     background: #fbe6e6;
     display: flex;
     flex-basis: 100vh;
+    justify-content: center;
 }
 
 .album-item--foto{

@@ -2,11 +2,11 @@
     <div class="boneca-pagina">
         <section class="boneca">
             <div class="informacoes">
-                <h1 class="boneca-titulo">
-                    Nome do Produto.
-                    <em class="boneca-colecao">Coleção.</em>
-                </h1>
-                
+                <div class="content">
+                    <h1 class="boneca-titulo">
+                        Nome do Produto.
+                        <em class="boneca-colecao">Coleção.</em>
+                    </h1>
                 <div class="detalhes">
                     <div class="peso">
                         <span>Peso: {{product.weight}}</span>
@@ -26,6 +26,7 @@
                 </div>
                 <div class="outras-informacoes">
                     <Tabs />
+                </div>
                 </div>
             </div>
             <div class="fotos">
@@ -78,21 +79,28 @@
 }
 
 .informacoes{
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content{
     display: flex;
     align-items: center;
     flex-direction: column;
     min-height: 100vh;
+    max-width: 480px;
     position: sticky;
     top: 0;
-    font-size: 12px;
-    text-align: center;
 }
 
 .boneca-titulo{
     white-space: pre-line;
-    margin: 130px auto 40px;
+    margin: 100px auto 40px;
     max-width: 300px;
-    font-weight: 400px;
+    font-weight: 400;
 }
 
 .peso{

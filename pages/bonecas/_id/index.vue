@@ -28,6 +28,9 @@
                     <Tabs />
                 </div>
                 </div>
+                <div class="filler">
+                    
+                </div>
             </div>
             <div class="fotos">
                 <ul class="album">
@@ -63,7 +66,7 @@
 .boneca-pagina{
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    /* height: 100vh; */
     height: -webkit-fill-available;
 }
 
@@ -83,7 +86,7 @@
     text-align: center;
     display: flex;
     align-items: center;
-    justify-content: center;
+    flex-direction: column;
 }
 
 .content{
@@ -92,13 +95,22 @@
     flex-direction: column;
     min-height: 100vh;
     max-width: 480px;
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
+    left: 0;
+    margin: 0 auto;
+    flex-basis: 100vh;
+}
+
+.content > *{
+    flex-shrink: 1;
+    flex-grow: 1;
 }
 
 .boneca-titulo{
     white-space: pre-line;
-    margin: 100px auto 40px;
+    /* margin: 100px auto 40px; */
     max-width: 300px;
     font-weight: 400;
 }
@@ -134,10 +146,14 @@
     max-height: 400px;
 }
 
+.fotos{
+    width: 50%;
+}
+
 .album{
     padding: 0;
     margin: 0;
-    height: 100vh;
+    /* height: 100vh; */
     /* height: fit-content;
     height: -moz-max-content; */
     display: flex;
@@ -145,6 +161,7 @@
     justify-content: center;
     align-items: center;
     margin: auto;
+    min-height: 100vh;
 }
 
 .album-item {
@@ -160,6 +177,18 @@
     height: 100%;
     width: 100%;
     object-fit: contain;
+}
+
+blockquote, body, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, pre, td, textarea, th, ul{
+    margin: 0;
+    padding: 0;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
 }
 
 @media screen and (min-width: 1024px){

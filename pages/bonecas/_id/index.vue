@@ -153,28 +153,26 @@
 .album{
     padding: 0;
     margin: 0;
-    /* height: 100vh; */
-    /* height: fit-content;
-    height: -moz-max-content; */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
     min-height: 100vh;
 }
 
 .album-item {
     list-style: none;
-    aspect-ratio: 9 / 16;
     width: 100%;
-    background: lightgrey;
+    min-height: 100vh;
+    background: #fbe6e6;
     display: flex;
-    justify-content: center;
+    flex-basis: 100vh;
 }
 
 .album-item--foto{
-    height: 100%;
+    aspect-ratio: 16/9;
+    display: flex;
+}
+
+.album-item--foto img{
     width: 100%;
     object-fit: contain;
 }

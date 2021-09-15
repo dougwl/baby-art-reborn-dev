@@ -1,9 +1,9 @@
 <template>
     <div class="add-to-cart">
-        <button class="--less" @click="productAmount--">-</button>
+        <button class="--less" @click="productAmount--" v-bind:disabled="isInventoryEmpty()">-</button>
         <input id="amount" v-bind:value="productAmount" type="text" class="--amount" disabled>
-        <button class="--more" @click="productAmount++">+</button>
-        <button id="add-to" class="--add" @click="moveToCart" v-bind:disabled="inventory.max < 1 && productAmount <= 1">Add to Cart</button>
+        <button class="--more" @click="productAmount++" v-bind:disabled="isInventoryEmpty()">+</button>
+        <button id="add-to" class="--add" @click="moveToCart" v-bind:disabled="isInventoryEmpty()">Add to Cart</button>
     </div>
 </template>
 
@@ -35,6 +35,13 @@ button{
 
 button:not(.--add){
     background: lightblue;
+    transition: background 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+button:not(.--add):not(:disabled):hover{
+    background: lightsalmon;
+    transition: background 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    color: white;
 }
 
 input{
@@ -45,6 +52,11 @@ input{
     font-size: 16px;
     width: 160px;
     background: lightsalmon;
+    color: white;
+}
+
+button:disabled{
+    cursor: default;
 }
 
 
@@ -89,7 +101,8 @@ export default {
         saveSession: function(){
             this.$storage.set('selectedAmount',{key: this.selectedAmount});
             this.$storage.set('inventory', {key: this.inventory});
-        }
+        },
+        isInventoryEmpty: function(){ return this.inventory.max < 1 && this.productAmount <= 1}
     },
     computed: {
         freeInventory: {
@@ -132,14 +145,14 @@ export default {
             }
         },
     },
-    mounted(){
+    mounted: function(){
         if(this.$storage.has('selectedAmount') && this.$storage.has('inventory')){
             this.loadSession();
         }
         else{
             this.saveSession();
-        }
-    },
-    
+        };
+        
+    }
 }
 </script>

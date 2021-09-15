@@ -180,7 +180,7 @@ export default {
             type: Number
         },
         weight: {
-            default: '0',
+            default: '0 kg',
             type: String
         },
         description: {

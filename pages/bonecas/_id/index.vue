@@ -94,18 +94,19 @@
     top: 0;
     left: 0;
     flex-basis: 125vh;
+    justify-content: space-evenly;
 }
 
-.content > *{
+/* .content > *{
     flex-shrink: 1;
     flex-grow: 1;
-}
+} */
 
 .titulo{
     white-space: pre-line;
     max-width: 300px;
     font-weight: 400;
-    margin-top: 80px;
+    /* margin-top: 80px; */
 }
 
 .peso{
@@ -171,7 +172,31 @@
     object-fit: contain;
 }
 
-blockquote, body, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, pre, td, textarea, th, ul{
+blockquote, 
+body, 
+code, 
+dd, 
+div, 
+dl, 
+dt, 
+fieldset, 
+form, 
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6, 
+input, 
+legend, 
+li, 
+ol, 
+p, 
+pre, 
+td, 
+textarea, 
+th, 
+ul{
     margin: 0;
     padding: 0;
 }

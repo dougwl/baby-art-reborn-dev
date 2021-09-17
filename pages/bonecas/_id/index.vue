@@ -3,7 +3,7 @@
         <section class="boneca">
             <div class="informacoes">
                 <div class="content">
-                    <h1 class="boneca-titulo">
+                    <h1 class="titulo">
                         Nome do Produto.
                         <em class="boneca-colecao">Coleção.</em>
                     </h1>
@@ -27,9 +27,6 @@
                 <div class="outras-informacoes">
                     <Tabs />
                 </div>
-                </div>
-                <div class="filler">
-                    
                 </div>
             </div>
             <div class="fotos">
@@ -66,8 +63,6 @@
 .boneca-pagina{
     display: flex;
     flex-direction: column;
-    /* height: 100vh; */
-    height: -webkit-fill-available;
 }
 
 .boneca{
@@ -76,8 +71,8 @@
     flex-basis: 100%;
 }
 
-.boneca > div{
-    flex-basis: 100%;
+.boneca > :where(div){
+    flex-basis: 50%;
     width: 0;
 }
 
@@ -93,14 +88,12 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    min-height: 100vh;
     max-width: 480px;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
     left: 0;
-    margin: 0 auto;
-    flex-basis: 100vh;
+    flex-basis: 125vh;
 }
 
 .content > *{
@@ -108,11 +101,11 @@
     flex-grow: 1;
 }
 
-.boneca-titulo{
+.titulo{
     white-space: pre-line;
-    /* margin: 100px auto 40px; */
     max-width: 300px;
     font-weight: 400;
+    margin-top: 80px;
 }
 
 .peso{
@@ -146,9 +139,9 @@
     max-height: 400px;
 }
 
-.fotos{
+/* .fotos{
     width: 50%;
-}
+} */
 
 .album{
     padding: 0;
@@ -191,7 +184,7 @@ blockquote, body, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6,
 }
 
 @media screen and (min-width: 1024px){
-    .boneca-titulo{
+    .titulo{
         font-size: 30px;
         line-height: 42px;
     }

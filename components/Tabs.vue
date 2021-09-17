@@ -2,28 +2,30 @@
     <div class="tabs">
         <fieldset class="hub">
             <legend>Outras Informações</legend>
-            <div class="tab" :id="'tab-1'">
+            <div class="tab" :id="'tab-1'" v-bind:class="{
+                    active: activeTab == 1, 
+                    get hidden() { return !(this.active)}
+            }">
                 <div class="title">
-                    <input type="radio" class="tab__input" id="input-1" name="option-1" value="tab-1" tabindex="0" v-model="activeTab" 
-                        @focus="enableTab({tab:'tab-1'})" checked="true">
-                    <label for="input-1" v-on:click.prevent="enableTab({tab:'tab-1', focus:true},$event);">O que acompanha?</label>
+                    <input type="radio" class="tab__input" id="input-1" name="option-1" v-bind:value="1" tabindex="0" v-model.number="activeTab" 
+                        @focus="enableTab({tab:1})">
+                    <label for="input-1" v-on:click.prevent="enableTab({tab:1, focus:true},$event);">O que acompanha?</label>
                 </div>
-                <div class="content" v-bind:class="{active: activeTab == 'tab-1'}">
-                    <p>Hic ea minima animi quae maiores odio deserunt unde. A ipsam voluptas nostrum voluptatem. Debitis nam harum. Et ut porro doloribus at rerum occaecati id rem quo. Eveniet assumenda dolor accusamus mollitia debitis et quidem sint.
-Rerum ut nihil eum sed facilis neque. Libero culpa recusandae esse voluptates est quis doloribus nulla voluptatem. Nesciunt eaque molestiae sed quis ut atque quae ut iure. Optio architecto eveniet rerum nesciunt enim vel qui aut. Error earum maxime accusamus est in at delectus. Consequatur ea rerum rem quae sunt soluta autem.
-Amet et ut maiores numquam. Sequi earum sunt cum laboriosam suscipit iste repellendus veritatis et. Temporibus assumenda ad eum consequatur soluta vitae similique. Voluptas alias sunt rem debitis. Consequatur autem dicta non consequatur. Eius a nemo qui est perferendis id quae nihil id.</p>
+                <div class="content">
+                    <p v-html="includedItems" class="info"></p>
                 </div>
             </div>
-            <div class="tab" :id="'tab-2'">
+            <div class="tab" :id="'tab-2'" v-bind:class="{
+                    active: activeTab == 2, 
+                    get hidden() { return !(this.active)}
+            }">
                 <div class="title">
-                    <input type="radio" class="tab__input" id="input-2" name="option-2" value="tab-2"  tabindex="0" v-model="activeTab" 
-                        @focus="enableTab({tab:'tab-2'})">
-                    <label for="input-2" v-on:click.prevent="enableTab({tab:'tab-2', focus:true},$event)"> Materiais Utilizados.</label>
+                    <input type="radio" class="tab__input" id="input-2" name="option-2" v-bind:value="2"  tabindex="0" v-model.number="activeTab" 
+                        @focus="enableTab({tab:2})">
+                    <label for="input-2" v-on:click.prevent="enableTab({tab:2, focus:true},$event)"> Materiais Utilizados.</label>
                 </div>
-                 <div class="content" v-bind:class="{active: activeTab == 'tab-2'}">
-                    <p>Nam repellendus numquam. Minus nemo est voluptate debitis deserunt assumenda perferendis et. Minima vel veniam aspernatur possimus sequi a maxime voluptates vel. Et reiciendis molestiae necessitatibus. Et iusto ipsam.
-Neque optio quas eius laborum doloribus incidunt earum. Aperiam quam rerum nihil vel ipsa. Natus ullam vel ullam facilis. Doloribus saepe et sed qui odio quia. Dolore et explicabo consequatur.
-Exercitationem quisquam ipsum exercitationem. Architecto consequatur voluptatem pariatur aut. Dolorum odit perspiciatis..</p>
+                <div class="content">
+                    <p v-html="madeWith" class="info"></p>
                 </div>
             </div>
         </fieldset>   
@@ -32,6 +34,43 @@ Exercitationem quisquam ipsum exercitationem. Architecto consequatur voluptatem 
 
 
 <style scoped>
+
+
+:where(fieldset,legend,input,label,p){
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+:where(legend, input){
+    position: absolute;
+    height: 0;
+    width: 0;
+    transform: scale(0,0);
+}
+
+legend{
+    top: 0;
+    left: 0;
+    opacity: 0;  
+}
+
+input{
+    clip-path: polygon(0 0);
+    pointer-events: none; 
+}
+
+label{
+    cursor: pointer;
+    text-transform: uppercase;
+    text-decoration: underline;
+    font-size: 10px;
+}
+
+input:where(:focus, :checked) + label,
+.tab.active input + label{
+    color: orange;
+}
     
 .tabs{
     display: flex;
@@ -67,75 +106,69 @@ Exercitationem quisquam ipsum exercitationem. Architecto consequatur voluptatem 
 }
 
 .content{
-    width: 100%;
-    display: none;
-    grid-column: 1 / 3;
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-}
-
-.content.active{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    opacity: 1;
-    max-height: min-content;
-    margin-top: 20px;
+    align-items: center;
     text-align: center;
+    width: 100%;
+    grid-column: 1 / 3;
+    padding: 0; 
+    border: 0;
 }
 
+.active .content{
+    opacity: 1;
+    transition: opacity 325ms ease-in;
+}
 
-fieldset{
-    border: none;
+.hidden .content{
+    opacity: 0;
+    transform: scaleY(0);
+}
+
+.info{
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+}
+
+.content :where(ul,li){
+    text-align: left;
+    border: 0;
     padding: 0;
     margin: 0;
 }
 
-legend{
-    opacity: 0;
-    height: 0;
-    width: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-input{
-    clip-path: polygon(0 0);
-    position: absolute;
-    pointer-events: none;
-    height: 0;
-    width: 0;
-}
-
-label{
-    cursor: pointer;
-    text-transform: uppercase;
-    text-decoration: underline;
-    font-size: 10px;
-}
-
-input:focus + label,
-input:checked + label{
-    color: orange;
-}
+/* both ::v-deep and >>> works the same, with the first being the newest option. */
+/* .info::v-deep *{  
+    
+} */
 
 </style>
 
 <script>
 export default {
+    props: {
+        included: {
+            value: String,
+            default: "<ul><li>Item 1 - Some description</li> <li>Item 2 - A somewhat bigger description</li> <li>Item 3 - A normal sized description</li></ul>"
+        },
+        materials: {
+            value: String,
+            default: "Nam repellendus numquam. Minus nemo est voluptate debitis deserunt assumenda perferendis et. Minima vel veniam aspernatur possimus sequi a maxime voluptates vel. Et reiciendis molestiae necessitatibus. Et iusto ipsam.Neque optio quas eius laborum doloribus incidunt earum. Aperiam quam rerum nihil vel ipsa. Natus ullam vel ullam facilis. Doloribus saepe et sed qui odio quia. Dolore et explicabo consequatur.Exercitationem quisquam ipsum exercitationem. Architecto consequatur voluptatem pariatur aut. Dolorum odit perspiciatis.." 
+        }
+
+    },
     data() {
         return{
-            activeTab: "tab-1"
+            activeTab: 1,
+            includedItems: this.$props.included,
+            madeWith: this.$props.materials
         }
     },
     methods: {
-        debug(e){
-            console.log(e);
-        },
         enableTab({tab = '', focus = false},e){
-            console.log(tab);
             this.activeTab = tab;
             if(focus) e.target.previousElementSibling.focus();
         }

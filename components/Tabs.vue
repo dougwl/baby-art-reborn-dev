@@ -67,8 +67,7 @@ label{
     font-size: 10px;
 }
 
-input:where(:focus, :checked) + label,
-.tab.active input + label{
+:where(.tab.active input + label){
     color: orange;
 }
     
@@ -82,6 +81,7 @@ input:where(:focus, :checked) + label,
     display: grid;
     flex-grow: 1;
     margin: 0 50px;
+    width: 100%;
 }
 
 .tab{
@@ -105,7 +105,7 @@ input:where(:focus, :checked) + label,
     grid-column: 2 / 2;
 }
 
-.content{
+/* .content{
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -115,7 +115,54 @@ input:where(:focus, :checked) + label,
     grid-column: 1 / 3;
     padding: 0; 
     border: 0;
+} */
+
+/* .tabs *{
+    text-align: left;
+    justify-content: left;
+    align-items: flex-start;
 }
+
+.content{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+    grid-column: 1 / 3;
+    padding: 0; 
+    border: 0;
+} */
+
+.content{
+    display: flex;
+    flex-direction: row;
+    grid-column: 1/3;
+    align-items: flex-start;
+}
+
+.info{
+    width: 500px;
+    height: max-content;
+}
+
+/* ::v-deep :where(.loaded){
+    transform: translateY(50%);
+} */
+
+/* .content :where(ul,li){
+    padding: 0;
+    margin: 0;
+    text-align: left;
+} */
+
+/* .info{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+} */
 
 .active .content{
     opacity: 1;
@@ -127,18 +174,25 @@ input:where(:focus, :checked) + label,
     transform: scaleY(0);
 }
 
-.info{
-    display: flex;
-    flex-grow: 1;
-    width: 100%;
-}
 
-.content :where(ul,li){
+
+/* .info{
+    --content-size: calc(100% + 1px);
+    display: flex; 
+    flex-direction: row;
+    justify-content: left;
+    flex-grow: 1;
+    align-items: center;
+} */
+
+
+
+/* .content :where(ul,li){
     text-align: left;
     border: 0;
     padding: 0;
     margin: 0;
-}
+} */
 
 /* both ::v-deep and >>> works the same, with the first being the newest option. */
 /* .info::v-deep *{  
@@ -146,6 +200,7 @@ input:where(:focus, :checked) + label,
 } */
 
 </style>
+
 
 <script>
 export default {
@@ -161,10 +216,11 @@ export default {
 
     },
     data() {
+        let _contentWrapper = (content) => `<div class='loaded'> ${content} </div>`;
         return{
-            activeTab: 1,
-            includedItems: this.$props.included,
-            madeWith: this.$props.materials
+            activeTab: 1, 
+            includedItems: _contentWrapper(this.$props.included), 
+            madeWith: _contentWrapper(this.$props.materials) 
         }
     },
     methods: {

@@ -4,15 +4,15 @@
             <div class="informacoes">
                 <div class="content">
                     <h1 class="titulo">
-                        Nome do Produto.
-                        <em class="boneca-colecao">Coleção.</em>
+                        Produto
+                        <em class="boneca-colecao">Nome da Coleção.</em>
                     </h1>
                 <div class="detalhes">
                     <div class="peso">
                         <span>Peso: {{product.weight}}</span>
                     </div>
                     <div class="preco">
-                        <span>Preço: </span>
+                        <!-- <span>Preço: </span> -->
                         <span class="valor">R$ {{product.price}}</span>
                     </div>
                     <p class="descricao">
@@ -60,6 +60,15 @@
 
 <style scoped>
 
+*{
+    --page-width: calc(100vw - 75px);
+    --page-half: calc(var(--page-width) / 2);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
 .boneca-pagina{
     display: flex;
     flex-direction: column;
@@ -88,6 +97,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    width: 100%;
     max-width: 480px;
     position: -webkit-sticky;
     position: sticky;
@@ -97,11 +107,6 @@
     justify-content: space-evenly;
 }
 
-/* .content > *{
-    flex-shrink: 1;
-    flex-grow: 1;
-} */
-
 .titulo{
     white-space: pre-line;
     max-width: 300px;
@@ -110,18 +115,26 @@
 }
 
 .peso{
-    margin-bottom: 10px;
+    margin-bottom: 13px;
+    text-shadow: none;
 }
 
 .preco{
-    font-size: 10px;
+    /* font-size: 10px; */
+    font-size: 15px;
+    font-weight: bolder;
     letter-spacing: 3px;
     text-transform: uppercase;
     margin-bottom: 14px;
+    color: orange;
 }
 
 .descricao{
     margin: 0 70px 40px;
+}
+
+.adicionar-ao-carrinho{
+    transform: translateY(40px);
 }
 
 .adicionar-ao-carrinho,
@@ -138,6 +151,7 @@
     display: flex;
     width: 100%;
     max-height: 400px;
+    transform: translateY(-30px);
 }
 
 /* .fotos{
@@ -172,46 +186,27 @@
     object-fit: contain;
 }
 
-blockquote, 
-body, 
-code, 
-dd, 
-div, 
-dl, 
-dt, 
-fieldset, 
-form, 
-h1, 
-h2, 
-h3, 
-h4, 
-h5, 
-h6, 
-input, 
-legend, 
-li, 
-ol, 
-p, 
-pre, 
-td, 
-textarea, 
-th, 
-ul{
-    margin: 0;
-    padding: 0;
-}
 
-*{
-    margin: 0;
-    padding: 0;
-    border: 0;
-    box-sizing: border-box;
-}
 
 @media screen and (min-width: 1024px){
+
+    .boneca{
+        max-width: var(--page-width);
+        flex-basis: 100%;
+    }
+
+    .boneca > :where(div){
+        max-width: var(--page-half);
+    }
+
     .titulo{
-        font-size: 30px;
+        /* font-size: 30px; */
+        font-size: 36px;
         line-height: 42px;
+    }
+
+    .detalhes{
+        font-size: 16px;
     }
 }
 
@@ -230,11 +225,11 @@ export default {
     },
     props: {
         price: {
-            default: 0,
+            default: 2000,
             type: Number
         },
         weight: {
-            default: '0 kg',
+            default: '3 kg',
             type: String
         },
         description: {

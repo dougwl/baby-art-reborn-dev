@@ -51,14 +51,33 @@
                     </li>
                 </ul>
                 <ul class="thumbnails">
-                    <li class="album-item--thumbnail">
-                        <a href="" class="thumbnail"></a>
+                    <li class="thumbnail">
+                        <a href="" class="thumbnail--link">
+                            <picture class="thumbnail--foto">
+                                <img src="https://source.unsplash.com/random/200x259" alt="">
+                            </picture>
+                        </a>
                     </li>
-                    <li class="album-item--thumbnail">
-                        <a href="" class="thumbnail"></a>
+                    <li class="thumbnail">
+                        <a href="" class="thumbnail--link">
+                            <picture class="thumbnail--foto">
+                                <img src="https://source.unsplash.com/random/200x259" alt="">
+                            </picture>
+                        </a>
                     </li>
-                    <li class="album-item--thumbnail">
-                        <a href="" class="thumbnail"></a>
+                    <li class="thumbnail">
+                        <a href="" class="thumbnail--link">
+                            <picture class="thumbnail--foto">
+                                <img src="https://source.unsplash.com/random/200x259" alt="">
+                            </picture>
+                        </a>
+                    </li>
+                    <li class="thumbnail">
+                        <a href="" class="thumbnail--link">
+                            <picture class="thumbnail--foto">
+                                <img src="https://source.unsplash.com/random/200x259" alt="">
+                            </picture>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -78,6 +97,7 @@
     padding: 0;
     border: 0;
     box-sizing: border-box;
+    list-style: none;
 }
 
 .boneca-pagina{
@@ -176,7 +196,6 @@
 }
 
 .album-item {
-    list-style: none;
     width: 100%;
     background: #fbe6e6;
     display: flex;
@@ -200,9 +219,22 @@
 
     .album-item{
         height: 100%;
+        display: none;
     }
 
-    /* .album:where(.small .album-item)  */
+    .album:where(.small) :where(:first-child){
+        display: flex;
+    } 
+
+    .thumbnails{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .thumbnail{
+        width: 25%;
+    }
 }
 
 
@@ -233,6 +265,10 @@
     .album-item{
         min-height: 100vh;
         flex-basis: 100vh;
+    }
+
+    .thumbnails{
+        display: none;
     }
 }
 

@@ -33,19 +33,19 @@
                 <ul class="album">
                     <li class="album-item">
                         <picture class="album-item--foto">
-                            <!-- <source srcset="https://source.unsplash.com/random/700x400"> -->
+                            <source media="(max-width: 1023px)" srcset="https://source.unsplash.com/random/200x350">
                             <img src="https://source.unsplash.com/random/400x700" alt="">
                         </picture>
                     </li>
                     <li class="album-item">
                         <picture class="album-item--foto">
-                            <!-- <source srcset="https://source.unsplash.com/random/700x400"> -->
+                            <source media="(max-width: 1023px)" srcset="https://source.unsplash.com/random/200x350">
                             <img src="https://source.unsplash.com/random/400x700" alt="">
                         </picture>
                     </li>
                     <li class="album-item">
                         <picture class="album-item--foto">
-                            <!-- <source srcset="https://source.unsplash.com/random/700x400"> -->
+                            <source media="(max-width: 1023px)" srcset="https://source.unsplash.com/random/200x350">
                             <img src="https://source.unsplash.com/random/400x700" alt="">
                         </picture>
                     </li>
@@ -76,13 +76,12 @@
 
 .boneca{
     display: flex;
-    flex-direction: row;
+    flex-direction: column-reverse;
     flex-basis: 100%;
 }
 
 .boneca > :where(div){
     flex-basis: 50%;
-    width: 0;
 }
 
 .informacoes{
@@ -163,7 +162,6 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
 }
 
 .album-item {
@@ -186,13 +184,18 @@
     object-fit: contain;
 }
 
+@media screen and (max-width: 1023px){
+    .album{
+        height: 510px;
+    }
+}
 
 
 @media screen and (min-width: 1024px){
 
     .boneca{
         max-width: var(--page-width);
-        flex-basis: 100%;
+        flex-direction: row;
     }
 
     .boneca > :where(div){
@@ -200,13 +203,16 @@
     }
 
     .titulo{
-        /* font-size: 30px; */
         font-size: 36px;
         line-height: 42px;
     }
 
     .detalhes{
         font-size: 16px;
+    }
+
+    .album{
+        min-height: 100vh;
     }
 }
 

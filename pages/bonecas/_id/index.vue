@@ -7,20 +7,20 @@
                         Produto
                         <em class="boneca-colecao">Nome da Coleção.</em>
                     </h1>
-                <div class="detalhes">
-                    <div class="peso">
-                        <span>Peso: {{product.weight}}</span>
+                    <div class="detalhes">
+                        <div class="peso">
+                            <span>Peso: {{product.weight}}</span>
+                        </div>
+                        <div class="preco">
+                            <!-- <span>Preço: </span> -->
+                            <span class="valor">R$ {{product.price}}</span>
+                        </div>
+                        <p class="descricao">
+                            <span>
+                                {{product.description}}
+                            </span>
+                        </p>
                     </div>
-                    <div class="preco">
-                        <!-- <span>Preço: </span> -->
-                        <span class="valor">R$ {{product.price}}</span>
-                    </div>
-                    <p class="descricao">
-                        <span>
-                            {{product.description}}
-                        </span>
-                    </p>
-                </div>
                 <div class="adicionar-ao-carrinho">
                     <AddToCart />
                 </div>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="fotos">
-                <ul class="album">
+                <ul class="album" v-bind:class="{small: $screen.width < 1024}">
                     <li class="album-item">
                         <picture class="album-item--foto">
                             <source media="(max-width: 1023px)" srcset="https://source.unsplash.com/random/200x350">
@@ -48,6 +48,17 @@
                             <source media="(max-width: 1023px)" srcset="https://source.unsplash.com/random/200x350">
                             <img src="https://source.unsplash.com/random/400x700" alt="">
                         </picture>
+                    </li>
+                </ul>
+                <ul class="thumbnails">
+                    <li class="album-item--thumbnail">
+                        <a href="" class="thumbnail"></a>
+                    </li>
+                    <li class="album-item--thumbnail">
+                        <a href="" class="thumbnail"></a>
+                    </li>
+                    <li class="album-item--thumbnail">
+                        <a href="" class="thumbnail"></a>
                     </li>
                 </ul>
             </div>
@@ -186,6 +197,12 @@
     .album{
         height: 510px;
     }
+
+    .album-item{
+        height: 100%;
+    }
+
+    /* .album:where(.small .album-item)  */
 }
 
 
@@ -229,6 +246,9 @@ export default {
                 price: this.$props.price,
                 weight: this.$props.weight,
                 description: this.$props.description
+            },
+            album: {
+                activePhoto: 1,
             }
         }
     },

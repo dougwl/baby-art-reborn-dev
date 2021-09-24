@@ -37,6 +37,7 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    'vue-screen/nuxt'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

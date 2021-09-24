@@ -17,7 +17,12 @@
     margin: 0;
     padding: 0;
     border: none;
-    overflow-x: hidden;
+}
+
+@media screen and (max-width: 1023px) {
+    :where(html){
+        overflow-x: hidden;
+    }
 }
 
 

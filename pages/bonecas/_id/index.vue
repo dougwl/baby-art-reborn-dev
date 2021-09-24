@@ -167,10 +167,8 @@
 .album-item {
     list-style: none;
     width: 100%;
-    min-height: 100vh;
     background: #fbe6e6;
     display: flex;
-    flex-basis: 100vh;
     justify-content: center;
 }
 
@@ -213,6 +211,11 @@
 
     .album{
         min-height: 100vh;
+    }
+
+    .album-item{
+        min-height: 100vh;
+        flex-basis: 100vh;
     }
 }
 

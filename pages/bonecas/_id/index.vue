@@ -33,7 +33,8 @@
                 <ul class="album" v-bind:class="{small: $screen.width < 1024}">
                     <li class="album-item">
                         <picture class="album-item--foto">
-                            <source media="(max-width: 767px)" srcset="https://source.unsplash.com/random/200x350">
+                            <!-- <source media="(max-width: 767px)" srcset="https://source.unsplash.com/random/200x350"> -->
+                            <source media="(max-width: 767px)" srcset="https://source.unsplash.com/random/200x300">
                             <source media="(max-width: 1023px)" srcset="https://source.unsplash.com/random/700x500">
                             <img src="https://source.unsplash.com/random/400x700" alt="">
                         </picture>
@@ -240,18 +241,26 @@
     }
     
     .album-item--foto{
-        aspect-ratio: unset;
+        /* aspect-ratio: unset; */
+        aspect-ratio: 4/6;
         justify-content: center;
         display: flex;
-        width: 100%;
+        /* width: 100%; */
+        height: auto;
+        width: auto;
         max-width: 550px;
     }
 
     .album-item--foto :where(img){
+        /* --aspect-ratio: max(min(0.5625, calc((100vh * 0.5625) - 100vw))) */
         /* width: unset; */
-        width: inherit;
-        object-fit: fill;
-        aspect-ratio: 4/3;
+        /* width: inherit; */
+        width: 100%;
+        height: 100%;
+        /* object-fit: fill;
+        aspect-ratio: 4/3; */
+        object-fit: contain;
+        /* aspect-ratio: 4/6; */
     }
 
     .thumbnails{

@@ -33,19 +33,20 @@
                 <ul class="album" v-bind:class="{small: $screen.width < 1024}">
                     <li class="album-item">
                         <picture class="album-item--foto">
-                            <source media="(max-width: 1023px)" srcset="https://source.unsplash.com/random/200x350">
+                            <source media="(max-width: 767px)" srcset="https://source.unsplash.com/random/200x350">
+                            <source media="(max-width: 1023px)" srcset="https://source.unsplash.com/random/700x500">
                             <img src="https://source.unsplash.com/random/400x700" alt="">
                         </picture>
                     </li>
                     <li class="album-item">
                         <picture class="album-item--foto">
-                            <source media="(max-width: 1023px)" srcset="https://source.unsplash.com/random/200x350">
+                            <source media="(max-width: 767px)" srcset="https://source.unsplash.com/random/200x350">
                             <img src="https://source.unsplash.com/random/400x700" alt="">
                         </picture>
                     </li>
                     <li class="album-item">
                         <picture class="album-item--foto">
-                            <source media="(max-width: 1023px)" srcset="https://source.unsplash.com/random/200x350">
+                            <source media="(max-width: 767px)" srcset="https://source.unsplash.com/random/200x350">
                             <img src="https://source.unsplash.com/random/400x700" alt="">
                         </picture>
                     </li>
@@ -129,10 +130,7 @@
     flex-direction: column;
     width: 100%;
     max-width: 480px;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    left: 0;
+    padding: 0 25px;
     flex-basis: 125vh;
     justify-content: space-evenly;
 }
@@ -164,13 +162,13 @@
 }
 
 .adicionar-ao-carrinho{
-    transform: translateY(40px);
+    position: fixed;
+    left: 0;
+    bottom: 0;
 }
 
-.adicionar-ao-carrinho,
-.adicionar-ao-carrinho > *{
-    margin-bottom: 30px;
-    position: static;
+:where(.adicionar-ao-carrinho,
+.add-to-cart){
     text-align: center;
     display: flex;
     flex-direction: row;
@@ -207,14 +205,28 @@
     display: flex;
 }
 
-.album-item--foto img{
+.album-item--foto :where(img){
     width: 100%;
     object-fit: contain;
 }
 
 @media screen and (max-width: 1023px){
+
+    .adicionar-ao-carrinho{
+        width: 100%;
+    }
+    
+    .fotos{
+        --photo-padding-left: 40px;
+        --photo-padding-right: 40px;
+        --photo-padding-top: 120px;
+        --photo-padding-bottom: 60px
+    }
+
     .album{
-        height: 510px;
+        /* height: 510px; */
+        height: 80vh;
+        max-height: 80vh;
     }
 
     .album-item{
@@ -222,18 +234,55 @@
         display: none;
     }
 
-    .album:where(.small) :where(:first-child){
+    .album:where(.small) > :where(:first-child){
         display: flex;
-    } 
-
-    .thumbnails{
+        padding: var(--photo-padding-top) var(--photo-padding-left) var(--photo-padding-bottom) var(--photo-padding-right);
+    }
+    
+    .album-item--foto{
+        aspect-ratio: unset;
+        justify-content: center;
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        width: 100%;
+        max-width: 550px;
     }
 
-    .thumbnail{
-        width: 25%;
+    .album-item--foto :where(img){
+        /* width: unset; */
+        width: inherit;
+        object-fit: fill;
+        aspect-ratio: 4/3;
+    }
+
+    .thumbnails{
+        --number-of-columns: 4;
+        --number-of-gaps: calc(var(--number-of-columns) - 1);
+        --column-gap: calc(( 5/var(--number-of-gaps) ) * 1% );
+        --column-size: calc( (100% - (var(--column-gap) * var(--number-of-gaps))) / var(--number-of-columns) );
+        --row-gap: 15px;
+        --max-width: 550px;
+
+        display: grid;
+        min-height: 150px;
+        margin-top: 20px;
+        grid-auto-rows: auto;
+        grid-template-columns: repeat(var(--number-of-columns), var(--column-size));
+        column-gap: var(--column-gap);
+        row-gap: var(--row-gap);
+        padding: 0 max( calc( (100% - min(100%,var(--max-width))) / 2 ), var(--photo-padding-left)); 
+    }
+
+    :where(.thumbnail, .thumbnail :not(img)){
+        display: flex;
+        width: 100%;
+        height: inherit;
+        position: relative;
+    }
+
+    .thumbnail--foto :where(img){
+        object-fit: contain;
+        aspect-ratio: 9/16;
+        width: 100%;
     }
 }
 
@@ -256,6 +305,24 @@
 
     .detalhes{
         font-size: 16px;
+    }
+
+    .content{
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        left: 0;
+        padding: inherit;
+    }
+
+    .adicionar-ao-carrinho{
+        transform: translateY(40px);
+    }
+
+    .adicionar-ao-carrinho,
+    .add-to-cart{
+        margin-bottom: 30px;
+        position: static;
     }
 
     .album{

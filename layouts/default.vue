@@ -17,10 +17,11 @@
     margin: 0;
     padding: 0;
     border: none;
+    scrollbar-width: none;
 }
 
 @media screen and (max-width: 1023px) {
-    :where(html){
+    :where(html, body){
         overflow-x: hidden;
     }
 }

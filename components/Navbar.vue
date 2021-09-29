@@ -20,6 +20,12 @@
     transition: var(--navTransition);
 }
 
+@media screen and (max-width: 1023px){
+    .nav{
+        display: none;
+    }
+}
+
 @media screen and (min-width: 1024px){
     .nav{
         left: 75px;

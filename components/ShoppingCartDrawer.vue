@@ -20,6 +20,12 @@
     transition: var(--navTransition);;
 }
 
+@media screen and (max-width: 1023px){
+    .cart-drawer{
+        display: none;
+    }
+}
+
 @media screen and (min-width: 1024px){
     .cart-drawer{
         right: 75px;

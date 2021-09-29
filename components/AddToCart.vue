@@ -48,7 +48,7 @@ input{
     filter: none;
 }
 
-#add-to{
+.--add{
     font-size: 16px;
     width: 160px;
     background: lightsalmon;
@@ -57,6 +57,14 @@ input{
 
 button:disabled{
     cursor: default;
+}
+
+@media screen and (max-width: 1023px) {
+    .add-to-cart, 
+    .--add {
+        flex-grow: 1;
+        max-width: 100%;
+    }
 }
 
 

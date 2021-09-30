@@ -35,7 +35,7 @@
                         <picture class="album-item--foto">
                             <!-- <source media="(max-width: 767px)" srcset="https://source.unsplash.com/random/200x350"> -->
                             <source media="(max-width: 767px)" srcset="https://source.unsplash.com/random/200x300">
-                            <source media="(max-width: 1023px)" srcset="https://source.unsplash.com/random/700x500">
+                            <!-- <source media="(max-width: 1023px)" srcset="https://source.unsplash.com/random/700x500"> -->
                             <img src="https://source.unsplash.com/random/400x700" alt="">
                         </picture>
                     </li>
@@ -192,11 +192,11 @@
     margin: 0;
     display: flex;
     flex-direction: column;
+    background: #fbe6e6;
 }
 
 .album-item {
     width: 100%;
-    background: #fbe6e6;
     display: flex;
     justify-content: center;
 }
@@ -226,41 +226,57 @@
 
     .album{
         /* height: 510px; */
-        height: 80vh;
-        max-height: 80vh;
+        /* height: 80vh;
+        max-height: 80vh; */
+        /* height: 80vh; */
+        min-height: 80vh;
+        padding: 45% 15% 15% 15%;
     }
 
     .album-item{
-        height: 100%;
+       /*  height: 100%; */
         display: none;
     }
 
     .album:where(.small) > :where(:first-child){
         display: flex;
-        padding: var(--photo-padding-top) var(--photo-padding-left) var(--photo-padding-bottom) var(--photo-padding-right);
+        flex-grow: 1;
+        width: 100%;
+        height: 100%;
+        justify-content: unset;
+        /* padding: var(--photo-padding-top) var(--photo-padding-left) var(--photo-padding-bottom) var(--photo-padding-right); */
     }
     
     .album-item--foto{
-        /* aspect-ratio: unset; */
-        aspect-ratio: 4/6;
-        justify-content: center;
-        display: flex;
+        aspect-ratio: unset;
+        display: unset;
+        /* aspect-ratio: 4/6; */
+        /* aspect-ratio: 0.5625; */
+        /* justify-content: center; */
+        /* display: flex; */
         /* width: 100%; */
-        height: auto;
+        /* height: auto;
+        width: auto; */
+        /* height: 100%;
         width: auto;
-        max-width: 550px;
+        padding-top: 120px; */
+        /* max-width: 550px; */
+        width: 100%;
     }
 
     .album-item--foto :where(img){
         /* --aspect-ratio: max(min(0.5625, calc((100vh * 0.5625) - 100vw))) */
         /* width: unset; */
         /* width: inherit; */
-        width: 100%;
-        height: 100%;
+        /* width: 100%; */
+        /* height: 100%; */
         /* object-fit: fill;
         aspect-ratio: 4/3; */
-        object-fit: contain;
+        /* object-fit: contain; */
         /* aspect-ratio: 4/6; */
+        width: 100%;
+        object-fit: contain;
+        aspect-ratio: 0.5625;
     }
 
     .thumbnails{

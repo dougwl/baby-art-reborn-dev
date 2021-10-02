@@ -209,6 +209,7 @@
 .album-item--foto :where(img){
     width: 100%;
     object-fit: contain;
+    object-position: top;
 }
 
 @media screen and (max-width: 1023px){
@@ -286,6 +287,11 @@
     }
 }
 
+@media screen and (min-width: 1023px) and (max-aspect-ratio: 22/16) {
+    .album-item--foto :where(img){
+        object-fit: cover;
+    }
+}
 
 @media screen and (min-width: 1024px){
 
@@ -338,6 +344,7 @@
         display: none;
     }
 }
+
 
 </style>
 

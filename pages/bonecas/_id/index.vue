@@ -193,6 +193,7 @@
     display: flex;
     flex-direction: column;
     background: #fbe6e6;
+    align-items: center;
 }
 
 .album-item {
@@ -226,9 +227,8 @@
     }
 
     .album{
-        min-height: 80vh;
-        padding: 45% 15% 15% 15%;
-        
+        min-height: 60vh;
+        padding: 30% 15% 15% 15%;
     }
 
     .album-item{
@@ -290,6 +290,15 @@
 @media screen and (min-width: 1023px) and (max-aspect-ratio: 22/16) {
     .album-item--foto :where(img){
         object-fit: cover;
+    }
+}
+
+@media screen and (max-width: 900px) and (min-aspect-ratio: 3/5) and (max-aspect-ratio: 3/4){
+    /* .album{
+        align-items: center;
+    } */
+    .album-item{
+        max-width: 50%;
     }
 }
 

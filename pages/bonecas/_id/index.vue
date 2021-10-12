@@ -31,12 +31,15 @@
             </div>
             <div class="fotos">
                 <ul class="album" v-bind:class="{small: $screen.width < 1024}">
+                    <!-- Photos should be in the 5:7 (500x700) resolution in desktop and 4:7 (200x350) in mobile -->
                     <li class="album-item">
                         <!--  <source media="(max-width: 767px)" srcset="https://source.unsplash.com/random/200x350">
-                         <source media="(max-width: 1023px)" srcset="https://source.unsplash.com/random/700x500"> -->
+                        <source media="(max-width: 1023px)" srcset="https://source.unsplash.com/random/700x500"> -->
                         <picture class="album-item--foto">
-                            <source media="(max-width: 767px)" srcset="https://source.unsplash.com/random/200x300">
-                            <img src="https://source.unsplash.com/random/400x700" alt="">
+                            <!-- <source media="(max-width: 767px)" srcset="https://source.unsplash.com/random/200x300">
+                            <img src="https://source.unsplash.com/random/400x700" alt=""> -->
+                            <source media="(max-width: 767px)" srcset="">
+                            <img src="@/assets/images/baby_b_500x700.png" alt="boneca-imagem">
                         </picture>
                     </li>
                     <li class="album-item">
@@ -220,10 +223,11 @@
     }
     
     .fotos{
-        --photo-padding-left: 40px;
+        --photo-padding-left: 40px; 
         --photo-padding-right: 40px;
         --photo-padding-top: 120px;
-        --photo-padding-bottom: 60px
+        --photo-padding-bottom: 60px;
+        --padding: calc((15% + 1px) - 1px);
     }
 
     .album{
@@ -270,7 +274,8 @@
         grid-template-columns: repeat(var(--number-of-columns), var(--column-size));
         column-gap: var(--column-gap);
         row-gap: var(--row-gap);
-        padding: 0 max( calc( (100% - min(100%,var(--max-width))) / 2 ), var(--photo-padding-left)); 
+        /* padding: 0 max( calc( (100% - min(100%,var(--max-width))) / 2 ), var(--photo-padding-left)); */ 
+        padding: 0 var(--padding);
     }
 
     :where(.thumbnail, .thumbnail :not(img)){
@@ -299,6 +304,10 @@
     } */
     .album-item{
         max-width: 50%;
+    }
+
+    .thumbnails{
+        padding: 0 33%;
     }
 }
 

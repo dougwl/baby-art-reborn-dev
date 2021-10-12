@@ -12,7 +12,9 @@
                     <label for="input-1" v-on:click.prevent="enableTab({tab:1, focus:true},$event);">O que acompanha?</label>
                 </div>
                 <div class="content">
-                    <p v-html="includedItems" class="info"></p>
+                    <client-only>
+                        <p v-html="includedItems" class="info"></p>
+                    </client-only>
                 </div>
             </div>
             <div class="tab" :id="'tab-2'" v-bind:class="{
@@ -25,12 +27,14 @@
                     <label for="input-2" v-on:click.prevent="enableTab({tab:2, focus:true},$event)"> Materiais Utilizados.</label>
                 </div>
                 <div class="content">
-                    <p v-html="madeWith" class="info"></p>
+                    <client-only>
+                        <p v-html="madeWith" class="info"></p>
+                    </client-only>
                 </div>
             </div>
         </fieldset>   
     </div>
-</template>
+</template> /* test */
 
 
 <style scoped>

@@ -37,7 +37,15 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    'vue-screen/nuxt'
+    'vue-screen/nuxt',
+    ['nuxt-shopify',
+      {
+        domain: 'bbart-reborn.myshopify.com',
+        storefrontAccessToken: '9fd8bd1a7af30c7b179ec7326e896599',
+        unoptimized: false,
+        /* language: 'ja-JP', */
+      }
+    ]
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

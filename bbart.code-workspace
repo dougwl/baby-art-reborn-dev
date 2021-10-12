@@ -4,5 +4,10 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"path-intellisense.autoSlashAfterDirectory": true,
+		"path-intellisense.mappings": {
+			"@": "${workspaceFolder}",
+		}
+	}
 }

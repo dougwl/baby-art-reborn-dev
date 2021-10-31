@@ -47,9 +47,18 @@ export default {
         unoptimized: false,
         /* language: 'ja-JP', */
       }
-    ]
+    ],
+    ["@nuxtjs/svg"],
   ],
 
+  svg: {
+    vueSvgLoader: {
+        // vue-svg-loader options
+    },
+    svgSpriteLoader: {
+        // svg-sprite-loader options
+    }
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   }

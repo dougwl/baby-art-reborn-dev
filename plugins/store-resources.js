@@ -1,4 +1,4 @@
-const argIsValid = (args) => {
+/* const argIsValid = (args) => {
     if(args.constructor !== Object || Object.entries(args).length === 0) return false;
     else return true;
 }
@@ -41,3 +41,4 @@ export const resources = ($storage) => {
 export default ({$storage}, inject) => {
     inject('shop', msg => console.log(`Hello ${msg}!`))
 }
+ */

@@ -1,7 +1,35 @@
 <template>
-  <div class="home">
-    <p>Empty.</p>
-  </div>
+  <body>
+    <header> 
+      <a class="header__logo" href="/">
+        <span>Baby Art Reborn</span>
+        <div v-html="require('~/assets/svg/logo.svg?raw')"></div>
+      </a>
+    </header>
+    <nav>
+      <div class="main-nav"></div>
+      <button class="nav-toggle"></button>
+    </nav>
+    <button class="main-nav__mobile-toggle"></button>
+    <div class="cart-drawer-container">
+      <div class="cart-drawer"></div>
+    </div>
+    <button class="cart-drawer__mobile-toggle">
+      <span>Toggle Cart</span>
+    </button>
+    <main id="main" class="content">
+      <div class="home">
+        <section class="landing-content"></section>
+        <section class="procut-tiles"></section>
+        <section class="featured-categories"></section>
+        <section class="about--confeccao"></section>
+        <section class="hero-phrase"></section>
+        <section class="about--minha-historia"></section>
+        <section class="newsletter-signup"></section>
+      </div>
+    </main>
+    <footer> </footer>
+  </body>
 </template>
 
 <script>

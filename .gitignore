@@ -91,3 +91,6 @@ sw.*
 
 #Images
 assets/images/
+
+#SVG
+assets/svg/

@@ -2,6 +2,8 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
+  fetchOnServer: false,
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'bbart-beta',

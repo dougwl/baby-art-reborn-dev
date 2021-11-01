@@ -1,18 +1,20 @@
 <template>
-  <body>
+  <div class="home__body">
     <header> 
       <a class="header__logo" href="/">
         <span>Baby Art Reborn</span>
-        <div v-html="require('~/assets/svg/logo.svg?raw')"></div>
+        <client-only>
+          <div v-html="require('~/assets/svg/home/logo.svg?raw')"></div>
+        </client-only>
       </a>
     </header>
     <nav>
       <div class="main-nav"></div>
-      <button class="nav-toggle"></button>
+      <button class="main-nav-toggle"></button>
     </nav>
     <button class="main-nav__mobile-toggle"></button>
-    <div class="cart-drawer-container">
-      <div class="cart-drawer"></div>
+    <div class="cart-drawer__container">
+      <div class="cart-drawer__content"></div>
     </div>
     <button class="cart-drawer__mobile-toggle">
       <span>Toggle Cart</span>
@@ -28,12 +30,53 @@
         <section class="newsletter-signup"></section>
       </div>
     </main>
-    <footer> </footer>
-  </body>
+    <footer> 
+      <div class="footer__content">
+        <div class="footer__logo">
+          <client-only>
+            <div v-html="require('~/assets/svg/home/logo.svg?raw')"></div>
+          </client-only>
+        </div>
+        <div class="footer__nav">
+          <div class="footer__nav-item">
+            <a href="/">Home</a>
+          </div>
+          <div class="footer__nav-item">
+            <a href="/">Sobre</a>
+          </div>
+          <div class="footer__nav-item">
+            <a href="/">Contato</a>
+          </div>
+        </div>
+        <div class="footer__aside"> 
+          <div class="footer__social">
+            <div class="footer__social-item">
+              <!-- <a href="https://www.facebook.com/babyartreborn/" target="_blank">
+                <div v-html="require('~/assets/svg/facebook.svg?raw')"></div>
+              </a> -->
+            </div>
+            <div class="footer__social-item">
+              <!-- <a href="https://www.instagram.com/babyartreborn/" target="_blank">
+                <div v-html="require('~/assets/svg/instagram.svg?raw')"></div>
+              </a> -->
+            </div>
+            <div class="footer__social-item">
+              <!-- <a href="https://www.pinterest.com/babyartreborn/" target="_blank">
+                <div v-html="require('~/assets/svg/pinterest.svg?raw')"></div>
+              </a> -->
+            </div>
+          </div>
+          <div class="footer__copyright">
+            <span>© Baby Art Reborn</span>
+          </div>
+        </div>
+      </div>  
+    </footer>
+  </div>
 </template>
 
 <script>
-export default {
+/* export default {
 
   data(_this) {
     return {
@@ -96,12 +139,13 @@ export default {
   },
   async fetch(){
     await this.fetchResourcesOf({product: true});
+    console.log('fetched');
   },
-/*   mounted(){
+  mounted(){
     this.fetchResources({product: true});
-  } */
+  }
 
   
 
-}
+} */
 </script>

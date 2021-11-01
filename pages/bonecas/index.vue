@@ -46,7 +46,7 @@ export default {
     },
     async fetch(){
         this.productList = await this.fetchAllProducts();
-        console.log(this.productList);
+        /* console.log(this.productList); */
     }
     /* mounted(){
         this.fetchAllProducts().then((val) => { this.productList = val; console.log(val);});

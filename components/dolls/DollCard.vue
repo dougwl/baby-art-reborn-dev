@@ -93,9 +93,7 @@ export default {
     watch: {
         product: {
             handler: function(product, oldProduct){
-                console.log(product);
                 if(product != undefined) {    
-                    console.log('something')
                     this.card.title = product.title;
                     this.card.price = product.variants[0].price;
                     this.card.image = product.images[0];

@@ -51,14 +51,14 @@ export default {
     ["@nuxtjs/svg"],
   ],
 
-  svg: {
+  /* svg: {
     vueSvgLoader: {
-        // vue-svg-loader options
+         vue-svg-loader options
     },
     svgSpriteLoader: {
-        // svg-sprite-loader options
+         svg-sprite-loader options
     }
-  },
+  }, */
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   }

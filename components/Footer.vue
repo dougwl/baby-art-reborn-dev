@@ -48,25 +48,35 @@
           </ul>
           <ul class="social-links"> 
             <li class="social-link">
-              <!-- <a href="https://www.facebook.com/babyartreborn/" target="_blank">
-                  <div v-html="require('~/assets/svg/facebook.svg?raw')"></div>
-                </a> -->
+              <a href="https://www.facebook.com/babyartreborn/" target="_blank">
+                  <!-- <div v-html="require('~/assets/svg/facebook.svg?raw')"></div> -->
+                  Instagram
+                </a>
             </li>
             <li class="social-link">
-              <!-- <a href="https://www.instagram.com/babyartreborn/" target="_blank">
-                  <div v-html="require('~/assets/svg/instagram.svg?raw')"></div>
-                </a> -->
+              <a href="https://www.instagram.com/babyartreborn/" target="_blank">
+                  <!-- <div v-html="require('~/assets/svg/instagram.svg?raw')"></div> -->
+                  Facebook
+                </a>
             </li>
             <li class="social-link">
-              <!-- <a href="https://www.pinterest.com/babyartreborn/" target="_blank">
-                  <div v-html="require('~/assets/svg/pinterest.svg?raw')"></div>
-                </a> -->
+              <a href="https://www.pinterest.com/babyartreborn/" target="_blank">
+                  <!-- <div v-html="require('~/assets/svg/pinterest.svg?raw')"></div> -->
+                  Pinterest
+                </a>
             </li>
           </ul>
         </div>
-        <div class="footer__aside"> 
-          <div class="footer__copyright">
-            <span>© Baby Art Reborn</span>
+        <div class="aside">
+          <div class="email">
+            <p>
+              <a href="mailto:">
+                contato@babyartreborn.com.br
+              </a>
+            </p>  
+          </div> 
+          <div class="copyright">
+            <span>© Criado por Douglas William, 2021</span>
           </div>
         </div>
       </div>  
@@ -75,12 +85,20 @@
 
 <style scoped>
 
-    li{
+    ul,li{
       list-style: none;
     }
 
+    a{
+      line-height: 26px;
+    }
+
+    span{
+      color: var(--main-color);
+    }
+
     .footer{
-        background-color: #c3d5e2;
+        background-color: var(--secondary-color);
     }
 
     .content{
@@ -92,12 +110,24 @@
         text-align: center;
     }
 
+    .email a{
+      border-bottom: 1px solid var(--main-color);
+    }
+
+    .copyright *{
+      line-height: 40px;
+    }
+
+    .aside{
+      margin-top: 40px;
+    }
+
     :where(.nav-links, .extra-links){
         display: none;
     }
 
     .--desktop{
-        display: initial;
+        display: none;
     }
 
     @media screen and (min-width: 1024px){
@@ -114,6 +144,26 @@
           flex-direction: row;
           flex-wrap: wrap;
         }
+
+        .aside{
+          margin-top: 0;
+          text-align: right;
+        }
+
+        ul{
+          display: block;
+          min-width: 170px;
+        }
+
+        .--desktop{
+          display: initial;
+        }
+    }
+
+    @media screen and (min-width: 1280px){
+      ul{
+        min-width: 240px;
+      }
     }
       
     

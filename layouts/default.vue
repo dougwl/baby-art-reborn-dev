@@ -3,6 +3,7 @@
         <Navbar />
         <Nuxt />
         <ShoppingCartDrawer />
+        <Footer/>
     </div>
 </template>
 
@@ -13,11 +14,16 @@
 }
 
 
-:where(html, body, .container, .container > *){
+:where(html, body, .container, .container *){
     margin: 0;
     padding: 0;
     border: none;
     scrollbar-width: none;
+}
+
+:where(body){
+    text-rendering: optimizeLegibility;
+    letter-spacing: .025em;
 }
 
 @media screen and (max-width: 1023px) {

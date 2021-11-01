@@ -73,7 +73,7 @@ export default {
     },
     methods:{
         getResponsiveImages: function({imageSource, queries}){
-            console.log('getting responsive images');
+            /* console.log('getting responsive images'); */
             let width, height, imageSrc;
             for (const size in queries) {
                 if (Object.hasOwnProperty.call(queries, size)) {

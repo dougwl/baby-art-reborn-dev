@@ -13,7 +13,6 @@
     --navTransition: all 125ms ease-in;
 }
 
-
 :where(html, body, .container, .container *){
     margin: 0;
     padding: 0;

@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <Navbar />
+        <Header />
         <Nuxt />
         <ShoppingCartDrawer />
         <Footer/>
@@ -14,10 +15,11 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('~/assets/fonts/Prociono-Regular-webfont.woff') format('woff'), 
-         url('~/assets/fonts/Prociono-Regular-webfont.eot') format('embedded-opentype'),
+    src: url('~/assets/fonts/Prociono-VF.woff2') format("woff2 supports variations"),
+         url('~/assets/fonts/Prociono-VF.woff2') format('woff2-variations') 
+        /*  url('~/assets/fonts/Prociono-Regular-webfont.eot') format('embedded-opentype'),
          url('~/assets/fonts/Prociono-Regular-webfont.svg') format('svg'),
-         url('~/assets/fonts/Prociono-Regular-webfont.ttf') format('truetype');
+         url('~/assets/fonts/Prociono-Regular-webfont.ttf') format('truetype'); */
 }
 
 @font-face {
@@ -25,10 +27,11 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('~/assets/fonts/goudy_bookletter_1911-webfont.woff') format('woff'), 
-         url('~/assets/fonts/goudy_bookletter_1911-webfont.eot') format('embedded-opentype'),
+    src: url('~/assets/fonts/GoudyBookletter1911-VF.woff2') format("woff2 supports variations"),
+         url('~/assets/fonts/Prociono-VF.woff2') format('woff2-variations')
+         /* url('~/assets/fonts/goudy_bookletter_1911-webfont.eot') format('embedded-opentype'),
          url('~/assets/fonts/goudy_bookletter_1911-webfont.svg') format('svg'),
-         url('~/assets/fonts/goudy_bookletter_1911-webfont.ttf') format('truetype');
+         url('~/assets/fonts/goudy_bookletter_1911-webfont.ttf') format('truetype'); */
 }
 
 @font-face {
@@ -36,13 +39,22 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('~/assets/fonts/WorkSans-VariableFont_wght.ttf') format('truetype');
+    src: url('~/assets/fonts/WorkSans[wght].woff2') format("woff2 supports variations"),
+         url('~/assets/fonts/WorkSans[wght].woff2') format('woff2-variations')
 }
 
 :root{
     --navTransition: all 125ms ease-in;
     --main-color: #d3838e;
     --secondary-color: #c3d5e2;
+    --alternative-blue: #D3E0E9;
+    --illustration-color: #7BA9B2;
+    --desktop-background-color: #F9F7F2;
+    --mobile-background-color: white;
+}
+
+:where(*){
+    box-sizing: border-box;
 }
 
 :where(html, body, .container, .container *){
@@ -57,9 +69,25 @@
     letter-spacing: .025em;
 }
 
-:where(a){
+:where(html){
+    font-family: 'Prociono', system-ui, -apple-system;
+}
+
+:where(a,p){
     text-decoration: none;
     color: #d3838e;
+}
+
+.visually-hidden{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
 }
 
 @media screen and (max-width: 1023px) {

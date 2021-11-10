@@ -76,7 +76,8 @@
             </p>  
           </div> 
           <div class="copyright">
-            <span>© Criado por Douglas William, 2021</span>
+            <p>© Criado por<br>
+            Douglas William, 2021</p>
           </div>
         </div>
       </div>  
@@ -93,8 +94,8 @@
       line-height: 26px;
     }
 
-    span{
-      color: var(--main-color);
+    :where(.footer *){
+      box-sizing: border-box;
     }
 
     .footer{
@@ -115,7 +116,8 @@
     }
 
     .copyright *{
-      line-height: 40px;
+      line-height: 20px;
+      margin-top: 15px;
     }
 
     .aside{
@@ -129,6 +131,7 @@
     .--desktop{
         display: none;
     }
+    
 
     @media screen and (min-width: 1024px){
         .content{

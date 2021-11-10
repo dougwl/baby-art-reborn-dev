@@ -1,13 +1,5 @@
 <template>
   <div class="home__body">
-    <header> 
-      <a class="header__logo" href="/">
-        <span>Baby Art Reborn</span>
-        <client-only>
-          <div v-html="require('~/assets/svg/home/logo.svg?raw')"></div>
-        </client-only>
-      </a>
-    </header>
     <nav>
       <div class="main-nav"></div>
       <button class="main-nav-toggle"></button>
@@ -21,7 +13,7 @@
     </button>
     <main id="main" class="content">
       <div class="home">
-        <section class="landing-content"></section>
+        <LandingHeroContent />
         <section class="procut-tiles"></section>
         <section class="featured-categories"></section>
         <section class="about--confeccao"></section>

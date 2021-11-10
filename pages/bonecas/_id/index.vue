@@ -39,7 +39,7 @@
                             <!-- <source media="(max-width: 767px)" srcset="https://source.unsplash.com/random/200x300">
                             <img src="https://source.unsplash.com/random/400x700" alt=""> -->
                             <source media="(max-width: 767px)" srcset="">
-                            <img src="@/assets/images/baby_b_500x700.png" alt="boneca-imagem">
+                            <img src="" alt="boneca-imagem">
                         </picture>
                     </li>
                     <li class="album-item">

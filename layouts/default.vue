@@ -43,6 +43,15 @@
          url('~/assets/fonts/WorkSans[wght].woff2') format('woff2-variations')
 }
 
+@font-face {
+    font-family: 'Caveat';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('~/assets/fonts/Caveat-VariableFont_wght.woff2') format("woff2 supports variations"),
+         url('~/assets/fonts/Caveat-VariableFont_wght.woff2') format('woff2-variations')
+}
+
 :root{
     --navTransition: all 125ms ease-in;
     --main-color: #d3838e;

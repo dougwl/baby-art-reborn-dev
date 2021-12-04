@@ -3,40 +3,75 @@
         <a href="/loja">
             <div class="identity">
                 <div class="photo">
-                    <nuxt-img :alt="'carrinho de boneca'" src="/Cart.png" />
+                    <nuxt-img :alt="'carrinho de boneca'" src="/Cart.png"  style="object-fit:contain;"/>
                     <client-only v-if="!isMobile">
-                        <div class="illustration">
-                                <div class="flower" v-for="i in 2" :key="i + 'ff'" :id="extras.desktop.flowers.fancy.id + i" v-html="extras.desktop.flowers.fancy.svg"></div>
-                                <div class="flower" v-for="i in 2" :key="i + 'fb'" :id="extras.desktop.flowers.boring.id + i" v-html="extras.desktop.flowers.boring.svg"></div>
-                                <div class="flower" :id="extras.desktop.flowers.average.id" :key="'fa'" v-html="extras.desktop.flowers.average.svg"></div>
+                        <div class="illustration decor animated">
+                                <div class="flower" v-for="i in 2" :key="i + 'ff'" :id="extras.desktop.flowers.fancy.id + i" >
+                                    <!-- <SvgLoader :rawHTML="extras.desktop.flowers.fancy.svg" /> -->
+                                    <component :is="extras.desktop.flowers.fancy.svg" />
+                                </div>
+                                <div class="flower" v-for="i in 2" :key="i + 'fb'" :id="extras.desktop.flowers.boring.id + i">
+                                    <!-- <SvgLoader :rawHTML="extras.desktop.flowers.boring.svg" /> -->
+                                    <component :is="extras.desktop.flowers.boring.svg" />
+                                </div>
+                                <div class="flower" :id="extras.desktop.flowers.average.id" :key="'fa'">
+                                    <!-- <SvgLoader :rawHTML="extras.desktop.flowers.average.svg" /> -->
+                                    <component :is="extras.desktop.flowers.average.svg" />
+                                </div>
                         </div>
                     </client-only>
                 </div>
-                <div class="art">
+                <div class="art animated">
                     <client-only v-if="isMobile">
                         <div class="mobile decor">
-                            <div class="duck" v-for="i in 2" :key="i + 'd'" :id="extras.mobile.duck.id + i" v-html="extras.mobile.duck.svg"></div>
-                            <div class="bear" v-for="j in 2" :key="j + 'b'" :id="extras.mobile.bear.id + j" v-html="extras.mobile.bear.svg"></div>
-                            <div class="rattle" v-for="k in 2" :key="k + 'c'" :id="extras.mobile.rattle.id + k" v-html="extras.mobile.rattle.svg"></div> 
+                            <div class="duck" v-for="i in 2" :key="i + 'd'" :id="extras.mobile.duck.id + i" >
+                                <!-- <SvgLoader :rawHTML="extras.mobile.duck.svg" /> -->
+                                <component :is="extras.mobile.duck.svg" />
+                            </div>
+                            
+                            <div class="bear" v-for="j in 2" :key="j + 'b'" :id="extras.mobile.bear.id + j"> 
+                                <!-- <SvgLoader :rawHTML="extras.mobile.bear.svg" /> -->
+                                <component :is="extras.mobile.bear.svg" />
+                            </div>
+                            <div class="rattle" v-for="k in 2" :key="k + 'c'" :id="extras.mobile.rattle.id + k">
+                                <!-- <SvgLoader :rawHTML="extras.mobile.rattle.svg" />
+                                </div> --> 
+                                <component :is="extras.mobile.rattle.svg" />
+                            </div>
                         </div>
                     </client-only>    
                     <client-only v-else-if="!isMobile">
                         <div class="desktop decor">
                             <div class="sky">
-                                <div class="flower" v-for="i in 2" :key="i + 'fs'" :id="extras.desktop.flowers.top.id + i" v-html="extras.desktop.flowers.top.svg"></div>
+                                <div class="flower grow" v-for="i in 2" :key="i + 'fs'" :id="extras.desktop.flowers.top.id + i">
+                                    <!-- <SvgLoader :rawHTML="extras.desktop.flowers.top.svg" /> -->
+                                    <component :is="extras.desktop.flowers.top.svg" />
+                                </div>
                             </div>
                             <div class="bears">
-                                <div class="bear" :id="extras.desktop.bears.withoutRattle.id" v-html="extras.desktop.bears.withoutRattle.svg"></div>
-                                <div class="bear" :id="extras.desktop.bears.withRattle.id" v-html="extras.desktop.bears.withRattle.svg"></div>
+                                <div class="bear" :id="extras.desktop.bears.withoutRattle.id">
+                                    <!-- <SvgLoader :rawHTML="extras.desktop.bears.withoutRattle.svg" /> -->
+                                    <component :is="extras.desktop.bears.withoutRattle.svg" />
+                                </div>
+                                <div class="bear" :id="extras.desktop.bears.withRattle.id">
+                                    <!-- <SvgLoader :rawHTML="extras.desktop.bears.withRattle.svg" /> -->
+                                    <component :is="extras.desktop.bears.withRattle.svg" />
+                                </div>
                             </div>
                             <div class="ground">
-                                <div class="flower" v-for="i in 4" :key="i + 'fb'" :id="extras.desktop.flowers.bottom.id + i" v-html="extras.desktop.flowers.bottom.svg"></div>
+                                <div class="flower" v-for="i in 4" :key="i + 'fb'" :id="extras.desktop.flowers.bottom.id + i">
+                                    <!-- <SvgLoader :rawHTML="extras.desktop.flowers.bottom.svg" /> -->
+                                    <component :is="extras.desktop.flowers.bottom.svg" />
+                                </div>
                             </div>
                         </div>
                     </client-only>
                 </div>
                 <client-only>
-                    <div class="wave-separator" v-html="require('~/assets/svg/home/wave-header.svg?raw')"></div>
+                    <div class="wave-separator">
+                        <!-- <SvgLoader :rawHTML="extras.responsive.waveSeparator.svg" /> -->
+                        <component :is="extras.responsive.waveSeparator.svg" />
+                    </div>
                 </client-only>
             </div>
             <div class="filler">
@@ -115,6 +150,66 @@
         display: flex;
     }
 
+    :where(.animated, .wave-separator :where(svg)){
+        animation: fadeIn 0.75s cubic-bezier(0.85, 0, 0.15, 1);
+    }
+
+    @keyframes fadeIn {
+        from{
+            opacity: 0;
+        }
+        to{
+            opacity: 1;
+        }
+    }
+
+    /* @keyframes shrink{
+        from{
+            transform: scale(1.5);
+        }
+        to{
+            transform: scale(1);
+        }
+    }
+
+    @keyframes growAndRotate{
+        from{
+            transform: translateY(-50px) scale(0.5) rotate(-60deg);
+        }
+        to{
+            transform: translateY(0) scale(1) rotate(1deg);
+        }
+    }
+
+    @keyframes growAndRotateInverted{
+        from{
+            transform: translateY(-50px) scaleY(0.5) scaleX(-0.5) rotate(-60deg);
+        }
+        to{
+            transform: translateY(0) scaleY(1) scaleX(-1) rotate(0deg);
+        }
+    }
+
+    .grow{
+        animation: growAndRotate 0.4s ease-in-out;
+    }
+
+    .sky > :nth-child(2){
+        animation: growAndRotateInverted 0.3s ease-in-out;
+    }
+
+    .shrink{
+        animation: shrink 0.325s ease-in-out;
+    }
+
+    .ground div{
+        animation-delay: 20s;
+    } */
+
+    .art .ground{
+        animation-delay: 5s;
+    }
+
     .art :where(.decor){
         width: 100%;
         height: 100%;
@@ -148,6 +243,7 @@
         transform: translateY(-45px);
         padding-top: 10px;
         min-height: 120px;
+        z-index: 1;
     }
 
     :where(.caption){
@@ -170,7 +266,6 @@
         width: 140%;
         overflow: hidden;
         line-height: 0;
-        /* z-index: -1; */
     }
 
     .wave-separator :where(svg) {
@@ -184,8 +279,15 @@
         fill: var(--mobile-background-color);
     }
 
+
+    @media screen and (max-width: 480px){
+        :where(.photo, .caption){
+            max-width: 300px;
+        }
+    }
+
     
-    @media screen and (max-width: 767px) {
+    @media screen{
         .photo::before{
             --shape-width: min(33%, 130px);
             content: '';
@@ -209,6 +311,10 @@
             transform: translateY(-50px);
         }
 
+        .art :where(.mobile > div){
+            z-index: 3;
+        }
+
         #duck-1{
             top: 75%;
             left: 10%;
@@ -228,6 +334,7 @@
         #bear-2{
             top: 65%;
             right: 10%;
+            z-index: 3;
         }
 
         #rattle-1{
@@ -241,7 +348,12 @@
         }
     }
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: 768px) and (min-height: 500px) {
+
+        .photo::before,
+        .photo::after{
+            display: none;
+        }
 
         .identity{
             padding-top: 250px;
@@ -337,26 +449,32 @@
 
         #fancy-flower-1{
             transform: scale(0.8);
-            top: 50%;
+            top: calc(50% - 50px);
             left: calc(50% - 130px);
         }
 
         #fancy-flower-2{
             transform: scaleX(-1) scale(0.8);
-            top: 45%;
+            top: calc(50% - 60px);
             right: calc(50% - 130px);
         }
 
         #boring-flower-1{
             transform: scale(0.8);
-            top: 25%;
+            top: calc(50% - 130px);
             right: calc(50% - 140px);
         }
 
         #boring-flower-2{
             transform: scale(-0.8, 0.8) rotateZ(-10deg);
-            top: 30%;
+            top: calc(50% - 145px);
             left: calc(50% - 110px);
+        }
+
+        #average-flower-{
+            transform: scale(0.8);
+            top: calc(50% - 200px);
+            left: calc(50% - 55px);
         }
     }
     
@@ -371,7 +489,10 @@
 </style>
 
 <script>
+import svgLoader from '../svgLoader.vue';
+
 export default {
+  components: { svgLoader },
     data() {
         return {
             extras: {
@@ -393,48 +514,59 @@ export default {
                     flowers: {
                         fancy: {
                             id: 'fancy-flower-',
-                            svg: require('~/assets/svg/home/desktop/decoration/cart-flower-fancy.svg?raw')
+                            svg: require('~/assets/svg/home/desktop/decoration/cart-flower-fancy.svg?inline')
                         },
                         average: {
                             id: 'average-flower-',
-                            svg: require('~/assets/svg/home/desktop/decoration/cart-flower-average.svg?raw')
+                            svg: require('~/assets/svg/home/desktop/decoration/cart-flower-average.svg?inline')
                         },
                         boring: {
                             id: 'boring-flower-',
-                            svg: require('~/assets/svg/home/desktop/decoration/cart-flower-boring.svg?raw')
+                            svg: require('~/assets/svg/home/desktop/decoration/cart-flower-boring.svg?inline')
                         },
                         top: {
                             id: 'top-flower-',
-                            svg: require('~/assets/svg/home/desktop/decoration/top-flower.svg?raw')
+                            svg: require('~/assets/svg/home/desktop/decoration/top-flower.svg?inline')
                         },
                         bottom: {
                             id: 'bottom-flower-',
-                            svg: require('~/assets/svg/home/desktop/decoration/bottom-flower.svg?raw')
+                            svg: require('~/assets/svg/home/desktop/decoration/bottom-flower.svg?inline')
                         }
                     },
                     bears: {
                         withRattle: {
                             id: 'bear-with-rattle-',
-                            svg: require('~/assets/svg/home/desktop/decoration/bear-with-rattle.svg?raw')
+                            svg: require('~/assets/svg/home/desktop/decoration/bear-with-rattle.svg?inline')
                         },
                         withoutRattle: {
                             id: 'bear-without-rattle-',
-                            svg: require('~/assets/svg/home/desktop/decoration/bear-without-rattle.svg?raw')
+                            svg: require('~/assets/svg/home/desktop/decoration/bear-without-rattle.svg?inline')
                         }
                     },
                     others: {
                         sparkles: {
                             id: 'sparkles-',
-                            svg: require('~/assets/svg/home/desktop/decoration/sparkles.svg?raw')
+                            svg: require('~/assets/svg/home/desktop/decoration/sparkles.svg?inline')
                         },
                     }
+                },
+                responsive: {
+                    waveSeparator: {
+                        id: 'wave-separator-',
+                        svg: require('~/assets/svg/home/wave-header.svg?inline')
+                    },
                 }
             }
         }
     },
     computed: {
         isMobile() {
-            return this.$screen.xs && !this.$screen.sm;
+            if(this.$screen.sm || this.$screen.md){
+                if(this.$screen.landscape && this.$screen.height < 600){
+                    return true;
+                }
+            }
+            return this.$screen.xs && !this.$screen.md;
         }
     }
 }

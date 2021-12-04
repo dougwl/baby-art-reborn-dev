@@ -52,6 +52,11 @@ export default {
     ["@nuxtjs/svg"],
   ],
 
+  screen: {
+    extend: 'tailwind',
+    tablet: 640
+  },
+
   image: {
     dir: 'assets/images'
   },

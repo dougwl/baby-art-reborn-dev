@@ -74,6 +74,13 @@
     z-index: 79;
   }
 
+  @media screen and (min-width: 768px){
+    .logo :where(svg){
+      transform: translateY(20px);
+    }
+
+  }
+
   @media screen and (min-width: 1024px){
     .header{
       margin-bottom: -50px;

@@ -3,37 +3,37 @@
         <a href="/loja">
             <div class="identity">
                 <div class="photo">
-                    <nuxt-img :alt="'carrinho de boneca'" src="/Cart.png"  style="object-fit:contain;"/>
+                    <nuxt-img class="fade-in baby-cart" :class="{animated: extrasHasLoaded}" :alt="'carrinho de boneca'" src="/Cart.png"  style="object-fit:contain;" v-on:animationend.native="finishLoading($event)"/> <!-- due to the lazy loading, we need to wait for the image to load before we can start the animation; and because nuxt-img has a bug/limitation regarding DOM events, we need to use the native event option. -->
                     <client-only v-if="!isMobile">
-                        <div class="illustration decor animated">
-                                <div class="flower" v-for="i in 2" :key="i + 'ff'" :id="extras.desktop.flowers.fancy.id + i" >
+                        <div class="illustration decor">
+                                <div class="flower fade-in bloom animated" v-for="i in 2" :key="i + 'ff'" :id="extras.desktop.flowers.fancy.id + i" v-on:animationend="finishLoading($event)">
                                     <!-- <SvgLoader :rawHTML="extras.desktop.flowers.fancy.svg" /> -->
                                     <component :is="extras.desktop.flowers.fancy.svg" />
                                 </div>
-                                <div class="flower" v-for="i in 2" :key="i + 'fb'" :id="extras.desktop.flowers.boring.id + i">
+                                <div class="flower fade-in bloom animated" v-for="i in 2" :key="i + 'fb'" :id="extras.desktop.flowers.boring.id + i" v-on:animationend="finishLoading($event)">
                                     <!-- <SvgLoader :rawHTML="extras.desktop.flowers.boring.svg" /> -->
                                     <component :is="extras.desktop.flowers.boring.svg" />
                                 </div>
-                                <div class="flower" :id="extras.desktop.flowers.average.id" :key="'fa'">
+                                <div class="flower fade-in bloom animated" :id="extras.desktop.flowers.average.id" :key="'fa'" v-on:animationend="finishLoading($event)">
                                     <!-- <SvgLoader :rawHTML="extras.desktop.flowers.average.svg" /> -->
                                     <component :is="extras.desktop.flowers.average.svg" />
                                 </div>
                         </div>
                     </client-only>
                 </div>
-                <div class="art animated">
+                <div class="art">
                     <client-only v-if="isMobile">
                         <div class="mobile decor">
-                            <div class="duck" v-for="i in 2" :key="i + 'd'" :id="extras.mobile.duck.id + i" >
+                            <div class="duck fade-in animated" v-for="i in 2" :key="i + 'd'" :id="extras.mobile.duck.id + i" >
                                 <!-- <SvgLoader :rawHTML="extras.mobile.duck.svg" /> -->
                                 <component :is="extras.mobile.duck.svg" />
                             </div>
                             
-                            <div class="bear" v-for="j in 2" :key="j + 'b'" :id="extras.mobile.bear.id + j"> 
+                            <div class="bear fade-in animated" v-for="j in 2" :key="j + 'b'" :id="extras.mobile.bear.id + j"> 
                                 <!-- <SvgLoader :rawHTML="extras.mobile.bear.svg" /> -->
                                 <component :is="extras.mobile.bear.svg" />
                             </div>
-                            <div class="rattle" v-for="k in 2" :key="k + 'c'" :id="extras.mobile.rattle.id + k">
+                            <div class="rattle fade-in animated" v-for="k in 2" :key="k + 'c'" :id="extras.mobile.rattle.id + k">
                                 <!-- <SvgLoader :rawHTML="extras.mobile.rattle.svg" />
                                 </div> --> 
                                 <component :is="extras.mobile.rattle.svg" />
@@ -43,23 +43,23 @@
                     <client-only v-else-if="!isMobile">
                         <div class="desktop decor">
                             <div class="sky">
-                                <div class="flower grow" v-for="i in 2" :key="i + 'fs'" :id="extras.desktop.flowers.top.id + i">
+                                <div v-for="(i,index) in ['grow-left','grow-right']" :key="(index + 1) + 'fs'" :id="extras.desktop.flowers.top.id + (index + 1)" :class="['flower','fade-in', 'animated', i]">
                                     <!-- <SvgLoader :rawHTML="extras.desktop.flowers.top.svg" /> -->
                                     <component :is="extras.desktop.flowers.top.svg" />
                                 </div>
                             </div>
                             <div class="bears">
-                                <div class="bear" :id="extras.desktop.bears.withoutRattle.id">
+                                <div class="bear fade-in animated" :id="extras.desktop.bears.withoutRattle.id">
                                     <!-- <SvgLoader :rawHTML="extras.desktop.bears.withoutRattle.svg" /> -->
                                     <component :is="extras.desktop.bears.withoutRattle.svg" />
                                 </div>
-                                <div class="bear" :id="extras.desktop.bears.withRattle.id">
+                                <div class="bear fade-in animated" :id="extras.desktop.bears.withRattle.id">
                                     <!-- <SvgLoader :rawHTML="extras.desktop.bears.withRattle.svg" /> -->
                                     <component :is="extras.desktop.bears.withRattle.svg" />
                                 </div>
                             </div>
                             <div class="ground">
-                                <div class="flower" v-for="i in 4" :key="i + 'fb'" :id="extras.desktop.flowers.bottom.id + i">
+                                <div class="flower fade-in animated" v-for="i in 4" :key="i + 'fb'" :id="extras.desktop.flowers.bottom.id + i">
                                     <!-- <SvgLoader :rawHTML="extras.desktop.flowers.bottom.svg" /> -->
                                     <component :is="extras.desktop.flowers.bottom.svg" />
                                 </div>
@@ -68,7 +68,7 @@
                     </client-only>
                 </div>
                 <client-only>
-                    <div class="wave-separator">
+                    <div class="wave-separator fade-in animated">
                         <!-- <SvgLoader :rawHTML="extras.responsive.waveSeparator.svg" /> -->
                         <component :is="extras.responsive.waveSeparator.svg" />
                     </div>
@@ -81,6 +81,45 @@
         </a>
     </section>
 </template>
+
+<style>
+    @keyframes fadeIn { 
+        from{
+            opacity: 0;
+        }
+        to{
+            opacity: 1;
+        }
+    }
+
+    @keyframes shrink{
+        from{
+            transform: scale(1.5);
+        }
+        to{
+            transform: scale(1);
+        }
+    }
+
+    @keyframes grow{
+        from{
+            transform: translateY(var(--startTranslateY)) scaleY(var(--startScaleY)) scaleX(var(--startScaleX)) rotate(var(--startRotate));
+        }
+        to{
+            transform: translateY(var(--endTranslateY)) scaleY(var(--endScaleY)) scaleX(var(--endScaleX)) rotate(var(--endRotate));
+        }
+    }
+
+    @keyframes bloom{
+        from{
+            transform: var(--before-bloom);
+        }
+        to{
+            transform: var(--after-bloom);
+        }
+    }
+    
+</style>
 
 <style scoped>
 
@@ -150,64 +189,64 @@
         display: flex;
     }
 
-    :where(.animated, .wave-separator :where(svg)){
-        animation: fadeIn 0.75s cubic-bezier(0.85, 0, 0.15, 1);
+    :where(.animated){
+        animation: var(--fadeIn, none), var(--grow, none), var(--shrink, none) var(--bloom, none);
+        animation-delay: var(--delay, unset);
     }
 
-    @keyframes fadeIn {
-        from{
-            opacity: 0;
-        }
-        to{
-            opacity: 1;
-        }
+    :where(.fade-in){
+        --fadeIn: fadeIn 0.4s cubic-bezier(0.85, 0, 0.15, 1);
     }
 
-    /* @keyframes shrink{
-        from{
-            transform: scale(1.5);
-        }
-        to{
-            transform: scale(1);
-        }
+    .ground > div{
+        animation-duration: 0.8s;
     }
 
-    @keyframes growAndRotate{
-        from{
-            transform: translateY(-50px) scale(0.5) rotate(-60deg);
-        }
-        to{
-            transform: translateY(0) scale(1) rotate(1deg);
-        }
+    .grow-left{
+        --startTranslateY: -50px;
+        --endTranslateY: 0;
+        --startScaleY: 0.5;
+        --endScaleY: 1;
+        --startScaleX: 0.5;
+        --endScaleX: 1;
+        --startRotate: -60deg;
+        --endRotate: 1deg;
+        --grow: grow 0.45s ease-in-out;
     }
 
-    @keyframes growAndRotateInverted{
-        from{
-            transform: translateY(-50px) scaleY(0.5) scaleX(-0.5) rotate(-60deg);
-        }
-        to{
-            transform: translateY(0) scaleY(1) scaleX(-1) rotate(0deg);
-        }
-    }
-
-    .grow{
-        animation: growAndRotate 0.4s ease-in-out;
-    }
-
-    .sky > :nth-child(2){
-        animation: growAndRotateInverted 0.3s ease-in-out;
+    .grow-right{
+        --startTranslateY: -50px;
+        --endTranslateY: 0;
+        --startScaleY: 0.5;
+        --endScaleY: 1;
+        --startScaleX: -0.5;
+        --endScaleX: -1;
+        --startRotate: -60deg;
+        --endRotate: 0deg;
+        --grow: grow 0.45s ease-in-out;
     }
 
     .shrink{
-        animation: shrink 0.325s ease-in-out;
+        --shrink: shrink 0.325s ease-in-out;
     }
 
-    .ground div{
-        animation-delay: 20s;
-    } */
+    .baby-cart{
+        opacity: 0;
+        --delay: 0.2s;
+        animation-duration: 0.3s;
+    }
 
-    .art .ground{
-        animation-delay: 5s;
+    .loaded{
+        opacity: 1;
+    }
+
+    .photo .illustration > .animated{
+        opacity: 0;
+        --delay: 0.4s;
+    }
+
+    .photo .illustration > .animated.loaded{
+        opacity: 1;
     }
 
     .art :where(.decor){
@@ -377,12 +416,12 @@
         
         #top-flower-1{
             top: 0;
-            right: 15%;
+            right: 10%;
         }
 
         #top-flower-2{
             top: 0;
-            left: 15%;
+            left: 10%;
             transform: scaleX(-1);
         }
 
@@ -392,7 +431,7 @@
         }
 
         :where(.ground){
-            --ground-decor-height: 60px;
+            --ground-decor-height: 50px;
         }
 
         .ground :where(div,svg){
@@ -404,7 +443,7 @@
         }
 
         #bottom-flower-1{
-            top: calc((100% - 220px) + 35px);
+            top: calc((100% - 220px) + 42px);
             left: 10%;
             transform: rotateZ(20deg);
         }
@@ -414,13 +453,13 @@
         }
 
         #bottom-flower-2{
-            top: calc((100% - 220px) + 75px);
+            top: calc((100% - 220px) + 80px);
             left: 25%;
             transform: rotateZ(10deg);
         }
 
         #bottom-flower-3{
-            top: calc((100% - 220px) - 15px);
+            top: calc((100% - 220px) - 10px);
             right: 20%;
             transform: rotateZ(-10deg);
         }
@@ -430,7 +469,7 @@
         }
 
         #bottom-flower-4{
-            top: calc((100% - 220px) - 30px);
+            top: calc((100% - 220px) - 25px);
             right: 10%;
             transform: rotateZ(-5deg);
         }
@@ -447,31 +486,45 @@
             z-index: 3;
         }
 
-        #fancy-flower-1{
+        .bloom{
+            --bloom: bloom 0.5s ease-in-out;
+        }
+
+        .illustration #fancy-flower-1{
+            --before-bloom: scale(0.8) translateX(50px) rotateZ(30deg);
+            --after-bloom: scale(0.8) translateX(0) rotateZ(0deg);
             transform: scale(0.8);
             top: calc(50% - 50px);
             left: calc(50% - 130px);
         }
 
-        #fancy-flower-2{
+        .illustration #fancy-flower-2{
+            --before-bloom: scaleX(-1) scale(0.8) translateX(50px) rotateZ(30deg);
+            --after-bloom: scaleX(-1) scale(0.8) translateX(0) rotateZ(0deg);
             transform: scaleX(-1) scale(0.8);
             top: calc(50% - 60px);
             right: calc(50% - 130px);
         }
 
-        #boring-flower-1{
+        .illustration #boring-flower-1{
+            --before-bloom: scale(0.8) translateX(-50px) rotateZ(-40deg);
+            --after-bloom: scale(0.8) translateX(0) rotateZ(0deg);
             transform: scale(0.8);
             top: calc(50% - 130px);
             right: calc(50% - 140px);
         }
 
-        #boring-flower-2{
+        .illustration #boring-flower-2{
+            --before-bloom: scale(-0.8, 0.8) translateX(-20px) rotateZ(-40deg);
+            --after-bloom: scale(-0.8, 0.8) translateX(0) rotateZ(-10deg);
             transform: scale(-0.8, 0.8) rotateZ(-10deg);
             top: calc(50% - 145px);
             left: calc(50% - 110px);
         }
 
-        #average-flower-{
+        .illustration #average-flower-{
+            --before-bloom: scale(0.8) translateY(30px);
+            --after-bloom: scale(0.8) translateY(0);
             transform: scale(0.8);
             top: calc(50% - 200px);
             left: calc(50% - 55px);
@@ -495,19 +548,21 @@ export default {
   components: { svgLoader },
     data() {
         return {
+            extrasHasLoaded: false,
+            babyCart: {},
             extras: {
                 mobile: {
                     duck: {
                         id: 'duck-',
-                        svg: require('~/assets/svg/home/mobile/decoration/duck.svg?raw')
+                        svg: require('~/assets/svg/home/mobile/decoration/duck.svg?inline')
                     },
                     bear: {
                         id: 'bear-',
-                        svg: require('~/assets/svg/home/mobile/decoration/bear.svg?raw')
+                        svg: require('~/assets/svg/home/mobile/decoration/bear.svg?inline')
                     },
                     rattle: {
                         id: 'rattle-',
-                        svg: require('~/assets/svg/home/mobile/decoration/rattle.svg?raw')
+                        svg: require('~/assets/svg/home/mobile/decoration/rattle.svg?inline')
                     }
                 },
                 desktop: {
@@ -559,6 +614,17 @@ export default {
             }
         }
     },
+    methods: {
+        finishLoading(el){          
+            if(!el.target.classList.contains('loaded')){
+                el.target.classList.add('loaded');
+            }
+        },
+        checkIfAllLoaded: async function(callback) {
+            await this.$nextTick();
+            callback();
+        }
+    },
     computed: {
         isMobile() {
             if(this.$screen.sm || this.$screen.md){
@@ -568,7 +634,12 @@ export default {
             }
             return this.$screen.xs && !this.$screen.md;
         }
-    }
+    },
+    updated() {
+        this.checkIfAllLoaded(() => {
+            if(!this.extrasHasLoaded) this.extrasHasLoaded = true;
+        });
+    },
 }
 </script>
 

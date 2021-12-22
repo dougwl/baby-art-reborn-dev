@@ -114,3 +114,30 @@
 }
 
 </style>
+
+<script>
+export default {
+    name: 'Layout',
+    methods: {
+        isMobile() {
+            if(this.$screen.sm || this.$screen.md){
+                if(this.$screen.landscape && this.$screen.height < 600){
+                    this.$storage.set('isMobile', true);
+                    return true;
+                }
+            }
+            if (this.$screen.xs && !this.$screen.md){
+                    this.$storage.set('isMobile', true);
+                    return true; 
+            }
+            else{
+                this.$storage.set('isMobile', false);
+                return false;
+            }
+        }
+    },
+    mounted(){
+        this.isMobile();
+    }
+}
+</script>

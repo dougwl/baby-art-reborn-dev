@@ -14,7 +14,7 @@
     <main id="main" class="content">
       <div class="home">
         <LandingHeroContent />
-        <section class="procut-tiles"></section>
+        <LandingFeatured />
         <section class="featured-categories"></section>
         <section class="about--confeccao"></section>
         <section class="hero-phrase"></section>

@@ -48,16 +48,6 @@
                                     <component :is="extras.desktop.flowers.top.svg" />
                                 </div>
                             </div>
-                            <div class="bears">
-                                <div class="bear fade-in animated" :id="extras.desktop.bears.withoutRattle.id">
-                                    <!-- <SvgLoader :rawHTML="extras.desktop.bears.withoutRattle.svg" /> -->
-                                    <component :is="extras.desktop.bears.withoutRattle.svg" />
-                                </div>
-                                <div class="bear fade-in animated" :id="extras.desktop.bears.withRattle.id">
-                                    <!-- <SvgLoader :rawHTML="extras.desktop.bears.withRattle.svg" /> -->
-                                    <component :is="extras.desktop.bears.withRattle.svg" />
-                                </div>
-                            </div>
                             <div class="ground">
                                 <div class="flower fade-in animated" v-for="i in 4" :key="i + 'fb'" :id="extras.desktop.flowers.bottom.id + i">
                                     <!-- <SvgLoader :rawHTML="extras.desktop.flowers.bottom.svg" /> -->
@@ -514,6 +504,11 @@
             transform: rotateZ(-5deg);
         }
 
+        .bears > .bear{
+            position: fixed;
+            top: 50%;
+        }
+
         #bear-without-rattle-{
             right: 10%;
             bottom: -40%;
@@ -626,16 +621,6 @@ export default {
                         bottom: {
                             id: 'bottom-flower-',
                             svg: require('~/assets/svg/home/desktop/decoration/bottom-flower.svg?inline')
-                        }
-                    },
-                    bears: {
-                        withRattle: {
-                            id: 'bear-with-rattle-',
-                            svg: require('~/assets/svg/home/desktop/decoration/bear-with-rattle.svg?inline')
-                        },
-                        withoutRattle: {
-                            id: 'bear-without-rattle-',
-                            svg: require('~/assets/svg/home/desktop/decoration/bear-without-rattle.svg?inline')
                         }
                     },
                     others: {

@@ -27,7 +27,8 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [ '~/plugins/vue2-storage.js'
+  plugins: [  {src:'~/plugins/vue2-storage.js'},
+              {src: '~/plugins/vue-agile', mode: 'client'}
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

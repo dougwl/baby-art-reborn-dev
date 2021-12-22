@@ -77,7 +77,15 @@
             <div class="filler">
                 <p class="caption">A arte que transforma bonecas comuns <br> em bebês quase reais</p>
             </div>
-            <div class="foto-boneca"></div>
+            <div class="foto-boneca-container" v-if="isMobile">
+                <div class="mobile-divider-top">
+                    <component :id="this.extras.responsive.mobileDivider.id + '-top'" :is="this.extras.responsive.mobileDivider.svg"></component>
+                </div>
+                <div class="foto-boneca"></div>
+                <div class="mobile-divider-bottom">
+                    <component :id="this.extras.responsive.mobileDivider.id + '-bottom'" :is="this.extras.responsive.mobileDivider.svg"></component>
+                </div>
+            </div>
         </a>
     </section>
 </template>
@@ -151,7 +159,7 @@
         padding: 160px 30px 45px;
         width: 100%;
         z-index: 2;
-        margin-bottom: 40px;
+        /* margin-bottom: 40px; */
     }
 
     .photo{
@@ -279,7 +287,7 @@
         justify-content: flex-start;
         align-items: center;
         background: var(--mobile-background-color);
-        transform: translateY(-45px);
+        /* transform: translateY(-45px); */
         padding-top: 10px;
         min-height: 120px;
         z-index: 1;
@@ -316,6 +324,38 @@
 
     .wave-separator :where(.shape-fill) {
         fill: var(--mobile-background-color);
+    }
+
+    .foto-boneca-container{
+        width: 100%;
+        height: min-content;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .foto-boneca-container > div{
+        width: 100%;
+        position: absolute;
+        left: 0;
+    }
+
+    .foto-boneca-container > .mobile-divider-top{
+        top: 0;
+        transform: scaleY(-1);
+        display: flex;
+        margin-top: -1px;
+    }
+
+    .foto-boneca-container > .mobile-divider-bottom{
+        bottom: 0;
+    }
+
+    .foto-boneca-container > .foto-boneca{
+        height: 250px;
+        max-height: 250px;
+        display: flex;
+        position: relative;
     }
 
 
@@ -609,6 +649,10 @@ export default {
                     waveSeparator: {
                         id: 'wave-separator-',
                         svg: require('~/assets/svg/home/wave-header.svg?inline')
+                    },
+                    mobileDivider: {
+                        id: 'mobile-divider-',
+                        svg: require('~/assets/svg/home/mobile/divider.svg?inline')
                     },
                 }
             }

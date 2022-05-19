@@ -67,15 +67,17 @@
             <div class="filler">
                 <p class="caption">A arte que transforma bonecas comuns <br> em bebês quase reais</p>
             </div>
-            <div class="foto-boneca-container" v-if="isMobile">
-                <div class="mobile-divider-top">
-                    <component :id="this.extras.responsive.mobileDivider.id + '-top'" :is="this.extras.responsive.mobileDivider.svg"></component>
+            <client-only>
+                <div class="foto-boneca-container" v-if="isMobile">
+                    <div class="mobile-divider-top">
+                        <component :id="this.extras.responsive.mobileDivider.id + '-top'" :is="this.extras.responsive.mobileDivider.svg"></component>
+                    </div>
+                    <div class="foto-boneca"></div>
+                    <div class="mobile-divider-bottom">
+                        <component :id="this.extras.responsive.mobileDivider.id + '-bottom'" :is="this.extras.responsive.mobileDivider.svg"></component>
+                    </div>
                 </div>
-                <div class="foto-boneca"></div>
-                <div class="mobile-divider-bottom">
-                    <component :id="this.extras.responsive.mobileDivider.id + '-bottom'" :is="this.extras.responsive.mobileDivider.svg"></component>
-                </div>
-            </div>
+            </client-only>
         </a>
     </section>
 </template>
@@ -583,6 +585,7 @@ export default {
   components: { svgLoader },
     data() {
         return {
+            isMobile: false,
             extrasHasLoaded: false,
             babyCart: {},
             extras: {
@@ -654,15 +657,11 @@ export default {
             callback();
         }
     },
-    computed: {
-        isMobile() {
-            if(this.$screen.sm || this.$screen.md){
-                if(this.$screen.landscape && this.$screen.height < 600){
-                    return true;
-                }
-            }
-            return this.$screen.xs && !this.$screen.md;
-        }
+    beforeMount(){
+        window.addEventListener('on-breakpoint-change', (e) => {
+            this.isMobile = e.detail.isMobile;
+            console.log('whatsup');
+        });
     },
     updated() {
         this.checkIfAllLoaded(() => {

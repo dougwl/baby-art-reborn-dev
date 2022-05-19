@@ -30,61 +30,8 @@
                 </div>
             </div>
             <div class="fotos">
-                <ul class="album" v-bind:class="{small: $screen.width < 1024}">
-                    <!-- Photos should be in the 5:7 (500x700) resolution in desktop and 4:7 (200x350) in mobile -->
-                    <li class="album-item">
-                        <!--  <source media="(max-width: 767px)" srcset="https://source.unsplash.com/random/200x350">
-                        <source media="(max-width: 1023px)" srcset="https://source.unsplash.com/random/700x500"> -->
-                        <picture class="album-item--foto">
-                            <!-- <source media="(max-width: 767px)" srcset="https://source.unsplash.com/random/200x300">
-                            <img src="https://source.unsplash.com/random/400x700" alt=""> -->
-                            <source media="(max-width: 767px)" srcset="">
-                            <img src="" alt="boneca-imagem">
-                        </picture>
-                    </li>
-                    <li class="album-item">
-                        <picture class="album-item--foto">
-                            <source media="(max-width: 767px)" srcset="https://source.unsplash.com/random/200x350">
-                            <img src="https://source.unsplash.com/random/400x700" alt="">
-                        </picture>
-                    </li>
-                    <li class="album-item">
-                        <picture class="album-item--foto">
-                            <source media="(max-width: 767px)" srcset="https://source.unsplash.com/random/200x350">
-                            <img src="https://source.unsplash.com/random/400x700" alt="">
-                        </picture>
-                    </li>
-                </ul>
-                <ul class="thumbnails">
-                    <li class="thumbnail">
-                        <a href="" class="thumbnail--link">
-                            <picture class="thumbnail--foto">
-                                <img src="https://source.unsplash.com/random/200x259" alt="">
-                            </picture>
-                        </a>
-                    </li>
-                    <li class="thumbnail">
-                        <a href="" class="thumbnail--link">
-                            <picture class="thumbnail--foto">
-                                <img src="https://source.unsplash.com/random/200x259" alt="">
-                            </picture>
-                        </a>
-                    </li>
-                    <li class="thumbnail">
-                        <a href="" class="thumbnail--link">
-                            <picture class="thumbnail--foto">
-                                <img src="https://source.unsplash.com/random/200x259" alt="">
-                            </picture>
-                        </a>
-                    </li>
-                    <li class="thumbnail">
-                        <a href="" class="thumbnail--link">
-                            <picture class="thumbnail--foto">
-                                <img src="https://source.unsplash.com/random/200x259" alt="">
-                            </picture>
-                        </a>
-                    </li>
-                </ul>
+                <DollAlbumDesktop :defaultAlbum="album" />
+                <!-- AlbumDesktop and AlbumMobile goes here -->
             </div>
         </section>
         <section class="recomendados">
@@ -106,8 +53,10 @@
 }
 
 .boneca-pagina{
+    --padding-size: min(75px, 5%);
     display: flex;
     flex-direction: column;
+    padding: 0 var(--padding-size) 0 var(--padding-size);
 }
 
 .boneca{
@@ -195,7 +144,7 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    background: #fbe6e6;
+    background: #f9f7f2;
     align-items: center;
 }
 
@@ -314,13 +263,13 @@
 @media screen and (min-width: 1024px){
 
     .boneca{
-        max-width: var(--page-width);
+        /* max-width: var(--page-width); */
         flex-direction: row;
     }
 
-    .boneca > :where(div){
+    /* .boneca > :where(div){
         max-width: var(--page-half);
-    }
+    } */
 
     .titulo{
         font-size: 36px;
@@ -367,32 +316,56 @@
 </style>
 
 <script>
-export default {
+import { ShopifyMediaQuery, ShopifyQueryMap } from '~/plugins/helpers';
+export default {    
     data (){
         return {
+            rawData: {},
             product: {
-                price: this.$props.price,
-                weight: this.$props.weight,
-                description: this.$props.description
+                id: undefined,
+                name: 'Vazio',
+                price: 0,
+                weight: 'kg',
+                description: ''
             },
-            album: {
-                activePhoto: 1,
-            }
+            album: []
+        }
+    },
+    methods: {
+        getMaxPhotos: function (maxPhotoAmount, photos) {
+            return photos.slice(0, maxPhotoAmount - 1);
+        },
+        loadData(raw) {
+            let prod = raw.variants[0];
+            this.product.id = raw.id;
+            this.product.name = raw.title;
+            this.product.description = raw.description;
+            this.product.price = prod.price;
+            this.product.weight = prod.weight;
+            this.album = raw.images;
         }
     },
     props: {
-        price: {
-            default: 2000,
-            type: Number
+        fetchedProduct: {
+            default: () => { return {} },
+            type: Object,
         },
-        weight: {
-            default: '3 kg',
-            type: String
-        },
-        description: {
-            default: "Excepturi facere voluptatem itaque placeat. Ducimus adipisci rerum et et esse nostrum dolorem cum. A quisquam voluptatem est fugit ullam ut rerum.",
-            type: String
+    },
+    async fetch(){
+        await this.$nextTick();
+        if(this.product.id == undefined && Object.entries(this.$props.fetchedProduct).length == 0){
+            let routeName = this.$route.params.id;
+            let prod = await this.$inventory.retrieve.product().handle(routeName);
+            if(prod != undefined) {
+                this.rawData = prod;
+            }
+            else {
+                this.$router.push('/');
+            }  // redirect to home
         }
-    }
+        this.loadData(this.rawData);
+    },
+    fetchOnServer: false,
+    fetchKey: 'pagina-boneca'
 }
 </script>

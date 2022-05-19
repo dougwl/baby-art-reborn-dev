@@ -83,6 +83,7 @@
 
   @media screen and (min-width: 1024px){
     .header{
+      display: none;
       margin-bottom: -50px;
       /* margin-top: 50px; */
     }

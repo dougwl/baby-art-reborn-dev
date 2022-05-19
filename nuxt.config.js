@@ -28,7 +28,9 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [  {src:'~/plugins/vue2-storage.js'},
-              {src: '~/plugins/vue-agile', mode: 'client'}
+              {src: '~/plugins/vue-agile', mode: 'client'},
+              {src: '~/plugins/inventory-manager.js', mode: 'client'},
+              {src: '~/plugins/helpers.js', mode: 'client'}
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -72,5 +74,29 @@ export default {
   }, */
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+
+    /* babel ({isDev}) {
+      return {
+        compact: !isDev,
+        sourceRoot: __dirname,
+        presets() {
+          return [
+            [
+              '@nuxt/babel-preset-app',
+              {
+                useBuiltIns: "entry"
+              }
+            ]
+          ]
+        },
+      }
+    }, */
+    extend(config, {isDev, isClient}) {
+      if(isDev) {
+        /* config.mode = 'development'; */
+        config.devtool = isClient ? 'source-map' : 'inline-source-map';
+      }
+    }
   }
 }
+

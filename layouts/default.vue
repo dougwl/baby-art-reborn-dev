@@ -118,26 +118,47 @@
 <script>
 export default {
     name: 'Layout',
+    data: () => ({
+        isMobile: false, 
+    }), 
     methods: {
-        isMobile() {
+        breakpointChange(){
+            window.dispatchEvent(new CustomEvent('on-breakpoint-change', {
+                detail: {
+                    isMobile: this.isMobile
+                }
+            }));
+        }
+    },
+    watch: {
+        '$screen.width'(){
             if(this.$screen.sm || this.$screen.md){
                 if(this.$screen.landscape && this.$screen.height < 600){
-                    this.$storage.set('isMobile', true);
-                    return true;
+                    if(this.isMobile === false){
+                        this.$storage.set('isMobile', true);
+                        this.isMobile = true;
+                        this.breakpointChange();
+                        return true;
+                    }
                 }
             }
             if (this.$screen.xs && !this.$screen.md){
-                    this.$storage.set('isMobile', true);
-                    return true; 
+                    if(this.isMobile === false){
+                        this.$storage.set('isMobile', true);
+                        this.isMobile = false;
+                        this.breakpointChange();
+                        return true; 
+                    } 
             }
             else{
-                this.$storage.set('isMobile', false);
-                return false;
+                if(this.isMobile === true){
+                    this.$storage.set('isMobile', false);
+                    this.isMobile = false;
+                    this.breakpointChange();
+                    return false;
+                }
             }
-        }
-    },
-    mounted(){
-        this.isMobile();
+        },
     }
 }
 </script>

@@ -1,7 +1,4 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
@@ -10,6 +7,37 @@
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:8080",
             "webRoot": "${workspaceFolder}"
-        }
+        },
+        {
+            "name": "client: Nuxt + Edge",
+            "type": "pwa-msedge",
+            "request": "launch",
+            "url": "http://localhost:3000/bonecas/maria-clara",
+            "userDataDir": "C:\\Users\\dougl\\AppData\\Local\\Microsoft\\Edge SxS\\User Data",
+            "runtimeArgs": [
+                "-profile-directory=Profile 1",
+            ],
+            "cwd": "${workspaceFolder}",
+            "sourceMaps": true,
+            "skipFiles": [
+                "<node_internals>/**/*.js",
+                "${workspaceRoot}/<eval>/**/*",
+                "${workspaceFolder}/node_modules/**/*.js",
+                "${workspaceFolder}/.nuxt/**/*.js",
+                "${workspaceFolder}/**/*.vue?*",
+            ]
+        },
     ]
 }
+
+
+
+/*             "presentation": {
+                "hidden": true,
+                "group": "",
+                "order": 1
+            }, */
+/*             "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/src/*",
+                "webpack:///./src/*.js": "${webRoot}/src/*.js"
+            }, */

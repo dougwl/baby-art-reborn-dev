@@ -1,6 +1,8 @@
 <template>
     <div class="bonecas-todas">
-        <DollsDollCard v-for="product in this.products" :product="product" :key="product.id" />
+        <client-only>
+            <DollsDollCard v-for="product in this.products" :product="product" :key="product.id" />
+        </client-only>
     </div>
 </template>
 
@@ -38,22 +40,12 @@ export default {
             }
         }, 
     },
-    methods: {
-        fetchAllProducts: async function() {
-            let productList = await this.$shopify.product.fetchAll();
-            return productList;
-        }
-    },
     async fetch(){
-        this.productList = await this.fetchAllProducts();
-    }
-    /* mounted(){
-        this.fetchAllProducts().then((val) => { this.productList = val; console.log(val);});
-    }, */
+        let request = this.$inventory.retrieve.products();
+        this.productList = await request;
+    },
+    fetchOnServer: false,
+    fetchKey: 'pagina-bonecas'
 }
-/* this.$shopify.collection.fetchAllWithProducts().then((collections) => {
-                // Do something with the collections
-                console.log(collections);
-                console.log(collections[0].products);
-            }); */
+
 </script>

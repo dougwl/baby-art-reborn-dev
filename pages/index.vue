@@ -25,6 +25,18 @@
   </div>
 </template>
 
+<style scoped>
+  
+  @media screen and (min-width: 1024px) {
+    :where(#main section) {
+      padding: 0 75px;
+    }
+  }
+
+  
+
+</style>
+
 
 <script>
 /* export default {

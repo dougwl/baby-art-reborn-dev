@@ -8,6 +8,114 @@
 		"path-intellisense.autoSlashAfterDirectory": true,
 		"path-intellisense.mappings": {
 			"@": "${workspaceFolder}",
-		}
+		},
+		"vscode-edge-devtools.headless": false,
+		"vscode-edge-devtools.themes": "Dark",
+		"vscode-edge-devtools.defaultUrl": "localhost:3000",
+		"vscode-edge-devtools.port": 3000,
+		"vscode-edge-devtools.userDataDir": false,
+		"debug.toolBarLocation": "docked",
+		"debug.javascript.autoAttachFilter": "disabled",
+		"scm.diffDecorationsGutterPattern": {
+			"added": true
+		},
+	},
+	"launch": {
+		"configurations": [
+			{
+				"name": "Attach to Edge",
+				"port": 9222,
+				"request": "attach",
+				"type": "msedge",
+				"webRoot": "${workspaceFolder}"
+			},
+			{
+				"type": "pwa-chrome",
+				"request": "launch",
+				"name": "Launch Chrome against localhost",
+				"url": "http://localhost:8080",
+				"webRoot": "${workspaceFolder}"
+			},
+			{
+				"name": "client: Nuxt + Edge",
+				"type": "pwa-msedge",
+				"request": "launch",
+				"url": "http://localhost:3000/bonecas/maria-clara",
+				"webRoot": "${workspaceFolder}",
+				"userDataDir": "C:\\Users\\dougl\\AppData\\Local\\Microsoft\\Edge SxS\\User Data",
+				"runtimeArgs": [
+					"-profile-directory=Profile 1",
+				],
+				"sourceMaps": true,
+				"sourceMapPathOverrides": {
+					"webpack:///": "${webRoot}/*",
+					"webpack:///src/*.vue": "${webRoot}/*.vue",
+					"webpack:///./src/*.js": "${webRoot}/*.js"
+				},
+				"smartStep": true,
+				"skipFiles": [
+					"<node_internals>/**",
+					"${workspaceFolder}/<node_internals>/**",
+					"${workspaceFolder}/node_modules/**",
+					"${workspaceFolder}/.nuxt/**",
+					"${workspaceFolder}/plugins/vue-agile.js",
+					"${workspaceFolder}/plugins/vue2-storage.js",
+					"${workspaceFolder}/webpack/**",
+					"${workspaceFolder}/(webpack)*/**",
+					"${workspaceFolder}/*.vue?*",
+					"${workspaceFolder}/**/*.vue?*"
+				]
+			},
+			{
+				"type": "pwa-msedge",
+				"name": "Launch Microsoft Edge",
+				"request": "launch",
+				"runtimeArgs": [
+					"--remote-debugging-port=9222"
+				],
+				"url": "localhost:3000",
+				"presentation": {
+					"hidden": true
+				}
+			},
+			{
+				"type": "pwa-msedge",
+				"name": "Launch Microsoft Edge in headless mode",
+				"request": "launch",
+				"runtimeArgs": [
+					"--headless",
+					"--remote-debugging-port=9222"
+				],
+				"url": "localhost:3000",
+				"presentation": {
+					"hidden": true
+				}
+			},
+			{
+				"type": "vscode-edge-devtools.debug",
+				"name": "Open Edge DevTools",
+				"request": "attach",
+				"url": "localhost:3000",
+				"presentation": {
+					"hidden": true
+				}
+			}
+		],
+		"compounds": [
+			{
+				"name": "Launch Edge Headless and attach DevTools",
+				"configurations": [
+					"Launch Microsoft Edge in headless mode",
+					"Open Edge DevTools"
+				]
+			},
+			{
+				"name": "Launch Edge and attach DevTools",
+				"configurations": [
+					"Launch Microsoft Edge",
+					"Open Edge DevTools"
+				]
+			}
+		]
 	}
 }

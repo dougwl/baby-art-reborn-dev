@@ -16,7 +16,7 @@
     transform: translateX(100%);
     z-index: 99;
     align-items: stretch;
-    background: lightcoral;
+    background: #f9f7f2;
     transition: var(--navTransition);;
 }
 
@@ -28,8 +28,10 @@
 
 @media screen and (min-width: 1024px){
     .cart-drawer{
-        right: 75px;
-        width: 75px;
+        --size: min(75px, 5%);
+        right: var(--size);
+        max-width: var(--size);
+        border-left: 1px solid #d3838e;
     }
 }
 

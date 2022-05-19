@@ -55,11 +55,13 @@
         flex-direction: row;
         width: 100%;
         height: 100%;
+        padding: 0 25px;
+        margin-top: 50px;
     }
     .product{
         background: lightgray;
         width: 100%;
-        margin: 30px 10px;
+        margin: 30px 30px;
         flex-grow: 1;
     }
     

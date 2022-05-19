@@ -35,6 +35,7 @@
 </style>
 
 <script>
+import { ShopifyMediaQuery } from '~/plugins/helpers'
 export default {
     props: {
         product: {
@@ -50,44 +51,25 @@ export default {
                 image: ''
             },
             queries: { 
-                small: {
+                small: new ShopifyMediaQuery({
                     condition: "(max-width: 375px)",
                     width: 375,
                     aspectRatio: 0.8,
                     src: ''
-                },
-                medium: {
+                }),
+                medium: new ShopifyMediaQuery({
                     condition: "(min-width: 376px) and (max-width: 1000px)",
                     width: 500,
                     aspectRatio: 0.8,
                     src: ''
-                },
-                big: {
+                }),
+                big: new ShopifyMediaQuery({
                     condition: "(min-width: 1024px)",
                     width: 700,
                     aspectRatio: 0.8,
                     src: ''
-                }
-            }
-        }
-    },
-    methods:{
-        getResponsiveImages: function({imageSource, queries}){
-            /* console.log('getting responsive images'); */
-            let width, height, imageSrc;
-            for (const size in queries) {
-                if (Object.hasOwnProperty.call(queries, size)) {
-                    const query = queries[size];
-                    width = query.width;
-                    height = Math.round(width / query.aspectRatio);
-                    imageSrc = this.$shopify.image.helpers.imageForSize(imageSource,{
-                        maxWidth: width,
-                        maxHeight: height
-                    });
-                    queries[size].src = imageSrc;
-                }
-            };
-            return queries;
+                })
+            },
         }
     },
     watch: {
@@ -97,9 +79,9 @@ export default {
                     this.card.title = product.title;
                     this.card.price = product.variants[0].price;
                     this.card.image = product.images[0];
-                    this.queries = this.getResponsiveImages({
+                    this.queries = this.$helpers.getResponsiveImages({
                         imageSource: this.card.image,
-                        queries: this.queries 
+                        mediaQueries: this.queries 
                     });
                 }
             },

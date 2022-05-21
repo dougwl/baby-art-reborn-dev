@@ -30,8 +30,11 @@
                 </div>
             </div>
             <div class="fotos">
-                <DollAlbumDesktop :defaultAlbum="album" />
-                <!-- AlbumDesktop and AlbumMobile goes here -->
+                <client-only>
+                    <DollAlbumDesktop v-if="isDesktop" :defaultAlbum="album" />
+                    <DollAlbumMobile v-else :defaultAlbum="album" />
+                    <!-- AlbumDesktop and AlbumMobile goes here -->
+                </client-only>
             </div>
         </section>
         <section class="recomendados">
@@ -343,6 +346,11 @@ export default {
             this.product.price = prod.price;
             this.product.weight = prod.weight;
             this.album = raw.images;
+        },
+        media(){
+            return{
+                isDesktop: true
+            }
         }
     },
     props: {
@@ -350,6 +358,12 @@ export default {
             default: () => { return {} },
             type: Object,
         },
+    },
+    computed: {
+        isDesktop: function() {
+            let status = this.$screen.width > 1024;
+            return status;
+        }
     },
     async fetch(){
         await this.$nextTick();

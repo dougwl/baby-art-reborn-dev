@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "pwa-chrome",
+            "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:8080",
@@ -10,9 +10,9 @@
         },
         {
             "name": "client: Nuxt + Edge",
-            "type": "pwa-msedge",
+            "type": "msedge",
             "request": "launch",
-            "url": "http://localhost:3000/bonecas/maria-clara",
+            "url": "http://localhost:3000/bonecas/julia",
             "userDataDir": "C:\\Users\\dougl\\AppData\\Local\\Microsoft\\Edge SxS\\User Data",
             "runtimeArgs": [
                 "-profile-directory=Profile 1",

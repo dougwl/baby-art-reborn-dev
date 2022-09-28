@@ -8,7 +8,7 @@ export default {
   head: {
     title: 'bbart-beta',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'pt-BR'
     },
     meta: [
       { charset: 'utf-8' },
@@ -17,20 +17,28 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      /* { rel: 'stylesheet', href:'/assets/styles/fonts.css', as:'text/css'},
+      { rel: 'stylesheet', href:'/assets/styles/main.css', as:'text/css'}, */
+      /* { rel: 'stylesheet preload', href:'/assets/fonts/Caveat-VariableFont_wght.woff2', as:'style', crossorigin:''},
+      { rel: 'stylesheet preload', href:'/assets/fonts/GoudyBookletter1911-VF.woff2', as:'style', crossorigin:''},
+      { rel: 'stylesheet preload', href:'/assets/fonts/Prociono-VF.woff2', as:'style', crossorigin:''},
+      { rel: 'stylesheet preload', href:'/assets/fonts/WorkSans[wght].woff2', as:'style', crossorigin:''}, */
     ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    //'~/assets/styles/main.css'
+    '~/assets/styles/fonts.css',
+    '~/assets/styles/main.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [  {src:'~/plugins/vue2-storage.js'},
               {src: '~/plugins/vue-agile', mode: 'client'},
               {src: '~/plugins/inventory-manager.js', mode: 'client'},
-              {src: '~/plugins/helpers.js', mode: 'client'}
+              {src: '~/plugins/helpers.js', mode: 'client'},
+              {src: '~/plugins/directives.js', mode: 'client'},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -46,9 +54,9 @@ export default {
     'vue-screen/nuxt',
     ['nuxt-shopify',
       {
-        domain: 'bbart-reborn.myshopify.com',
-        storefrontAccessToken: '9fd8bd1a7af30c7b179ec7326e896599',
-        unoptimized: false,
+        domain: 'baby-art-reborn.myshopify.com',
+        storefrontAccessToken: '3993daa65c492545b4cddef62d1ceac4',/* '9fd8bd1a7af30c7b179ec7326e896599', */
+        unoptimized: true,
         /* language: 'ja-JP', */
       }
     ],

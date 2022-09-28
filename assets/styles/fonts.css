@@ -1,0 +1,41 @@
+@font-face {
+    font-family: 'Prociono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: fallback;
+    src: url('~/assets/fonts/Prociono-VF.woff2') format("woff2 supports variations"),
+         url('~/assets/fonts/Prociono-VF.woff2') format('woff2-variations') 
+        /*  url('~/assets/fonts/Prociono-Regular-webfont.eot') format('embedded-opentype'),
+         url('~/assets/fonts/Prociono-Regular-webfont.svg') format('svg'),
+         url('~/assets/fonts/Prociono-Regular-webfont.ttf') format('truetype'); */
+}
+
+@font-face {
+    font-family: 'Goudy Bookletter 1911';
+    font-style: normal;
+    font-weight: 400;
+    font-display: fallback;
+    src: url('~/assets/fonts/GoudyBookletter1911-VF.woff2') format("woff2 supports variations"),
+         url('~/assets/fonts/Prociono-VF.woff2') format('woff2-variations')
+         /* url('~/assets/fonts/goudy_bookletter_1911-webfont.eot') format('embedded-opentype'),
+         url('~/assets/fonts/goudy_bookletter_1911-webfont.svg') format('svg'),
+         url('~/assets/fonts/goudy_bookletter_1911-webfont.ttf') format('truetype'); */
+}
+
+@font-face {
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-display: fallback;
+    src: url('~/assets/fonts/WorkSans[wght].woff2') format("woff2 supports variations"),
+         url('~/assets/fonts/WorkSans[wght].woff2') format('woff2-variations')
+}
+
+@font-face {
+    font-family: 'Caveat';
+    font-style: normal;
+    font-weight: 400;
+    font-display: fallback;
+    src: url('~/assets/fonts/Caveat-VariableFont_wght.woff2') format("woff2 supports variations"),
+         url('~/assets/fonts/Caveat-VariableFont_wght.woff2') format('woff2-variations')
+}

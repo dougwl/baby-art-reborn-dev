@@ -18,7 +18,7 @@ async function defaultRequest({request, callback = undefined, msgError = undefin
 }
 
 const fetchAllProducts = () => defaultRequest({
-  request: $shopify.product.fetchAll(), 
+  request: $shopify.product.fetchAll(250), 
   msgError: '$shopify - No products found'
 });
 

@@ -1,41 +1,36 @@
 <template>
     <div class="boneca-pagina">
-        <section class="boneca">
+        <section class="boneca" :data-loaded="true">
             <div class="informacoes">
                 <div class="content">
                     <h1 class="titulo">
-                        Produto
-                        <em class="boneca-colecao">Nome da Coleção.</em>
+                        {{product.name}}
+                        <em class="boneca-colecao" v-if="product.collection != '' ">{{product.collection}}</em>
                     </h1>
                     <div class="detalhes">
                         <div class="peso">
-                            <span>Peso: {{product.weight}}</span>
+                            <span>Peso {{product.weight}} kg</span>
                         </div>
                         <div class="preco">
-                            <!-- <span>Preço: </span> -->
                             <span class="valor">R$ {{product.price}}</span>
                         </div>
-                        <p class="descricao">
-                            <span>
-                                {{product.description}}
+                        <p class="descricao" :data-expanded="descriptionExpanded">
+                            <span v-html="product.description">         
                             </span>
                         </p>
                     </div>
                 <div class="adicionar-ao-carrinho">
-                    <AddToCart />
+                    <!-- <AddToCart /> -->
                 </div>
-                <div class="outras-informacoes">
+                <!-- <div class="outras-informacoes">
                     <Tabs />
-                </div>
+                </div> -->
                 </div>
             </div>
-            <div class="fotos">
-                <client-only>
-                    <DollAlbumDesktop v-if="isDesktop" :defaultAlbum="album" />
-                    <DollAlbumMobile v-else :defaultAlbum="album" />
-                    <!-- AlbumDesktop and AlbumMobile goes here -->
-                </client-only>
-            </div>
+            <client-only>
+                <DollAlbum :defaultAlbum="album" :isMobile="isMobile"/>
+                <!-- AlbumDesktop and AlbumMobile goes here -->
+            </client-only>
         </section>
         <section class="recomendados">
             <h3></h3>
@@ -56,10 +51,10 @@
 }
 
 .boneca-pagina{
-    --padding-size: min(75px, 5%);
+    --padding-size: 0;
     display: flex;
     flex-direction: column;
-    padding: 0 var(--padding-size) 0 var(--padding-size);
+    /* padding: 0 var(--padding-size) 0 var(--padding-size); */
 }
 
 .boneca{
@@ -68,8 +63,15 @@
     flex-basis: 100%;
 }
 
-.boneca > :where(div){
-    flex-basis: 50%;
+.boneca:not([data-loaded]) > ::after{
+    content: '';
+    width: 50%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    background-color: #f9f7f2;
 }
 
 .informacoes{
@@ -78,23 +80,34 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin-bottom: 100px;
 }
 
 .content{
     display: flex;
     align-items: center;
     flex-direction: column;
+    width: 100%; 
+    margin-top: 25px;
+}
+
+.detalhes{
     width: 100%;
-    max-width: 480px;
-    padding: 0 25px;
-    flex-basis: 125vh;
-    justify-content: space-evenly;
+    margin-top: 50px;
+}
+
+.titulo,
+.descricao,
+.peso,
+.preco{
+    color: var(--main-color);
 }
 
 .titulo{
     white-space: pre-line;
     max-width: 300px;
     font-weight: 400;
+    font-size: 25px;
     /* margin-top: 80px; */
 }
 
@@ -110,12 +123,59 @@
     letter-spacing: 3px;
     text-transform: uppercase;
     margin-bottom: 14px;
-    color: orange;
+    /* color: orange; */
 }
 
 .descricao{
-    margin: 0 70px 40px;
+    /* margin-top: 40px;
+    margin-left: 60px;
+    margin-right: 120px; */
+    padding: 0 50px;
+    padding-top: 40px;
 }
+
+@media screen and (min-width: 1000px) {
+    .content{
+        max-width: 480px;
+        padding: 0 25px;
+        flex-basis: 125vh;
+        justify-content: space-evenly;
+        margin-top: unset;
+    }
+
+    .detalhes{
+        margin-top: -50px;
+    }
+
+    .informacoes{
+        margin-bottom: unset;
+    }
+}
+
+@media screen and (min-width: 1000px) and (max-height: 700px){
+    .content{
+        flex-basis: 160vh;
+    }
+}
+
+@media screen and (min-width: 500px) and (max-width: 990px) and (min-height: 700px){
+    .content{
+        width: 50%;
+    }
+
+    .descricao{
+        margin: 0;
+        margin-top: 40px;     
+        padding-right: 0 !important;
+    }
+}
+
+
+/* .descricao[data-expanded="false"] p{
+    height: 0;
+    width: 100%;
+    font-size: 13px;
+} */
 
 .adicionar-ao-carrinho{
     position: fixed;
@@ -135,132 +195,21 @@
     display: flex;
     width: 100%;
     max-height: 400px;
-    transform: translateY(-30px);
+    /* transform: translateY(-30px); */
 }
 
-/* .fotos{
-    width: 50%;
-} */
-
-.album{
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    background: #f9f7f2;
-    align-items: center;
-}
-
-.album-item {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.album-item--foto{
-    aspect-ratio: 16/9;
-    display: flex;
-}
-
-.album-item--foto :where(img){
-    width: 100%;
-    object-fit: contain;
-    object-position: top;
-}
 
 @media screen and (max-width: 1023px){
 
     .adicionar-ao-carrinho{
         width: 100%;
     }
-    
-    .fotos{
-        --photo-padding-left: 40px; 
-        --photo-padding-right: 40px;
-        --photo-padding-top: 120px;
-        --photo-padding-bottom: 60px;
-        --padding: calc((15% + 1px) - 1px);
-    }
-
-    .album{
-        min-height: 60vh;
-        padding: 30% 15% 15% 15%;
-    }
-
-    .album-item{
-        display: none;
-    }
-
-    .album:where(.small) > :where(:first-child){
-        display: flex;
-        flex-grow: 1;
-        width: 100%;
-        height: 100%;
-        justify-content: unset;
-    }
-    
-    .album-item--foto{
-        aspect-ratio: unset;
-        display: unset;
-        width: 100%;
-    }
-
-    .album-item--foto :where(img){
-        width: 100%;
-        object-fit: contain;
-        object-position: bottom;
-        aspect-ratio: 0.5625;
-    }
-
-    .thumbnails{
-        --number-of-columns: 4;
-        --number-of-gaps: calc(var(--number-of-columns) - 1);
-        --column-gap: calc(( 5/var(--number-of-gaps) ) * 1% );
-        --column-size: calc( (100% - (var(--column-gap) * var(--number-of-gaps))) / var(--number-of-columns) );
-        --row-gap: 15px;
-        --max-width: 550px;
-        display: grid;
-        min-height: 150px;
-        margin-top: 20px;
-        grid-auto-rows: auto;
-        grid-template-columns: repeat(var(--number-of-columns), var(--column-size));
-        column-gap: var(--column-gap);
-        row-gap: var(--row-gap);
-        /* padding: 0 max( calc( (100% - min(100%,var(--max-width))) / 2 ), var(--photo-padding-left)); */ 
-        padding: 0 var(--padding);
-    }
-
-    :where(.thumbnail, .thumbnail :not(img)){
-        display: flex;
-        width: 100%;
-        height: inherit;
-        position: relative;
-    }
-
-    .thumbnail--foto :where(img){
-        object-fit: contain;
-        aspect-ratio: 9/16;
-        width: 100%;
-    }
 }
 
 @media screen and (min-width: 1023px) and (max-aspect-ratio: 22/16) {
-    .album-item--foto :where(img){
-        object-fit: cover;
-    }
 }
 
 @media screen and (max-width: 900px) and (min-aspect-ratio: 3/5) and (max-aspect-ratio: 3/4){
-    /* .album{
-        align-items: center;
-    } */
-    .album-item{
-        max-width: 50%;
-    }
-
-    .thumbnails{
-        padding: 0 33%;
-    }
 }
 
 @media screen and (min-width: 1024px){
@@ -270,9 +219,18 @@
         flex-direction: row;
     }
 
-    /* .boneca > :where(div){
-        max-width: var(--page-half);
-    } */
+    .boneca > :where(div){
+        width: 50%;
+    }
+
+    .boneca > :where(div){
+        flex-basis: 50%;
+        max-width: 50%;
+    }
+
+    .boneca-pagina{
+        --padding-size: min(75px, 5%);
+    }
 
     .titulo{
         font-size: 36px;
@@ -291,6 +249,10 @@
         padding: inherit;
     }
 
+    .informacoes{
+        border-right: solid 1px var(--main-color);
+    }
+
     .adicionar-ao-carrinho{
         transform: translateY(40px);
     }
@@ -300,22 +262,33 @@
         margin-bottom: 30px;
         position: static;
     }
-
-    .album{
-        min-height: 100vh;
-    }
-
-    .album-item{
-        min-height: 100vh;
-        flex-basis: 100vh;
-    }
-
-    .thumbnails{
-        display: none;
-    }
 }
 
 
+</style>
+
+<style>
+
+.boneca .descricao{
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.boneca .descricao span {
+    text-align: left;
+    font-size: 13px;
+    width: 100%;
+    /* overflow-wrap: break-word;
+    hyphens: manual; */
+}
+
+/* .boneca .descricao span > * {
+
+} */
+/* .boneca .descricao span > *{
+    text-align: unset;
+} */
 </style>
 
 <script>
@@ -326,12 +299,15 @@ export default {
             rawData: {},
             product: {
                 id: undefined,
-                name: 'Vazio',
+                name: 'Nome',
                 price: 0,
-                weight: 'kg',
-                description: ''
+                weight: '0.0',
+                description: '',
+                collection: ''
             },
-            album: []
+            album: [],
+            loaded: false,
+            descriptionExpanded: false
         }
     },
     methods: {
@@ -342,16 +318,11 @@ export default {
             let prod = raw.variants[0];
             this.product.id = raw.id;
             this.product.name = raw.title;
-            this.product.description = raw.description;
+            this.product.description = raw.descriptionHtml;
             this.product.price = prod.price;
             this.product.weight = prod.weight;
             this.album = raw.images;
         },
-        media(){
-            return{
-                isDesktop: true
-            }
-        }
     },
     props: {
         fetchedProduct: {
@@ -360,22 +331,28 @@ export default {
         },
     },
     computed: {
-        isDesktop: function() {
-            let status = this.$screen.width > 1024;
+        isMobile: function() {
+            let status = this.$screen.width < 1024;
             return status;
         }
     },
+    mounted(){
+        const page = document.querySelector('.boneca');
+        if(page.childElementCount > 1) loaded = true;
+    },
     async fetch(){
+        let routeName;
+        let prod;
         await this.$nextTick();
         if(this.product.id == undefined && Object.entries(this.$props.fetchedProduct).length == 0){
-            let routeName = this.$route.params.id;
-            let prod = await this.$inventory.retrieve.product().handle(routeName);
-            if(prod != undefined) {
-                this.rawData = prod;
+            routeName = this.$route.params.id; 
+            try {
+                prod = await this.$inventory.retrieve.product().handle(routeName);;
+            } catch (error) {
+                console.log('Error fetching product: ' + error);
             }
-            else {
-                this.$router.push('/');
-            }  // redirect to home
+            if(prod) this.rawData = prod;
+            else this.$router.push('/');
         }
         this.loadData(this.rawData);
     },

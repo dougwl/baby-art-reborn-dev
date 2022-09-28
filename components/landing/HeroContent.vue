@@ -1,11 +1,11 @@
 <template>
     <section class="hero">
-        <a href="/loja">
+        <NuxtLink to="/bonecas" >
             <div class="identity">
                 <div class="photo">
                     <nuxt-img class="fade-in baby-cart" :class="{animated: extrasHasLoaded}" :alt="'carrinho de boneca'" src="/Cart.png"  style="object-fit:contain;" v-on:animationend.native="finishLoading($event)"/> <!-- due to the lazy loading, we need to wait for the image to load before we can start the animation; and because nuxt-img has a bug/limitation regarding DOM events, we need to use the native event option. -->
                     <client-only v-if="!isMobile">
-                        <div class="illustration decor">
+                        <div class="illustration decor desktop">
                                 <div class="flower fade-in bloom animated" v-for="i in 2" :key="i + 'ff'" :id="extras.desktop.flowers.fancy.id + i" v-on:animationend="finishLoading($event)">
                                     <!-- <SvgLoader :rawHTML="extras.desktop.flowers.fancy.svg" /> -->
                                     <component :is="extras.desktop.flowers.fancy.svg" />
@@ -78,7 +78,7 @@
                     </div>
                 </div>
             </client-only>
-        </a>
+        </NuxtLink>
     </section>
 </template>
 
@@ -350,6 +350,11 @@
         position: relative;
     }
 
+    
+    .desktop{
+        display: none;
+    }
+
 
     @media screen and (max-width: 480px){
         :where(.photo, .caption){
@@ -420,6 +425,14 @@
     }
 
     @media screen and (min-width: 768px) and (min-height: 500px) {
+
+        .desktop{
+            display: unset;
+        }
+
+        .mobile{
+            display: none;
+        }
 
         .photo::before,
         .photo::after{
@@ -569,10 +582,10 @@
     }
     
     @media screen and (min-width: 1024px){
-        :where(.hero){
+        /* :where(.hero){
             padding-left: var(--sidebar-size);
             padding-right: var(--sidebar-size);  
-        }
+        } */
     }
     
 
@@ -660,7 +673,7 @@ export default {
     beforeMount(){
         window.addEventListener('on-breakpoint-change', (e) => {
             this.isMobile = e.detail.isMobile;
-            console.log('whatsup');
+            console.log(e.detail);
         });
     },
     updated() {

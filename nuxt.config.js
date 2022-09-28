@@ -105,6 +105,10 @@ export default {
         config.devtool = isClient ? 'source-map' : 'inline-source-map';
       }
     }
+  },
+
+  generate: {
+    fallback: true,
   }
 }
 

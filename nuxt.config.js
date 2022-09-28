@@ -6,7 +6,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'bbart-beta',
+    title: 'Baby Art Reborn',
     htmlAttrs: {
       lang: 'pt-BR'
     },
@@ -17,7 +17,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.svg', type: "image/svg+xml"},
       /* { rel: 'stylesheet', href:'/assets/styles/fonts.css', as:'text/css'},
       { rel: 'stylesheet', href:'/assets/styles/main.css', as:'text/css'}, */
       /* { rel: 'stylesheet preload', href:'/assets/fonts/Caveat-VariableFont_wght.woff2', as:'style', crossorigin:''},

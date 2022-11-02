@@ -9,7 +9,7 @@
                     <source media="(max-width: 1023px)" width="200" height="400" data-img-size="1x" v-srcset:[getResponsiveURL]="photo">
                     <source media="(min-width: 1024px) and (max-width: 1199px)" width="300" height="511" data-img-size="1.5x" v-srcset:[getResponsiveURL]="photo">
                     <source media="(min-width: 1200px)" width="400" height="681" data-img-size="2x" v-srcset:[getResponsiveURL]="photo">
-                    <img v-srcset:[getResponsiveURL]="photo" width="300" height="511" alt="Imagem 1 de 10" loading="lazy" v-place-holder>
+                    <img v-srcset:[getResponsiveURL]="photo" width="300" height="511" alt="Imagem 1 de 10" loading="lazy" v-place-holder class="loading" @load="loaded">
                 </picture>
             </li>
         </ul>
@@ -52,28 +52,14 @@
 
     ul{
         width: 100%;
+        padding: 0;
+        margin: 0;
     }
 
     li{
         list-style: none;
     }
 
-    @media screen and (min-width: 1024px){
-        /* ul{
-            max-width: 65%;
-        } */
-
-        /* picture{
-            --picture-height: calc(100% - var(--picture-margin-size) * 2);
-            --picture-width: calc(100% - var(--picture-margin-size) * 2);
-        } */
-
-        /* img{
-            object-fit: contain;
-            object-position: center;
-        } */
-    }
-    
     /* Objects */
 
     .scope{
@@ -122,8 +108,29 @@
     }
 
     .photo img{
+        --photo-opacity: 100%;
         outline: solid 3px #ffff;
+        opacity: var(--photo-opacity);
+        transition: opacity 0.25s ease-in;
     }
+
+    .photo img.loading{
+        opacity: 0%;
+    }
+
+    /* .photo img.loading::after{
+        content: '';
+        width: 100%;
+        height: 100%;
+        background: gray;
+        opacity: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 3;
+        transition: opacity 0.25s ease-in;
+    } */
+
  
     .thumbnails{
         display: grid;
@@ -183,7 +190,7 @@
         .gallery{
             --number-of-columns: 1fr;
             --number-of-rows: 1fr;
-            padding-top: min(75px, 5vw - 2px);
+            /* padding-top: min(75px, 5vw - 2px); */
         }
 
         .item{
@@ -237,109 +244,6 @@
 
 
 
-
-
-    /*  */
-
-/* @media screen and (max-width: 1023px){
-
-    ul{
-        display: flex;
-        flex-grow: 1;
-        width: 100%;
-        height: 100%;
-        justify-content: unset;
-    }
-    
-    picture{
-        aspect-ratio: unset;
-        display: unset;
-        width: 100%;
-    }
-
-    img{
-        width: 100%;
-        object-fit: contain;
-        object-position: bottom;
-        aspect-ratio: var(--img-aspect-ratio-mobile);
-    }
-
-    .scope{
-        min-height: 60vh;
-        padding: 30% 15% 15% 15%;
-    }
-
-    .photo{
-        display: none;
-    }
-
-    
-    .thumbnails{
-        --number-of-columns: 4;
-        --number-of-gaps: calc(var(--number-of-columns) - 1);
-        --column-gap: calc(( 5/var(--number-of-gaps) ) * 1% );
-        --column-size: calc( (100% - (var(--column-gap) * var(--number-of-gaps))) / var(--number-of-columns) );
-        --row-gap: 15px;
-        --max-width: 550px;
-        display: grid;
-        min-height: 150px;
-        margin-top: 20px;
-        grid-auto-rows: auto;
-        grid-template-columns: repeat(var(--number-of-columns), var(--column-size));
-        column-gap: var(--column-gap);
-        row-gap: var(--row-gap);
-        padding: 0 var(--thumbnail-padding);
-    }
-
-    :where(.thumbnail, .thumbnail :not(img)){
-        display: flex;
-        width: 100%;
-        height: inherit;
-        position: relative;
-    }
-
-    .thumbnail--foto :where(img){
-        object-fit: contain;
-        aspect-ratio: 9/16;
-        width: 100%;
-    }
-}
-
-@media screen and (min-width: 1023px) and (max-aspect-ratio: 22/16) {
-    img{
-        object-fit: cover;
-    }
-}
-
-@media screen and (max-width: 900px) and (min-aspect-ratio: 3/5) and (max-aspect-ratio: 3/4){
-    li{
-        max-width: 50%;
-    }
-
-    .thumbnails{
-        padding: 0 33%;
-    }
-}
-
-@media screen and (min-width: 1024px){
-
-    .scope{
-        min-height: 100vh;
-    }
-
-    li{
-        min-height: 100vh;
-        flex-basis: 100vh;
-    }
-
-    .thumbnails{
-        display: none;
-    }
-} */
-
-
-
-
 </style>
 
 <script>
@@ -383,15 +287,14 @@ export default {
                 thumbnails: {},
                 activePhoto: 0
             },
-            /* mediaQuery: new ShopifyMediaQuery({
-                condition: this.defaultMediaQuery,
-                width: this.defaultMaxWidth,
-                aspectRatio: this.defaultAspectRatio
-            }) */
         }
     },
     methods: {
-        
+        loaded(e){
+            /** @type {HTMLElement} */
+            let target = e.target;
+            target.classList.toggle('loading', false);
+        },
         setMaxPhotos(numberOfPhotos, photos) {
             let trimmedAlbum = [];
             let maxPhotos = numberOfPhotos;
@@ -401,14 +304,6 @@ export default {
             else return photos;
             return trimmedAlbum;
         },
-        /* setAspectRatio(gallery){
-            this.albumTrimmed.forEach(photo => {
-                let converted;
-                converted = this.$helpers.getResponsiveImage({imageSource: photo, mediaQuery: this.mediaQuery});
-                this.gallery.desktop.push(converted);
-                
-            });
-        }, */
         updateCSS(){
             let numberOfPhotos = this.defaultNumberOfPhotos;
             let style = () => { return {
@@ -425,7 +320,7 @@ export default {
             const source = el;
             const img = photo;
 
-            if(!img) return console.error('Photo object is undefined.');;
+            if(!img) return console.error('Photo object is undefined.');
 
             const intrinsicSize = { width: img.width, 
                                     height: img.height };
@@ -481,14 +376,6 @@ export default {
             },  
             deep: true
         }, 
-        /* albumTrimmed: {
-            handler(newValue, oldValue) {
-                if(newValue !== oldValue && newValue.length > 0) {
-                    this.setAspectRatio(newValue);
-                }
-            },
-            deep: true
-        } */
     }
     
 }

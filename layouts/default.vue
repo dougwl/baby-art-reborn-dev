@@ -87,7 +87,6 @@ export default {
                     if(this.isMobile === false){
                         this.$storage.set('isMobile', true);
                         this.isMobile = true;
-                        console.log('IS MOBILE | SM OR MD');
                         this.breakpointChange();
                         return true;
                     }
@@ -96,7 +95,6 @@ export default {
             if (this.$screen.xs && !this.$screen.md){
                     if(this.isMobile === false){
                         this.$storage.set('isMobile', true);
-                        console.log('IS MOBILE | XS');
                         this.isMobile = true;
                         this.breakpointChange();
                         return true; 
@@ -105,7 +103,6 @@ export default {
             else{
                 if(this.isMobile === true){
                     this.$storage.set('isMobile', false);
-                    console.log('NOT MOBILE');
                     this.isMobile = false;
                     this.breakpointChange();
                     return false;

@@ -2,7 +2,7 @@
     <div class="lista-bonecas">
         <div class="bonecas">
             <client-only>
-                <DollsDollCard v-for="product in this.productList" :product="product" :key="product.id" />
+                <DollsDollCard v-for="product in this.filteredList" :product="product" :key="product.id" />
              </client-only>
         </div>
         
@@ -35,10 +35,15 @@
 
     @media screen and (min-width: 1024px){
         .bonecas{
+            --flex-gap: calc(((100vw - (min(75px, 5vw) * 2)) - 60vw) / 5);
             grid-template-columns: max-content max-content;
-            grid-gap: 55px 60px;
+            grid-gap: unset;
+            row-gap: var(--flex-gap);
+            width: 100%;
+            justify-content: space-evenly;
+            /* grid-gap: 55px 60px;
             width: calc(100% - 150px);
-            justify-content: center;
+            justify-content: center; */
         }
     }
 </style>
@@ -47,34 +52,66 @@
 export default {
     data(){
         return {
-            productList: {},
+            productList: [],
+            filteredList: [],
+            filter: ''
         }
     },
+    fetchOnServer: false,
+    fetchKey: 'pagina-bonecas',
     props: {
         fetchedProducts: {
             default: () => { return {} },
             type: Object,
         },
     },
-    /* beforeUpdate(){
-        let header = document.querySelector('.header');
-        if(!header.classList.contains('visible')) {
-            header.classList.add('visible');
+    methods: {
+        /**
+         * @param {String} filter
+         * @param {Array} catalog
+         */
+        filterProducts: function (filter, catalog){
+            let filtered = [];
+            catalog.forEach( 
+                (product) => {
+                    let isOnTheList = false;
+                    product.tags.forEach( 
+                        (tag) => {
+                            if(tag.value.toLowerCase() == filter.toLowerCase()){
+                                if(!isOnTheList){
+                                    isOnTheList = true;
+                                    filtered.push(product);
+                                }
+                            }
+                    });
+            });
+            if(filtered.length > 0) return filtered;
+            else return catalog;
         }
-    }, */
+    },
     async fetch(){
         let request;
         await this.$nextTick();
         if(Object.entries(this.$props.fetchedProducts).length == 0){
-            request = this.$inventory.retrieve.products();
+            request = this.$inventory.retrieve.productsCustom();
             this.productList = await request;
         }
         else{
             this.productList = this.fetchedProducts;
         }
     },
-    fetchOnServer: false,
-    fetchKey: 'pagina-bonecas'
+    watch: {
+        productList: function () {
+            if(this.$route.hash !== ''){
+                this.filter = this.$route.hash.replace('#', '');
+                this.filteredList = this.filterProducts(this.filter, this.productList);
+            }
+            else {
+                this.filteredList = this.productList;
+            }
+        }
+    }
 }
 
 </script>
+

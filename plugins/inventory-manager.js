@@ -22,6 +22,91 @@ const fetchAllProducts = () => defaultRequest({
   msgError: '$shopify - No products found'
 });
 
+const productsQuery = () => { 
+  return $shopify.graphQLClient.query((root) => {
+    root.addConnection('products', {args: {first: 250}}, (product) => {
+      product.add("id");
+      product.add("availableForSale");
+      product.add("createdAt");
+      product.add("updatedAt");
+      product.add("descriptionHtml");
+      product.add("description");
+      product.add("handle");
+      product.add("productType");
+      product.add("title");
+      product.add("vendor");
+      product.add("publishedAt");
+      product.add("onlineStoreUrl");
+      product.add("tags");
+      product.add("options", function (options) {
+        options.add("name");
+        options.add("values");
+      });
+      product.addConnection("images", {
+        args: {
+          first: 250
+        }
+      }, function (images) {
+        images.add("id");
+        images.add("src");
+        images.add("altText");
+        images.add("width");
+        images.add("height");
+      });
+      product.addConnection('variants', {args: {first: 250}}, (variants) => {
+        variants.add("id");
+        variants.add("title");
+        variants.add("price");
+        variants.add("priceV2", function (priceV2) {
+          priceV2.add("amount");
+          priceV2.add("currencyCode");
+        });
+        variants.add("weight");
+        variants.add("availableForSale", {
+          alias: "available"
+        });
+        variants.add("sku");
+        variants.add("compareAtPrice");
+        variants.add("compareAtPriceV2", function (compareAtPriceV2) {
+          compareAtPriceV2.add("amount");
+          compareAtPriceV2.add("currencyCode");
+        });
+        variants.add("image", function (image) {
+          image.add("id");
+          image.add("url");
+          image.add("altText");
+          image.add("width");
+          image.add("height");
+        });
+        variants.add("selectedOptions", function (selectedOptions) {
+          selectedOptions.add("name");
+          selectedOptions.add("value");
+        });
+        variants.add("unitPrice", function (unitPrice) {
+          unitPrice.add("amount");
+          unitPrice.add("currencyCode");
+        });
+        variants.add("unitPriceMeasurement", function (unitPriceMeasurement) {
+          unitPriceMeasurement.add("measuredType");
+          unitPriceMeasurement.add("quantityUnit");
+          unitPriceMeasurement.add("quantityValue");
+          unitPriceMeasurement.add("referenceUnit");
+          unitPriceMeasurement.add("referenceValue");
+        });
+      });
+    });
+  });
+};
+
+const fetchAllProductsCustom = () => defaultRequest({
+  request: $shopify.graphQLClient.send(productsQuery).then(({model, data}) => {
+    return model;
+  }).then((val) => {
+    return val.products;
+  }),
+  msgError: '$shopify - No Products found.'
+});
+
 const fetchAllColections = () => defaultRequest({
   request: $shopify.collection.fetchAll(),
   msgError: '$shopify - No collections found'
@@ -48,6 +133,14 @@ const retrieveAllProducts = (callback = undefined) => {
     msgError: '$storage - No products found'
   })
 };
+
+const retrieveAllProductsCustom = (callback = undefined) => {
+  return defaultRequest({
+    request: $storage.remember('products', fetchAllProductsCustom),
+    callback: callback,
+    msgError: '$storage - No Products found'
+  });
+}
 
 const retrieveAllCollections = (callback = undefined) => {
   return defaultRequest({
@@ -76,8 +169,9 @@ export const inventory = (shopify, storage) => {
   return{
     retrieve: {
       products: retrieveAllProducts,
+      productsCustom: retrieveAllProductsCustom,
       collections: retrieveAllCollections,
-      product: retrieveProductBy
+      product: retrieveProductBy,
     },
     setStorage(id, {key}){
       $storage.set(id, key);

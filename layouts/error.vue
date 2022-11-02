@@ -34,7 +34,7 @@ export default {
         });
 
         await this.$nextTick();
-
+    
         this.$router.push(await timeOut);
         
     }

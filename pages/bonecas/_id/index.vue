@@ -2,7 +2,7 @@
     <div class="boneca-pagina">
         <section class="boneca" :data-loaded="true">
             <div class="informacoes">
-                <div class="content">
+                <div :class="{'content': true, 'loading': !contentLoaded}">
                     <h1 class="titulo">
                         {{product.name}}
                         <em class="boneca-colecao" v-if="product.collection != '' ">{{product.collection}}</em>
@@ -84,11 +84,18 @@
 }
 
 .content{
+    --content-opacity: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 100%; 
     margin-top: 25px;
+    opacity: var(--content-opacity);
+    transition: opacity 0.25s ease-in;
+}
+
+.content.loading{
+    opacity: 0%;
 }
 
 .detalhes{
@@ -134,18 +141,28 @@
     padding-top: 40px;
 }
 
+:where(.descricao p){
+    margin: 0;
+    padding: 0;
+}
+
 @media screen and (min-width: 1000px) {
     .content{
         max-width: 480px;
         padding: 0 25px;
-        flex-basis: 125vh;
+        /* flex-basis: 125vh; */
         justify-content: space-evenly;
         margin-top: unset;
     }
 
     .detalhes{
-        margin-top: -50px;
+        /* margin-top: -50px; */
+        margin-top: 0;
     }
+
+    /* .titulo{
+        margin-bottom: 50px;
+    } */
 
     .informacoes{
         margin-bottom: unset;
@@ -206,12 +223,6 @@
     }
 }
 
-@media screen and (min-width: 1023px) and (max-aspect-ratio: 22/16) {
-}
-
-@media screen and (max-width: 900px) and (min-aspect-ratio: 3/5) and (max-aspect-ratio: 3/4){
-}
-
 @media screen and (min-width: 1024px){
 
     .boneca{
@@ -235,6 +246,9 @@
     .titulo{
         font-size: 36px;
         line-height: 42px;
+        padding-bottom: 30px;
+        padding-top: 80px;
+        white-space: unset;
     }
 
     .detalhes{
@@ -247,6 +261,9 @@
         top: 0;
         left: 0;
         padding: inherit;
+        margin-top: calc(-1 * min(75px, 5vw));
+        padding-top: min(75px, 5vw);
+        padding-bottom: 60px;
     }
 
     .informacoes{
@@ -283,6 +300,11 @@
     hyphens: manual; */
 }
 
+.descricao p{
+    margin: 0;
+    padding: 0;
+}
+
 /* .boneca .descricao span > * {
 
 } */
@@ -307,6 +329,7 @@ export default {
             },
             album: [],
             loaded: false,
+            contentLoaded: false,
             descriptionExpanded: false
         }
     },
@@ -355,6 +378,15 @@ export default {
             else this.$router.push('/');
         }
         this.loadData(this.rawData);
+    },
+    watch:{
+        'product.description'(val){
+            if(val){
+                this.$nextTick(() => {
+                    this.contentLoaded = true;
+                });
+            }
+        }
     },
     fetchOnServer: false,
     fetchKey: 'pagina-boneca'

@@ -21,6 +21,7 @@
         z-index: 101;
         padding: 0px min(75px, 5%);
         pointer-events: none;
+        background: white;
     }
 
     .ver-menu{
@@ -36,6 +37,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        border: none;
+        padding: 0;
     }
 
     .ver-menu:hover{
@@ -53,7 +56,8 @@
     }
 
     .ver-menu svg{
-        height: 60%;
+        /* height: 60%; */
+        height: auto;
         width: 60%;
     }
 
@@ -76,6 +80,7 @@
             z-index: 101;
             padding: 0px min(75px, 5%);
             pointer-events: none;
+            background: unset;
         }
 
         .ver-menu{

@@ -71,7 +71,7 @@
           <div class="email">
             <p>
               <a href="mailto:">
-                contato@babyartreborn.com.br
+                ledir@babyartreborn.com.br
               </a>
             </p>  
           </div> 

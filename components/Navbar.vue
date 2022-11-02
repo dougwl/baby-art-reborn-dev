@@ -78,6 +78,7 @@ body.nav-open .nav::before{
     display: none;
     color: var(--main-color);
     background: var(--alternative-blue);
+    border: none;
 }
 
 body.nav-open .close-nav{

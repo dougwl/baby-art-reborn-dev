@@ -82,23 +82,6 @@ export default {
   }, */
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-
-    /* babel ({isDev}) {
-      return {
-        compact: !isDev,
-        sourceRoot: __dirname,
-        presets() {
-          return [
-            [
-              '@nuxt/babel-preset-app',
-              {
-                useBuiltIns: "entry"
-              }
-            ]
-          ]
-        },
-      }
-    }, */
     extend(config, {isDev, isClient}) {
       if(isDev) {
         /* config.mode = 'development'; */
@@ -106,9 +89,11 @@ export default {
       }
     }
   },
-
   generate: {
     fallback: true,
+  },
+  router: {
+    prefetchPayloads: true
   }
 }
 

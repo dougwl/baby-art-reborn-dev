@@ -3,7 +3,7 @@
         <NuxtLink to="/bonecas" >
             <div class="identity">
                 <div class="photo">
-                    <nuxt-img class="fade-in baby-cart" :class="{animated: extrasHasLoaded}" :alt="'carrinho de boneca'" src="/Cart.png"  style="object-fit:contain;" v-on:animationend.native="finishLoading($event)"/> <!-- due to the lazy loading, we need to wait for the image to load before we can start the animation; and because nuxt-img has a bug/limitation regarding DOM events, we need to use the native event option. -->
+                    <nuxt-img class="fade-in baby-cart" :class="{animated: extrasHasLoaded}" :alt="'carrinho de boneca'" src="/Cart.webp" height="220" width="150" style="object-fit:contain;" v-on:animationend.native="finishLoading($event)"/> <!-- due to the lazy loading, we need to wait for the image to load before we can start the animation; and because nuxt-img has a bug/limitation regarding DOM events, we need to use the native event option. -->
                     <client-only v-if="!isMobile">
                         <div class="illustration decor desktop">
                                 <div class="flower fade-in bloom animated" v-for="i in 2" :key="i + 'ff'" :id="extras.desktop.flowers.fancy.id + i" v-on:animationend="finishLoading($event)">
@@ -64,6 +64,9 @@
                     </div>
                 </client-only>
             </div>
+            
+        </NuxtLink>
+        <div class="wrapper">
             <div class="filler">
                 <p class="caption">A arte que transforma bonecas comuns <br> em bebês quase reais</p>
             </div>
@@ -72,13 +75,15 @@
                     <div class="mobile-divider-top">
                         <component :id="this.extras.responsive.mobileDivider.id + '-top'" :is="this.extras.responsive.mobileDivider.svg"></component>
                     </div>
-                    <div class="foto-boneca"></div>
+                    <div class="in-between-photo">
+                        <nuxt-img src="/in_between.webp" width="375" height="320" style="object-fit: fill" title="Boneca Reborn, entre sessões."/>
+                    </div>
                     <div class="mobile-divider-bottom">
                         <component :id="this.extras.responsive.mobileDivider.id + '-bottom'" :is="this.extras.responsive.mobileDivider.svg"></component>
                     </div>
                 </div>
             </client-only>
-        </NuxtLink>
+        </div>
     </section>
 </template>
 
@@ -123,15 +128,24 @@
 
 <style scoped>
 
-    :where(.hero){
+    :where(.hero),
+    :where(.hero) ::before,
+    :where(.hero) ::after{
         --sidebar-size: 75px;
+        --fr: max(-1 * (1vw - 1vh), 1vw - 1vh);
     }
 
-    :where(.hero, .hero > a){
+    :where(.hero, .hero > a, .hero > .wrapper){
         display: flex;
         flex-direction: column;
-        width: 100%;
+        width: 100.1%;
         align-items: center;
+    }
+
+    :where(.hero > a){
+        position: relative;
+        margin-top: 50px;
+        /* height: calc((100vh - env(safe-area-inset-bottom)) * 0.9); */
     }
 
     .hero{
@@ -148,10 +162,14 @@
         flex-direction: column;
         justify-content: center;
         /* padding: 160px 30px 30px; */
-        padding: 160px 30px 45px;
+        padding: 120px 30px 45px;
         width: 100%;
         z-index: 2;
         /* margin-bottom: 40px; */
+    }
+
+    .wrapper{
+        margin-top: -1px;
     }
 
     .photo{
@@ -172,6 +190,8 @@
     .photo img{
         aspect-ratio: 1.442;
         width: 100%;
+        max-width: clamp(125px, 45 * var(--fr), 160px);
+        height: clamp(130px, 65 * var(--fr), 240px);
         /* max-width: 330px; */
         object-fit: contain;
         object-position: bottom;
@@ -256,8 +276,14 @@
 
     .art :where(.decor > div, .decor > div > div){
         position: absolute;
-        height: min-content;
-        width: min-content;
+        height: fit-content;
+        width: fit-content;
+    }
+
+    .art :where(svg){
+        width: fit-content;
+        height: auto;
+        max-width: 50px;
     }
 
     .illustration > div{
@@ -267,7 +293,8 @@
     }
 
     .art :where(.decor svg){
-        height: 100%;
+        /* height: 100%; */
+        height: auto;
     }
 
     :where(.filler){
@@ -324,6 +351,7 @@
         display: flex;
         flex-direction: column;
         position: relative;
+        background: white;
     }
 
     .foto-boneca-container > div{
@@ -337,23 +365,46 @@
         transform: scaleY(-1);
         display: flex;
         margin-top: -1px;
+        z-index: 1;
+        height: fit-content
     }
 
     .foto-boneca-container > .mobile-divider-bottom{
         bottom: 0;
+        z-index: 1;
+        height: fit-content;
     }
 
-    .foto-boneca-container > .foto-boneca{
-        height: 250px;
-        max-height: 250px;
+    :where(.mobile-divider-bottom, .mobile-divider-top) svg{
+        position: absolute;
+        bottom: 0;;
+    }
+
+    .foto-boneca-container > .in-between-photo{
+        /* height: 250px; */
+        height: auto;
+        /* max-height: 250px; */
         display: flex;
+        width: 100%;
         position: relative;
+    }
+
+    .in-between-photo img{
+        height: auto;
+        width: 100%;
     }
 
     
     .desktop{
         display: none;
     }
+
+    
+
+    @supports (-webkit-touch-callout: none) {
+        /* CSS specific to iOS devices */ 
+    }
+
 
 
     @media screen and (max-width: 480px){
@@ -365,18 +416,21 @@
     
     @media screen{
         .photo::before{
-            --shape-width: min(33%, 130px);
+            --shape-width: calc( var(--shape-height) / 1.6);/* min(33%, 130px); */
+            --shape-height: clamp(120px, 50 * var(--fr), 220px);
             content: '';
             position: absolute;
             width: var(--shape-width);
-            background: var(--mobile-background-color);
-            border: 10px solid var(--mobile-background-color);
-            height: min(200px,50vw);
-            clip-path: ellipse(50% 49% at 50% 50%);
-            transform: translateY(-50px);
+            border: 10px solid white;
+            /* height: min(200px,50vw); */
+            height: var(--shape-height);
+            border-radius: 50%;
+            background: var(--alternative-blue);
+            /* clip-path: ellipse(50% 49% at 50% 50%); */
+            transform: translateY(-40px);
         }
 
-        .photo::after{
+        /* .photo::after{
             --shape-width: min(34.61%, 135px);
             content: '';
             position: absolute;
@@ -385,7 +439,7 @@
             height: min(200px,50vw);
             clip-path: ellipse(50% 49% at 50% 50%);
             transform: translateY(-50px);
-        }
+        } */
 
         .art :where(.mobile > div){
             z-index: 3;
@@ -455,8 +509,19 @@
             --sky-decor-width: 130px;
         }
 
+        :where(.hero > a){
+            margin-top: 0;
+            height: unset;
+            position: unset;
+        }
+
+        .art :where(svg){
+            max-width: unset;
+        }
+
         .sky :where(svg){
             max-width: var(--sky-decor-width);
+            min-height: 100px;
         }
         
         #top-flower-1{
@@ -479,9 +544,10 @@
             --ground-decor-height: 50px;
         }
 
-        .ground :where(div,svg){
-            width: min-content;
-        }
+        /* .ground :where(div,svg){
+            width: fit-content;
+            height: auto;
+        } */
 
         .ground :where(svg){
             height: var(--ground-decor-height);
@@ -581,13 +647,6 @@
         }
     }
     
-    @media screen and (min-width: 1024px){
-        /* :where(.hero){
-            padding-left: var(--sidebar-size);
-            padding-right: var(--sidebar-size);  
-        } */
-    }
-    
 
 </style>
 
@@ -668,22 +727,27 @@ export default {
         checkIfAllLoaded: async function(callback) {
             await this.$nextTick();
             callback();
+        },
+        checkIfMobile(){
+            let isMobile = this.$storage.get('isMobile');
+            if(isMobile){
+                if (!this.isMobile){
+                    this.isMobile = isMobile;
+                }
+            }
         }
     },
     beforeMount(){
         window.addEventListener('on-breakpoint-change', (e) => {
             this.isMobile = e.detail.isMobile;
-            console.log(e.detail);
         });
     },
     updated() {
         this.checkIfAllLoaded(() => {
             if(!this.extrasHasLoaded) this.extrasHasLoaded = true;
         });
+        this.checkIfMobile();
     },
 }
 </script>
-
-/* ratio = width(588) / heigth(848)
-new height = new width * ratio; */
 

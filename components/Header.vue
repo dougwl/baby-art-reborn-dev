@@ -26,7 +26,7 @@
     position: absolute;
     right: 0;
     text-align: center;
-    top: 0;
+    top: -1px;
     z-index: 100;
   }
 
@@ -41,7 +41,7 @@
     position: absolute;
     width: 100%;
     z-index: -1;
-    top: -1px;
+    /* top: -1px; */
     transition: opacity 0.35s ease-in-out;
   }
 
@@ -66,8 +66,9 @@
     fill: var(--main-color);  /* #f8f5e9 */
     height: 97px;
     width: 180px;
-    margin-top: -15px;
-    padding-bottom: max(min((100vh - 690px) * -1, 1px) * 50 , 0px); /* If screen height < 690, padding = 50px */
+    /* width: 220px; */
+    margin-top: 5px;
+    /* padding-bottom: max(min((100vh - 690px) * -1, 1px) * 50 , 0px); */ /* If screen height < 690, padding = 50px */
     /* padding-bottom: clamp(0px, (100vh - 690px) * -50 , 50px); */
   }
 
@@ -135,13 +136,17 @@
       transition-delay: 0s; */
       width: calc(100% - (min(150px, 10%) - 2px));
       z-index: 101;
-      top: -1px;
+      /* top: -1px; */
       left: calc(min(75px, 5%) - 1px);
       opacity: unset;
     }
 
     .header.fixed::before{
       z-index: inherit;
+    }
+
+    .logo :where(svg){
+      margin-top: -15px;
     }
 
     .logo-top{
@@ -159,7 +164,7 @@
       height: min(75px, 5vw - 1px);
       width: 250px;
       position: fixed;
-      top: -1px;
+      top: 1px;
       left: calc((100% / 2) - 125px);
       background: #f9f7f2;
       z-index: -1;

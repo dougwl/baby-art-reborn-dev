@@ -48,6 +48,16 @@
     border: 0;
 }
 
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.35s;
+}
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
+
+
 @media screen and (max-width: 1023px) {
     :where(html, body){
         overflow-x: hidden;
@@ -57,11 +67,12 @@
 
 @media screen and (min-width: 1024px){
     .container > header {
-        padding: 0 75px;
+        padding: 0 min(75px, 5vw);
         transition: var(--navTransition);
     }
 
     .container{
-        padding: 0 min(75px, 5%);
+        padding: 0 min(75px, 5vw);
+        padding-top: min(75px, 5vw);
     }
 }

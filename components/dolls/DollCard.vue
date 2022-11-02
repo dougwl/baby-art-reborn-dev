@@ -1,11 +1,11 @@
 <template>
     <div class="product">
-        <NuxtLink :to="'/bonecas/' + product.handle">
+        <NuxtLink :to="'/bonecas/' + product.handle" prefetch>
             <picture class="photo">
                 <source :media="queries.small.condition" :srcset="queries.small.src">
                 <source :media="queries.medium.condition" :srcset="queries.medium.src">
                 <source :media="queries.big.condition" :srcset="queries.big.src">
-                <img :src="card.image.src" :alt="card.title" loading="lazy">
+                <img :src="card.image.src" :alt="card.title" loading="lazy" class="loading" @load="loaded">
             </picture>
             <div class="details">
                 <p class="title">{{card.title}}</p>
@@ -22,8 +22,10 @@
         grid-template-columns: 1fr;
         /* background: lightgoldenrodyellow; */
         min-height: 150px;
-        min-width: 150px;
-        max-width: 300px;
+        /* min-width: 150px;
+        max-width: 300px; */
+        min-width: 250px;
+        max-width: min(50vw, 400px);
         outline: solid 1px #d58993;
         outline-offset: 15px;
         margin: 15px;
@@ -31,7 +33,8 @@
 
     @media screen and (min-width: 1024px){
         .product{
-            max-width: 400px;
+            /* max-width: 400px; */
+            max-width: 30vw;
         }
     }
 
@@ -40,6 +43,10 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-auto-flow: column;
+    }
+
+    .details > p {
+        margin: 0;
     }
 
     .title{
@@ -64,15 +71,18 @@
     }
 
     .photo img{
+        --photo-opacity: 100%;
         object-fit: fill;
         width: 100%;
-        /* outline: solid 5px hsl(308deg 100% 95%); */
+        opacity: var(--photo-opacity);
+        transition: opacity 0.55s ease-in;
+    }
+
+    .photo img.loading{
+        opacity: 0%;
     }
 
     @media screen and (min-width: 1024px){
-        /* .photo img{
-            outline: solid 15px hsl(308deg 100% 95%);
-        } */
 
         .details{
             margin-top: 15px;
@@ -95,9 +105,10 @@
             pointer-events: none;
         }
 
-        .photo:hover::before{
+        :where(.photo):hover::before{
+            --card-hover-opacity: 25%;
+            opacity: var(--card-hover-opacity);
             visibility: visible;
-            opacity: 25%;
         }
     }
 </style>
@@ -140,6 +151,13 @@ export default {
                 })
             },
         }
+    },
+    methods: {
+        loaded(e){
+            /** @type {HTMLElement} */
+            let target = e.target;
+            target.classList.toggle('loading', false);
+        },
     },
     watch: {
         product: {

@@ -75,12 +75,12 @@
                     <div class="mobile-divider-top">
                         <component :id="this.extras.responsive.mobileDivider.id + '-top'" :is="this.extras.responsive.mobileDivider.svg"></component>
                     </div>
-                    <div class="in-between-photo">
+                    <!-- <div class="in-between-photo">
                         <nuxt-img src="/in_between.webp" width="375" height="320" style="object-fit: fill" title="Boneca Reborn, entre sessões."/>
-                    </div>
-                    <div class="mobile-divider-bottom">
+                    </div> -->
+                    <!-- <div class="mobile-divider-bottom">
                         <component :id="this.extras.responsive.mobileDivider.id + '-bottom'" :is="this.extras.responsive.mobileDivider.svg"></component>
-                    </div>
+                    </div> -->
                 </div>
             </client-only>
         </div>

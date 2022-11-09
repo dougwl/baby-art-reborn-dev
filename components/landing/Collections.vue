@@ -165,12 +165,13 @@
 }
 
 .title{
+    --outline-color: var(--main-color);
     position: absolute;
     bottom: -25px;
     text-align: center;
     white-space: pre-line;
     background: var(--alternative-blue);
-    outline: solid 1px var(--main-color);
+    outline: solid 1px var(--outline-color);
     height: 60px;
     width: 180px;
     display: flex;
@@ -240,6 +241,16 @@
         box-shadow: 12px 12px 4px 0px rgb(0 0 0 / 25%);
     }
 
+    .title{
+        transition: background, color, outline, 0.25s ease-in;
+    }
+
+    .title:hover{
+        --outline-color: white;
+        background: var(--main-color);
+        color: white;
+    }
+
     .collection:nth-child(1) .border{
         transform: rotateZ(-2deg);
     }
@@ -307,7 +318,7 @@
     }
 }
 
-@media screen and (min-width: 1400px){
+@media screen and (min-width: 1536px){
     .collections--container{
         padding-left: 250px;
         padding-right: 250px;

@@ -3,13 +3,17 @@
     <main id="main" class="page__content">
       <div class="home">
         <LandingHeroContent />
-        <LandingFeatured />
+        <!-- <LandingFeatured /> -->
         <LandingCollections />
+        <LandingPreparation /> 
+        <LandingFiller />
+        <LandingHistory/>
+        <LandingNewsletter/>
         <!-- <section class="featured-categories"></section> -->
-        <section class="about--confeccao"></section>
-        <section class="hero-phrase"></section>
+        <!-- <section class="about--confeccao"></section> -->
+        <!-- <section class="hero-phrase"></section>
         <section class="about--minha-historia"></section>
-        <section class="newsletter-signup"></section>
+        <section class="newsletter-signup"></section> -->
       </div>
     </main>
   </div>

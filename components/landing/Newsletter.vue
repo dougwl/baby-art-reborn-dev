@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="inner-text">
-                <p>Se inscreva ao newsletter e receba em primeira mão informações, atualizações sobre produtos e lançamentos!</p>
+                <p>Se inscreva ao newsletter e receba em primeira mão, informações sobre produtos, atualizações e lançamentos!</p>
             </div>
             <div class="storks">
                 <div class="right">
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <form class="newsletter-signup__form" netlify novalidate onsubmit="return false">
+        <form class="newsletter-signup__form" data-netlify="true" method="post" target="_blank" novalidate onsubmit="return false">
             <label for="newsletter-signup-email" class="visually-hidden">Informe seu email.</label>
             <input type="email" name="email" id="newsletter-signup-email" placeholder="Informe o seu email:" required>
             <button type="submit" class="newsletter-signup__button">
@@ -134,7 +134,7 @@
 }
 
 #text-on-curve{
-    stroke: var(--main-color);
+    /* stroke: var(--main-color); */
     fill: var(--main-color);
     font-size: 20px;
 }

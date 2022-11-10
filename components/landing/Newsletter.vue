@@ -28,7 +28,9 @@
                 </div>
             </div>
         </div>
-        <form class="newsletter-signup__form" data-netlify="true" method="post" target="_blank" novalidate onsubmit="return false">
+        <form class="newsletter-signup__form" data-netlify="true" netlify-honeypot="newsletter-signup-security" method="post" @submit="handleSubmit" novalidate> <!-- target="_blank" onsubmit="return false" -->
+            <label for="newsletter-signup-security" class="hidden_label visually-hidden">Hidden.</label>
+            <input name="newsletter-signup-security" class="visually-hidden" id="newsletter-signup-security">
             <label for="newsletter-signup-email" class="visually-hidden">Informe seu email.</label>
             <input type="email" name="email" id="newsletter-signup-email" placeholder="Informe o seu email:" required>
             <button type="submit" class="newsletter-signup__button">
@@ -37,8 +39,9 @@
             </button>
             <hr class="form_thematic_break">
         </form>
-        <div class="form-message">
-            <span></span>
+        <div :class="{'form-message': true, 'success': submitStatus.success, 'error': submitStatus.error}">
+            <span class="success-message">Obrigado por se inscrever, logo entraremos em contato!</span>
+            <span class="error-message">Ops! Houve um problema, tente novamente mais tarde.</span>
         </div>
     </section>
 </template>
@@ -162,6 +165,30 @@
     display: none;
 }
 
+.form-message{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    padding-top: 25px;
+}
+
+.form-message .success-message,
+.form-message .error-message{
+    visibility: hidden;
+    grid-column: 1/1;
+    grid-row: 1/1;
+    color: var(--main-color);
+    font-family: 'Prociono';
+    font-size: 14px;
+}
+
+.form-message.error .error-message,
+.form-message.success .success-message{
+    visibility: visible;
+}
 
 @media (min-width: 1024px){
     .newsletter-title{
@@ -204,7 +231,49 @@
 export default {
     data() {
         return{
-            stork: require('~/assets/svg/newsletter/stork.svg?inline')
+            stork: require('~/assets/svg/newsletter/stork.svg?inline'),
+            submitStatus: {
+                success: false,
+                fail: false
+            }
+        }
+    },
+    methods: {
+        /**
+         * @param {SubmitEvent} event
+         */
+        async handleSubmit (event) {
+            event.preventDefault();
+
+            /** @type {HTMLFormElement} */
+            const newsletterForm = event.target;
+            const formData = new FormData(newsletterForm);
+
+            let response;
+
+            try {
+
+                response = await fetch("/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams(formData).toString(),
+                })
+
+                this.succeeded();
+
+            } catch (error) {
+
+                 console.log(error);
+                 this.failed();
+            }
+        },
+        succeeded(){
+            this.submitStatus.success = true;
+            this.submitStatus.fail = false;
+        },
+        failed(){
+            this.submitStatus.success = false;
+            this.submitStatus.fail = true;
         }
     }
 }

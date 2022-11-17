@@ -17,7 +17,7 @@
                 <div class="link-heading">
                     <span class="subtitle">Trajetória e Experiência </span>
                     <span class="other-subtitle"> Ledir de Oliveira Rosa </span>
-                    <nuxt-link :to="'/historia'" class="history--button">
+                    <nuxt-link :to="'/minha-historia'" class="history--button">
                         <span>Ler História</span>
                     </nuxt-link>
                 </div>

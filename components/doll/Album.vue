@@ -95,7 +95,7 @@
         width: auto;
         height: 100%;
         object-fit: cover;
-        object-position: center;
+        object-position: right;
     }
 
     .item{

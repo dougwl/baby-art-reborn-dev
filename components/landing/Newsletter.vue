@@ -28,17 +28,22 @@
                 </div>
             </div>
         </div>
-        <form class="newsletter-signup__form" data-netlify="true" netlify-honeypot="newsletter-signup-security" method="post" @submit="handleSubmit" novalidate> <!-- target="_blank" onsubmit="return false" -->
-            <label for="newsletter-signup-security" class="hidden_label visually-hidden">Hidden.</label>
-            <input name="newsletter-signup-security" class="visually-hidden" id="newsletter-signup-security">
+        <form name="newsletter-form" class="newsletter-signup__form" data-netlify="true" netlify-honeypot="form-name" method="post" @submit="handleSubmit" novalidate> 
+
+            <input type="hidden" name="form-name" value="newsletter-form">
+            <label for="form-name" class="hidden_label visually-hidden">Hidden</label>
+
             <label for="newsletter-signup-email" class="visually-hidden">Informe seu email.</label>
             <input type="email" name="email" id="newsletter-signup-email" placeholder="Informe o seu email:" required>
+
             <button type="submit" class="newsletter-signup__button">
                 <span class="visually-hidden">Enviar</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="#000000" viewBox="0 0 256 256"><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line><polyline points="144 56 216 128 144 200" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></polyline></svg>
             </button>
+
             <hr class="form_thematic_break">
         </form>
+
         <div :class="{'form-message': true, 'success': submitStatus.success, 'error': submitStatus.error}">
             <span class="success-message">Obrigado por se inscrever, logo entraremos em contato!</span>
             <span class="error-message">Ops! Houve um problema, tente novamente mais tarde.</span>
@@ -92,6 +97,7 @@
     outline: none;
     font-family: 'Prociono';
     font-size: 16px;
+    border: none;
 }
 
 .newsletter-signup__form input::placeholder{
@@ -104,6 +110,7 @@
 }
 
 .newsletter-signup__form .form_thematic_break{
+    border: none;
     border-top: 1px var(--main-color) solid;
     height: 0px;
     width: 100%;
@@ -119,6 +126,7 @@
     width: 30px;
     padding: 5px;
     cursor: pointer;
+    border: none;
 }
 
 .newsletter-signup__button svg{
@@ -150,6 +158,10 @@
     grid-row: 2/2;
     width: 100%;
     height: 80px;
+}
+
+:where(.stork, .storks) :where(path:nth-child(2), path:nth-child(3)){
+    fill: var(--main-color);
 }
 
 .stork svg{

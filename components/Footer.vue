@@ -9,22 +9,20 @@
         <div class="nav">
           <ul class="nav-links --desktop">
             <li class="nav-link">
-              <a href="/">
-                Sobre Mim
-              </a>
+              <NuxtLink to="/minha-historia" class="menu__link">Sobre Mim</NuxtLink>
             </li>
-            <li class="nav-link">
+            <!-- <li class="nav-link">
               <a href="/">
                 História
               </a>
-            </li>
+            </li> -->
             <li class="nav-link">
               <a href="/">
                 Contato
               </a>
             </li>
           </ul>
-          <ul class="extra-links --desktop">
+          <!-- <ul class="extra-links --desktop">
             <li class="extra-link">
               <a href="/">
                 Política de Devolução
@@ -45,7 +43,7 @@
                 Política de Privacidade
               </a>
             </li>
-          </ul>
+          </ul> -->
           <ul class="social-links"> 
             <li class="social-link">
               <a href="https://www.facebook.com/babyartreborn/" target="_blank">

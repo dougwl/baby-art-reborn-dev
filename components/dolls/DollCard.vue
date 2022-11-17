@@ -9,7 +9,7 @@
             </picture>
             <div class="details">
                 <p class="title">{{card.title}}</p>
-                <p class="price">{{card.price}}</p>
+                <p class="price">R$ {{card.price}}</p>
             </div>
         </NuxtLink>
     </div>
@@ -56,6 +56,7 @@
     .price{
         text-align: right;
         text-transform: uppercase;
+        font-family: auto;
     }
 
     .title,

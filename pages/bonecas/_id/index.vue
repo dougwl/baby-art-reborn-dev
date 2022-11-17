@@ -125,6 +125,7 @@
 
 .preco{
     /* font-size: 10px; */
+    font-family: auto;
     font-size: 15px;
     font-weight: bolder;
     letter-spacing: 3px;

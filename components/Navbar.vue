@@ -11,13 +11,13 @@
                     <!-- <a href="/bonecas">Bonecas</a> -->
                 </li>
                 <li class="menu__item">
-                    <NuxtLink to="/sobremim" class="menu__link">Sobre Mim</NuxtLink>
+                    <NuxtLink to="/minha-historia" class="menu__link">Sobre Mim</NuxtLink>
                     <!-- <a href="/sobre-mim">Sobre Mim</a> -->
                 </li>
-                <li class="menu__item">
+                <!-- <li class="menu__item">
                     <NuxtLink to="/historia" class="menu__link">História</NuxtLink>
-                    <!-- <a href="/historia">História</a> -->
-                </li>
+                    <a href="/historia">História</a>
+                </li> -->
                 <li class="menu__item">
                     <NuxtLink to="/contato" class="menu__link">Contato</NuxtLink>
                     <!-- <a href="/contato">Contato</a> -->

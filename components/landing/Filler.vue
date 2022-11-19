@@ -105,7 +105,7 @@
     left: -5%;
 }
 
-#filler-horse[data-v-28487283] {
+#filler-horse{
     top: clamp(100px, 13%, 13%);
     left: -19.5%;
 }

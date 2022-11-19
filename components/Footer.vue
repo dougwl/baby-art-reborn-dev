@@ -57,12 +57,12 @@
                   Facebook
                 </a>
             </li>
-            <li class="social-link">
+            <!-- <li class="social-link">
               <a href="https://www.pinterest.com/babyartreborn/" target="_blank">
-                  <!-- <div v-html="require('~/assets/svg/pinterest.svg?raw')"></div> -->
+                  <div v-html="require('~/assets/svg/pinterest.svg?raw')"></div>
                   Pinterest
                 </a>
-            </li>
+            </li> -->
           </ul>
         </div>
         <div class="aside">

@@ -2,12 +2,8 @@
     <section class="newsletter-signup">
         <div class="newsletter-title">
             <div class="curved-text" aria-label="Oi, não vá embora ainda!">
-                <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="0 0 263 20" >
-                    <path id="text-curve" fill="none" d="M0 131.12C0 58.75 58.75 0 131.12 0s131.12 58.75 131.12 131.12"/>
-                    <text id="text-on-curve">
-                        <textpath xlink:href="#text-curve" startOffset="50%" text-anchor="middle">Oi, não vá embora ainda!</textpath>
-                    </text>
-                </svg>
+                <!-- <component :is="curvedText" /> -->
+                <div class="newsletter-curved-text" v-html="require('~/assets/svg/newsletter/text.svg?raw')"></div>
             </div>
             <div class="stork">
                 <component :is="stork" />
@@ -51,8 +47,23 @@
     </section>
 </template>
 
-<style scoped>
+<style>
 
+ .newsletter-curved-text{
+    height: 100px;
+    width: 200px;
+ }
+
+ .newsletter-curved-text svg{
+    height: 100px;
+    width: 200px;
+    font-size: 25px;
+    fill: var(--main-color)
+ }
+
+</style>
+
+<style scoped>
 
 .newsletter-signup,
 .newsletter-signup__form,
@@ -244,6 +255,7 @@ export default {
     data() {
         return{
             stork: require('~/assets/svg/newsletter/stork.svg?inline'),
+            curvedText: require('~/assets/svg/newsletter/text.svg?inline'),
             submitStatus: {
                 success: false,
                 fail: false

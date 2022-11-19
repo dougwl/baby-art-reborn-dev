@@ -14,17 +14,17 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 200px;
+        margin-top: 250px;
         margin-bottom: 200px;
         min-height: 100vh;
         width: 100%;
     }
 
-    @media screen and (max-height: 700px){
+    /* @media screen and (max-height: 700px){
         .lista-bonecas{
             margin-top: 180px;
         }
-    }
+    } */
 
     .bonecas{
         display: grid;

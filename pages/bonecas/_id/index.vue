@@ -19,10 +19,10 @@
                             </span>
                         </p>
                     </div>
-                <div class="adicionar-ao-carrinho">
-                    <!-- <AddToCart /> -->
+                <!-- <div class="adicionar-ao-carrinho">
+                    <AddToCart />
                 </div>
-                <!-- <div class="outras-informacoes">
+                <div class="outras-informacoes">
                     <Tabs />
                 </div> -->
                 </div>
@@ -32,9 +32,9 @@
                 <!-- AlbumDesktop and AlbumMobile goes here -->
             </client-only>
         </section>
-        <section class="recomendados">
+        <!-- <section class="recomendados">
             <h3></h3>
-        </section>
+        </section> -->
     </div>
 </template>
 

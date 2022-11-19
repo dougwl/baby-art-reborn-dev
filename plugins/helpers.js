@@ -76,17 +76,26 @@ export const helpers =  (shopify) => {
             return resizedImage;
         }, 
         getResponsiveImage: function({ photo, intrinsicSize, availableSize, modifiers}){
-            let aspectRatio = intrinsicSize.width / intrinsicSize.height;
-            let availableAspectRatio = availableSize.width / availableSize.height;
             let newSize = {};
-            if(aspectRatio > availableAspectRatio){
-                newSize.width = availableSize.width;
-                newSize.height = Math.round(availableSize.width / aspectRatio);
-            }  // If the image is wider than the available space, then the width will be the available space and the height will be calculated based on the aspect ratio.
-            else{ // If the image is taller than the available space, then the height will be the available space and the width will be calculated based on the aspect ratio.
-                newSize.width = Math.round(availableSize.height * aspectRatio);
-                newSize.height = availableSize.height;
+            let aspectRatio = 0;
+            let availableAspectRatio = 0;
+            /* if(intrinsicSize.width < intrinsicSize.height){
+                aspectRatio = intrinsicSize.width / intrinsicSize.height;
+                availableAspectRatio = availableSize.width / availableSize.height;
+                if(aspectRatio > availableAspectRatio){
+                    newSize.width = availableSize.width;
+                    newSize.height = Math.round(availableSize.width / aspectRatio);
+                }  // If the image is wider than the available space, then the width will be the available space and the height will be calculated based on the aspect ratio.
+                else{ // If the image is taller than the available space, then the height will be the available space and the width will be calculated based on the aspect ratio.
+                    newSize.width = Math.round(availableSize.height * aspectRatio);
+                    newSize.height = availableSize.height;
+                }
             }
+            else{
+                
+            } */
+            newSize.width = intrinsicSize.width;
+            newSize.height = intrinsicSize.height;
             return this.getResizedImage({photo, newSize, modifiers});
 
         }

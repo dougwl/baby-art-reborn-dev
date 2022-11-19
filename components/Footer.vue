@@ -86,6 +86,8 @@
 
     ul,li{
       list-style: none;
+      margin: none;
+      padding: none;
     }
 
     a{

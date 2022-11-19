@@ -72,6 +72,7 @@
 .wave path{
     fill: white;
     height: auto;
+    width: 100%;
 }
 
 .wave .bottom svg,

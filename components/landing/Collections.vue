@@ -6,18 +6,18 @@
                     <div class="border">
                         <div class="image">
                             <picture>
-                                <nuxt-source
+                                <!-- <nuxt-source
                                     :media="'(max-width: 1023px)'"
                                     :src="'/meninas.webp'"
                                     :sizes="'xs:200px'"
-                                />
+                                /> -->
                                 <nuxt-source
-                                    :media="'(min-width: 1024px)'"
+                                    :media="'(max-width: 1023px)'"
                                     :src="'/meninas.webp'"
                                     :sizes="'md:400px'"
                                 />
                                 <nuxt-source
-                                    :media="'(min-width: 1280px)'"
+                                    :media="'(min-width: 1024px)'"
                                     :src="'/meninas.webp'"
                                     :sizes="'xl:600px'"
                                 />
@@ -33,18 +33,18 @@
                     <div class="border">
                         <div class="image">
                             <picture>
-                                <nuxt-source
+                                <!-- <nuxt-source
                                     :media="'(max-width: 1023px)'"
                                     :src="'/meninos.webp'"
                                     :sizes="'xs:200px'"
-                                />
+                                /> -->
                                 <nuxt-source
-                                    :media="'(min-width: 1024px)'"
+                                    :media="'(max-width: 1023px)'"
                                     :src="'/meninos.webp'"
                                     :sizes="'md:400px'"
                                 />
                                 <nuxt-source
-                                    :media="'(min-width: 1280px)'"
+                                    :media="'(min-width: 1024px)'"
                                     :src="'/meninos.webp'"
                                     :sizes="'xl:600px'"
                                 />
@@ -60,18 +60,18 @@
                     <div class="border">
                         <div class="image">
                             <picture>
-                                <nuxt-source
+                                <!-- <nuxt-source
                                     :media="'(max-width: 1023px)'"
                                     :src="'/gemeos.webp'"
                                     :sizes="'xs:200px'"
-                                />
+                                /> -->
                                 <nuxt-source
-                                    :media="'(min-width: 1024px)'"
+                                    :media="'(max-width: 1023px)'"
                                     :src="'/gemeos.webp'"
                                     :sizes="'md:400px'"
                                 />
                                 <nuxt-source
-                                    :media="'(min-width: 1280px)'"
+                                    :media="'(min-width: 1024px)'"
                                     :src="'/gemeos.webp'"
                                     :sizes="'xl:600px'"
                                 />

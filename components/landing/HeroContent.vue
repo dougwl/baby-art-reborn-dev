@@ -132,7 +132,8 @@
     :where(.hero) ::before,
     :where(.hero) ::after{
         --sidebar-size: 75px;
-        --fr: max(-1 * (1vw - 1vh), 1vw - 1vh);
+        /* --fr: max(-1 * (1vw - 1vh), 1vw - 1vh); */
+        --fr: 1em;
     }
 
     :where(.hero, .hero > a, .hero > .wrapper){

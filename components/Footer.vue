@@ -46,13 +46,13 @@
           </ul> -->
           <ul class="social-links"> 
             <li class="social-link">
-              <a href="https://www.facebook.com/babyartreborn/" target="_blank">
+              <a href="https://www.instagram.com/babyartreborn/" target="_blank">
                   <!-- <div v-html="require('~/assets/svg/facebook.svg?raw')"></div> -->
                   Instagram
                 </a>
             </li>
             <li class="social-link">
-              <a href="https://www.instagram.com/babyartreborn/" target="_blank">
+              <a href="https://www.facebook.com/babyartreborn/" target="_blank">
                   <!-- <div v-html="require('~/assets/svg/instagram.svg?raw')"></div> -->
                   Facebook
                 </a>
@@ -86,8 +86,13 @@
 
     ul,li{
       list-style: none;
-      margin: none;
-      padding: none;
+      margin: 0px;
+      padding: 0px;
+      margin-block-start: 0px;
+      margin-block-end: 0px;
+      margin-inline-start: 0px;
+      margin-inline-end: 0px;
+      padding-inline-start: 0px;
     }
 
     a{

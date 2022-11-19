@@ -284,6 +284,7 @@
     .art :where(svg){
         width: fit-content;
         height: auto;
+        max-height: 50px;
         max-width: 50px;
     }
 
@@ -518,6 +519,7 @@
 
         .art :where(svg){
             max-width: unset;
+            max-height: unset;
         }
 
         .sky :where(svg){

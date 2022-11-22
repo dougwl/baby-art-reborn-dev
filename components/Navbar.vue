@@ -38,7 +38,9 @@
             </ul>
         </div>
         <button type="button" class="close-nav">
-            <span class="close-icon">X</span>
+            <span class="close-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="#ffffff" viewBox="0 0 256 256"><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"></line></svg>
+            </span>
         </button>
     </section>
 </template>
@@ -103,6 +105,15 @@ body.nav-open .close-nav{
     margin-top: min(80px, 20vh);
 }
 
+.close-icon svg{
+    width: 35px;
+    height: 35px;
+}
+
+.close-icon line{
+    stroke: var(--main-color);
+}
+
 .nav .menu{
     width: calc(100% - 75px);
     list-style: none;
@@ -115,7 +126,7 @@ body.nav-open .close-nav{
     justify-content: center;
     align-items: center;
     white-space: nowrap;
-    margin: -15vh 30%;
+    margin: -15vh 20%;
 }
 
 .menu__item{
@@ -147,12 +158,13 @@ body.nav-open .close-nav{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 0;
 }
 
 .menu__item.submenu li{
     height: 25px;
     margin-top: 5px;
-    /* padding-left: 10px; */
+    padding-left: 10px;
     transition: background 0.25s ease-in;
 }
 

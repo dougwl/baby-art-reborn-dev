@@ -36,6 +36,10 @@
     color: #d3838e;
 }
 
+:where(a, button){
+    -webkit-tap-highlight-color: transparent;
+}
+
 .visually-hidden{
     position: absolute;
     width: 1px;

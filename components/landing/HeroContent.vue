@@ -284,8 +284,8 @@
     .art :where(svg){
         width: fit-content;
         height: auto;
-        max-height: 50px;
-        max-width: 50px;
+        max-height: 30px;
+        max-width: 30px;
     }
 
     .illustration > div{

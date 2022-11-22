@@ -98,6 +98,7 @@ const productsQuery = () => {
   });
 };
 
+
 const fetchAllProductsCustom = () => defaultRequest({
   request: $shopify.graphQLClient.send(productsQuery).then(({model, data}) => {
     return model;
@@ -122,7 +123,19 @@ const fetchProductBy = (msgError) => {
     handle: (handle) => defaultRequest({
       request: $shopify.product.fetchByHandle(handle),
       msgError: errorMsg
-    })
+    }),
+    handleCustom: (handle) => defaultRequest({
+      request: $storage.remember('products', fetchAllProductsCustom).then((products) => {
+        let result = undefined;
+        products.forEach(product => {
+          if(product.handle == handle){
+            result = product;
+          }
+        });
+        return result;
+      }),
+      msgError: errorMsg
+    }), 
   }
 };
 
@@ -158,6 +171,9 @@ const retrieveProductBy = (msgError) => {
     }),
     handle: (handle, callback = undefined) => defaultRequest({
       request: $storage.remember(`product-${handle}`, () => fetchProductBy().handle(handle)),
+    }),
+    handleCustom: (handle, callback = undefined) => defaultRequest({
+      request: $storage.remember(`product-${handle}`, () => fetchProductBy().handleCustom(handle)),
     })
   }
 }

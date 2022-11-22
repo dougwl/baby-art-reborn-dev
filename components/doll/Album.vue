@@ -100,6 +100,11 @@
         object-position: right;
     }
 
+    .gallery img.horizontal{
+        object-fit: contain;
+        background: var(--product-background);
+    }
+
     .item{
         --grid-position: 1 / 1 / 1 / 1;
         grid-area: var(--grid-position);
@@ -194,7 +199,7 @@
         .gallery img{
             width: auto;
             height: 100%;
-            max-width: unset;
+            max-width: 90%;
         }
 
         .item{
@@ -325,6 +330,11 @@ export default {
             const img = photo;
 
             if(!img) return console.error('Photo object is undefined.');
+            if(source.localName == "img"){
+                if(img.width > img.height){
+                    source.classList.add('horizontal');
+                }
+            }
 
             const intrinsicSize = { width: img.width, 
                                     height: img.height };

@@ -11,11 +11,18 @@
 
 <style>
 
-@media screen and (min-width: 1024px){
-    body.nav-open{
-        overflow: hidden;
-    }
+body.nav-open{
+    overflow: hidden;
+}
 
+@media (max-width: 1023px){
+    body.nav-open{
+        height: 99vh;
+    }
+}
+
+@media screen and (min-width: 1024px){
+    
     @keyframes fadein{
         0%{
             opacity: 0%;
@@ -116,7 +123,7 @@ export default {
     watch: {
         '$screen.width'(){
             this.isThisMobile();
-        },
+        }
     }
 }
 </script>

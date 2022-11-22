@@ -102,12 +102,13 @@
             position: absolute;
             opacity: 0%;
             transition: opacity 0.20s ease-in;
-            background-color: #d58993;
+            /* background-color: #d58993; */
+            background-color: white;
             pointer-events: none;
         }
 
         :where(.photo):hover::before{
-            --card-hover-opacity: 25%;
+            --card-hover-opacity: 35%;
             opacity: var(--card-hover-opacity);
             visibility: visible;
         }
@@ -171,6 +172,7 @@ export default {
                         imageSource: this.card.image,
                         mediaQueries: this.queries 
                     }); */
+                    /* console.log(this.product); */
                 }
             },
             immediate: true   

@@ -9,22 +9,24 @@
                     </h1>
                     <div class="detalhes">
                         <div class="peso">
-                            <span>Peso {{product.weight}} kg</span>
+                            <span>Peso 1.85 kg</span>
                         </div>
                         <div class="preco">
                             <span class="valor">R$ {{product.price}}</span>
+                        </div>
+                        <div :class="{'order': true, 'on-sale': this.onSale}">
+                            <a href="" @click="onLinkClicked">
+                                <div class="art">
+                                    <component class="icon" :is="this.art.shoppingBag"/>
+                                </div>
+                                <span>{{this.onSale ? 'Encomendar' : 'Fazer Orçamento'}}</span>
+                            </a>
                         </div>
                         <p class="descricao" :data-expanded="descriptionExpanded">
                             <span v-html="product.description">         
                             </span>
                         </p>
                     </div>
-                <!-- <div class="adicionar-ao-carrinho">
-                    <AddToCart />
-                </div>
-                <div class="outras-informacoes">
-                    <Tabs />
-                </div> -->
                 </div>
             </div>
             <client-only>
@@ -119,6 +121,7 @@
 }
 
 .peso{
+    font-family: auto;
     margin-bottom: 13px;
     text-shadow: none;
 }
@@ -134,6 +137,77 @@
     /* color: orange; */
 }
 
+.preco .valor{
+    display: flex;
+    flex-direction: column;
+}
+
+.preco span.valor::after {
+    content: '(Preço Sugerido)';
+    font-size: 10px;
+    margin-top: 5px;
+    font-family: 'Prociono';
+    font-weight: 400;
+    text-transform: lowercase;
+}
+
+.order{
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    height: 60px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.order a{
+    width: 70%;
+    height: 100%;
+    background: var(--alternative-blue);
+    color: white;
+    font-family: 'Prociono';
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.order.on-sale a{
+    background: var(--main-color);
+}
+
+
+.art{
+    height: 100%;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.order .icon{
+    width: 30px;
+    height: 30px;
+}
+
+.order path{
+    stroke: var(--alternative-blue);
+}
+
+.order.on-sale path{
+    stroke: var(--main-color)
+}
+
+.order svg rect{
+    stroke: white;
+    fill: white;
+}
+
 .descricao{
     /* margin-top: 40px;
     margin-left: 60px;
@@ -145,6 +219,27 @@
 :where(.descricao p){
     margin: 0;
     padding: 0;
+}
+
+.adicionar-ao-carrinho{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+:where(.adicionar-ao-carrinho,
+.add-to-cart){
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    z-index: 25;
+}
+
+.outras-informacoes{
+    display: flex;
+    width: 100%;
+    max-height: 400px;
+    /* transform: translateY(-30px); */
 }
 
 @media screen and (min-width: 1000px) {
@@ -186,34 +281,6 @@
         margin-top: 40px;     
         padding-right: 0 !important;
     }
-}
-
-
-/* .descricao[data-expanded="false"] p{
-    height: 0;
-    width: 100%;
-    font-size: 13px;
-} */
-
-.adicionar-ao-carrinho{
-    position: fixed;
-    left: 0;
-    bottom: 0;
-}
-
-:where(.adicionar-ao-carrinho,
-.add-to-cart){
-    text-align: center;
-    display: flex;
-    flex-direction: row;
-    z-index: 25;
-}
-
-.outras-informacoes{
-    display: flex;
-    width: 100%;
-    max-height: 400px;
-    /* transform: translateY(-30px); */
 }
 
 
@@ -280,6 +347,26 @@
         margin-bottom: 30px;
         position: static;
     }
+
+    .order{
+        position: relative;
+        width: 100%;
+        margin-top: 60px;
+        margin-bottom: 20px;
+        padding: 0 50px;
+    }
+
+    .order a{
+        cursor: pointer;
+        pointer-events: all;
+        opacity: 100%;
+        transition: opacity 0.25s ease-in-out;
+    }
+
+    .order a:hover{
+        opacity: 85%;
+        transition: opacity 0.25s ease-in-out;
+    }
 }
 
 
@@ -306,12 +393,12 @@
     padding: 0;
 }
 
-/* .boneca .descricao span > * {
+@media (max-width: 1024px){
+    .footer .content{
+        padding-bottom: 75px;
+    }
+}
 
-} */
-/* .boneca .descricao span > *{
-    text-align: unset;
-} */
 </style>
 
 <script>
@@ -326,12 +413,17 @@ export default {
                 price: 0,
                 weight: '0.0',
                 description: '',
-                collection: ''
+                collection: '',
+                tags: []
             },
             album: [],
             loaded: false,
             contentLoaded: false,
-            descriptionExpanded: false
+            descriptionExpanded: false,
+            onSale: false,
+            art: {
+                shoppingBag: require("~/assets/svg/product/shopping-bag.svg?inline")
+            }
         }
     },
     methods: {
@@ -346,7 +438,34 @@ export default {
             this.product.price = prod.price;
             this.product.weight = prod.weight;
             this.album = raw.images;
+            this.product.tags = raw.tags;
         },
+        checkStatus(){
+            /**@type {[String]} */
+            let tags = this.product.tags;
+            this.onSale = false;
+            tags.forEach( tag => {
+                if(tag.value.toLowerCase() == 'encomenda'){
+                    this.onSale = true;
+                }
+            });
+        },
+        onLinkClicked(ev){
+            let orderText = encodeURI('Olá, gostaria de encomendar uma boneca semelhante a (' + this.product.name + "): " + window.location.href + " . Qual seria o orçamento?");
+            let defaultText = 'Olá, gostaria de fazer o orçamento para uma nova boneca.';
+            let URL = "https://wa.me/554788227334?text=";
+            let fullURL = '';
+            
+            if(this.onSale) {
+                fullURL = URL + orderText;
+            } 
+            else {
+                fullURL = URL + defaultText;
+            }
+
+            ev.preventDefault();
+            window.open(fullURL, '_blank');
+        }
     },
     props: {
         fetchedProduct: {
@@ -371,7 +490,7 @@ export default {
         if(this.product.id == undefined && Object.entries(this.$props.fetchedProduct).length == 0){
             routeName = this.$route.params.id; 
             try {
-                prod = await this.$inventory.retrieve.product().handle(routeName);;
+                prod = await this.$inventory.retrieve.product().handleCustom(routeName);;
             } catch (error) {
                 console.log('Error fetching product: ' + error);
             }
@@ -387,6 +506,9 @@ export default {
                     this.contentLoaded = true;
                 });
             }
+        },
+        'product.tags': function() {
+            this.checkStatus();
         }
     },
     fetchOnServer: false,

@@ -10,6 +10,19 @@
                     <NuxtLink to="/bonecas" class="menu__link">Bonecas</NuxtLink>
                     <!-- <a href="/bonecas">Bonecas</a> -->
                 </li>
+                <li class="menu__item submenu">
+                    <ul>
+                        <li>
+                            <NuxtLink to="/bonecas#menina" class="menu__link">Meninas</NuxtLink>
+                        </li>
+                        <li>    
+                            <NuxtLink to="/bonecas#menino" class="menu__link">Meninos</NuxtLink>
+                        </li>
+                        <li>
+                            <NuxtLink to="/bonecas#gemeos" class="menu__link">Gêmeos</NuxtLink>
+                        </li>
+                    </ul>
+                </li>
                 <li class="menu__item">
                     <NuxtLink to="/minha-historia" class="menu__link">Sobre Mim</NuxtLink>
                     <!-- <a href="/sobre-mim">Sobre Mim</a> -->
@@ -117,6 +130,36 @@ body.nav-open .close-nav{
     position: relative;
 }
 
+.menu__item.submenu{
+    height: auto;
+    margin-top: -35px;
+    margin-bottom: 50px;
+}
+
+.menu__item.submenu .menu__link{
+    font-size: 20px;
+}
+
+.menu__item.submenu :where(ul,li,a){
+    list-style: none;
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.menu__item.submenu li{
+    height: 25px;
+    margin-top: 5px;
+    padding-left: 10px;
+    transition: background 0.25s ease-in;
+}
+
+.menu__item.submenu li:hover{
+    background: var(--secondary-color);
+}
+
 .menu__item::before {
     content: '';
     height: 100%;
@@ -124,6 +167,12 @@ body.nav-open .close-nav{
     position: absolute;
     border-top: solid 1px var(--main-color);
     pointer-events: none;
+}
+
+.menu__item:is(.submenu)::before,
+.menu__item:is(.submenu)::after{
+    border-top: unset;
+    border-bottom: unset;
 }
 
 .menu__item:nth-of-type(2)::after,
@@ -231,6 +280,11 @@ body.nav-open .close-nav{
     .menu__item:hover{
         background-color: var(--alternative-blue);
         cursor: pointer;
+    }
+
+    .menu__item.submenu:hover{
+        background-color: unset;
+        cursor: default;
     }
 
     .menu__item::before {

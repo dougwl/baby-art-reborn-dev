@@ -1,5 +1,8 @@
 <template>
     <div class="lista-bonecas">
+        <div class="titulo">
+            <span>{{this.titulo}}</span>
+        </div>
         <div class="bonecas">
             <client-only>
                 <DollsDollCard v-for="product in this.filteredList" :product="product" :key="product.id" />
@@ -14,10 +17,29 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 250px;
+        margin-top: 200px;
         margin-bottom: 200px;
         min-height: 100vh;
         width: 100%;
+        flex-direction: column;
+    }
+
+    .titulo{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 100px;
+        padding: 0 calc(((100vw - (min(15px, 2vw) * 2)) - 20vw) / 5);
+    }
+
+    .titulo span{
+        margin: 0 40px;
+        color: var(--main-color);
+        text-align: center;
+        font-size: 22px;
     }
 
     /* @media screen and (max-height: 700px){
@@ -34,6 +56,34 @@
 
 
     @media screen and (min-width: 1024px){
+
+        .lista-bonecas{
+            margin-top: 150px;
+        }
+
+        .titulo{
+            grid-template-columns: 1fr min-content 1fr;
+        }
+
+        .titulo::before,
+        .titulo::after{
+            content: '';
+            width: 100%;
+            max-width: 100%;
+            border-top: solid 1px var(--main-color);
+            height: 0px;
+            animation: grow 0.65s ease-in;
+        }
+
+        @keyframes grow {
+            0%{
+                max-width: 0%;
+            }
+            100%{
+                max-width: 100%;
+            }
+        }
+
         .bonecas{
             --flex-gap: calc(((100vw - (min(75px, 5vw) * 2)) - 60vw) / 5);
             grid-template-columns: max-content max-content;
@@ -54,7 +104,8 @@ export default {
         return {
             productList: [],
             filteredList: [],
-            filter: ''
+            filter: '',
+            titulo: 'Toda Coleção'
         }
     },
     fetchOnServer: false,
@@ -87,6 +138,16 @@ export default {
             });
             if(filtered.length > 0) return filtered;
             else return catalog;
+        },
+        onRouteChange: function () {
+            if(this.$route.hash !== ''){
+                this.filter = this.$route.hash.replace('#', '');
+                this.filteredList = this.filterProducts(this.filter, this.productList);
+            }
+            else {
+                this.filteredList = this.productList;
+                this.filter = '';
+            }
         }
     },
     async fetch(){
@@ -101,13 +162,26 @@ export default {
         }
     },
     watch: {
-        productList: function () {
-            if(this.$route.hash !== ''){
-                this.filter = this.$route.hash.replace('#', '');
-                this.filteredList = this.filterProducts(this.filter, this.productList);
-            }
-            else {
-                this.filteredList = this.productList;
+        productList: function(){
+            this.onRouteChange();
+        },
+        '$route.hash': function(){
+            this.onRouteChange();
+        },
+        filter: function(){
+            switch (this.filter) {
+                case 'menina':
+                    this.titulo = 'Meninas';
+                    break;
+                case 'menino':
+                    this.titulo = 'Meninos';
+                    break;
+                case 'gemeos':
+                    this.titulo = 'Gêmeos'
+                    break;
+                case '':
+                    this.titulo = 'Toda Coleção'
+                    break;
             }
         }
     }

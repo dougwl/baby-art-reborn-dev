@@ -152,7 +152,7 @@ body.nav-open .close-nav{
 .menu__item.submenu li{
     height: 25px;
     margin-top: 5px;
-    padding-left: 10px;
+    /* padding-left: 10px; */
     transition: background 0.25s ease-in;
 }
 

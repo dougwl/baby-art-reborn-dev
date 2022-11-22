@@ -163,7 +163,7 @@
 }
 
 .order a{
-    width: 70%;
+    width: 100%;
     height: 100%;
     background: var(--alternative-blue);
     color: white;
@@ -357,6 +357,7 @@
     }
 
     .order a{
+        width: 70%;
         cursor: pointer;
         pointer-events: all;
         opacity: 100%;

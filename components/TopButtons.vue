@@ -1,10 +1,18 @@
 <template>
     <div class="top-buttons">
-        <button type="button" aria-label="Abrir menu" title="Todas as opções" class="ver-menu">
-            <span class="sr-only">Todas as Opções</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="#000000" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line><line x1="40" y1="64" x2="216" y2="64" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line><line x1="40" y1="192" x2="216" y2="192" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
-            </svg>    
-        </button> 
+        <div class="left-side">
+            <button type="button" aria-label="Abrir menu" title="Todas as opções" class="ver-menu">
+                <span class="sr-only">Todas as Opções</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="#000000" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line><line x1="40" y1="64" x2="216" y2="64" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line><line x1="40" y1="192" x2="216" y2="192" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
+                </svg>    
+            </button>
+        </div> 
+        <div class="right-side">
+            <button type="button" aria-label="Contato" title="Entrar em Contato" @click="onLinkClicked" class="contato">
+                <span class="sr-only">Entrar em Contato</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="#ffffff" viewBox="0 0 256 256"><path d="M45.4,177A95.9,95.9,0,1,1,79,210.6h0L45.8,220a7.9,7.9,0,0,1-9.8-9.8L45.4,177Z" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path><path d="M152.1,184A79.9,79.9,0,0,1,72,103.9,28,28,0,0,1,100,76h0a6.8,6.8,0,0,1,6,3.5l11.7,20.4a8.1,8.1,0,0,1-.1,8.1l-9.4,15.7h0a48,48,0,0,0,24.1,24.1h0l15.7-9.4a8.1,8.1,0,0,1,8.1-.1L176.5,150a6.8,6.8,0,0,1,3.5,6h0A28.1,28.1,0,0,1,152.1,184Z" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path></svg>
+            </button>
+        </div>
     </div>    
 </template>
 
@@ -24,7 +32,12 @@
         background: white;
     }
 
-    .ver-menu{
+    .top-buttons > div{
+        display: flex;
+    }
+
+    .ver-menu,
+    .contato{
         background: none;
         fill: none;
         pointer-events: all;
@@ -41,6 +54,7 @@
         padding: 0;
     }
 
+
     .ver-menu:hover{
         text-decoration: underline;
     }
@@ -55,14 +69,31 @@
         width: 1px;
     }
 
-    .ver-menu svg{
+    :where(.ver-menu, .contato) svg{
         /* height: 60%; */
         height: auto;
-        width: 60%;
+        width: 70%;
     }
 
     .ver-menu svg > line{
         stroke: var(--main-color);
+    }
+
+    /* .contato svg > *{
+        stroke-width: 10px;
+    } */
+
+    .contato svg :where(path){
+        stroke: var(--main-color);
+        fill: transparent;
+    }
+
+    .contato svg :where(path:last-child){
+        stroke: var(--main-color);
+    }
+
+    .contato span{
+        width: max-content;
     }
 
     
@@ -107,8 +138,18 @@
         }   
         
 
-        .ver-menu svg{
+        :where(.ver-menu, .contato) svg{
             display: none;
+        }
+
+        .contato{
+            width: 100%;
+            height: 100%;
+            margin-right: 45px;
+        }
+
+        .contato:hover{
+            text-decoration: underline;
         }
     }
 
@@ -121,6 +162,15 @@ export default {
         /** @param {HTMLElement} el */
         openMenu(el){
             el.classList.toggle('nav-open');
+        },
+        onLinkClicked(ev){
+            let URL = "https://api.whatsapp.com/send/?phone="
+            let number = '554788227334';
+            let otherSettings = "&type=phone_number&app_absent=0&lang=pt_br";
+            let fullURL = URL + number + otherSettings;
+
+            ev.preventDefault();
+            window.open(fullURL, '_blank');
         }
     },
     mounted(){

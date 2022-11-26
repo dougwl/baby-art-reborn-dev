@@ -155,6 +155,8 @@
     display: flex;
     position: fixed;
     bottom: 0;
+    left: 0;
+    right: 0;
     width: 100vw;
     height: 60px;
     flex-direction: row;
@@ -455,14 +457,16 @@ export default {
         onLinkClicked(ev){
             let orderText = encodeURI('Olá, gostaria de encomendar uma boneca semelhante a (' + this.product.name + "): " + window.location.href + " . Qual seria o orçamento?");
             let defaultText = 'Olá, gostaria de fazer o orçamento para uma nova boneca.';
-            let URL = "https://wa.me/554788227334?text=";
+            /* let otherURL = "https://wa.me/554788227334?text="; */
+            let URL = "https://api.whatsapp.com/send/?phone=554788227334&text="
             let fullURL = '';
+            let otherSettings = "&type=phone_number&app_absent=0&lang=pt_br";
             
             if(this.onSale) {
-                fullURL = URL + orderText;
+                fullURL = URL + orderText + otherSettings;
             } 
             else {
-                fullURL = URL + defaultText;
+                fullURL = URL + defaultText + otherSettings;
             }
 
             ev.preventDefault();

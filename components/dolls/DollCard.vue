@@ -1,6 +1,9 @@
 <template>
     <div class="product">
-        <NuxtLink :to="'/bonecas/' + product.handle" prefetch>
+        <NuxtLink :to="'/bonecas/' + product.handle" :class="{'isAvailable': isAvailable}" prefetch>
+            <div class="tag">
+                <span>Disponível</span>
+            </div>
             <picture class="photo">
                 <source :media="queries.small.condition" :srcset="queries.small.src">
                 <source :media="queries.medium.condition" :srcset="queries.medium.src">
@@ -31,11 +34,44 @@
         margin: 15px;
     }
 
+    .product a{
+        position: relative;
+    }
+
     @media screen and (min-width: 1024px){
         .product{
             /* max-width: 400px; */
             max-width: 30vw;
         }
+    }
+
+    .tag{
+        display: none;
+    }
+
+    .isAvailable .tag{
+        display: flex;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 99;
+        flex: 1 0 100%;
+    }
+
+    .isAvailable .tag span{
+        width: 100px;
+        height: 40px;
+        color: white;
+        background: var(--main-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        transform: translateY(-42px);
     }
 
     .details{
@@ -112,6 +148,10 @@
             opacity: var(--card-hover-opacity);
             visibility: visible;
         }
+
+        .isAvailable .tag span{
+            transform: translateY(-37px);
+        }
     }
 </style>
 
@@ -152,6 +192,7 @@ export default {
                     src: ''
                 })
             },
+            isAvailable: false
         }
     },
     methods: {
@@ -160,6 +201,14 @@ export default {
             let target = e.target;
             target.classList.toggle('loading', false);
         },
+        isThisAvailable(){
+            this.product.tags.forEach(
+                tag => {
+                    if(tag.value.toLowerCase() == 'encomenda'){
+                        this.isAvailable = true;
+                    }
+            });
+        }
     },
     watch: {
         product: {
@@ -173,6 +222,7 @@ export default {
                         mediaQueries: this.queries 
                     }); */
                     /* console.log(this.product); */
+                    this.isThisAvailable();
                 }
             },
             immediate: true   

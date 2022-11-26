@@ -32,7 +32,7 @@
                     <a href="/historia">História</a>
                 </li> -->
                 <li class="menu__item">
-                    <NuxtLink to="/contato" class="menu__link">Contato</NuxtLink>
+                    <NuxtLink to="/paginas/contato" class="menu__link">Contato</NuxtLink>
                     <!-- <a href="/contato">Contato</a> -->
                 </li>
             </ul>

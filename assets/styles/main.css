@@ -26,6 +26,12 @@
     /* scrollbar-width: none; */
 }
 
+:where(ul, li){
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
 :where(body){
     text-rendering: optimizeLegibility;
     letter-spacing: .025em;

@@ -17,9 +17,7 @@
               </a>
             </li> -->
             <li class="nav-link">
-              <a href="/">
-                Contato
-              </a>
+              <NuxtLink to="/paginas/contato" class="menu__link">Contato</NuxtLink>
             </li>
           </ul>
           <!-- <ul class="extra-links --desktop">
@@ -56,6 +54,9 @@
                   <!-- <div v-html="require('~/assets/svg/instagram.svg?raw')"></div> -->
                   Facebook
                 </a>
+            </li>
+            <li class="nav-link --mobile">
+              <NuxtLink to="/paginas/contato" class="menu__link">Contato</NuxtLink>
             </li>
             <!-- <li class="social-link">
               <a href="https://www.pinterest.com/babyartreborn/" target="_blank">
@@ -139,6 +140,11 @@
     
 
     @media screen and (min-width: 1024px){
+
+        .--mobile{
+          display: none;
+        }
+
         .content{
           display: flex;
           margin: 0 75px;

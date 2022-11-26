@@ -50,7 +50,7 @@
                 </a>
             </li>
             <li class="social-link">
-              <a href="https://www.facebook.com/babyartreborn/" target="_blank">
+              <a href="https://www.facebook.com/people/Baby-Art-Reborn-by-Ledir/100078024152724/" target="_blank">
                   <!-- <div v-html="require('~/assets/svg/instagram.svg?raw')"></div> -->
                   Facebook
                 </a>

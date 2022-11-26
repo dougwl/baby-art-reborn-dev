@@ -360,15 +360,17 @@
     }
 
     .order a{
+        --opacity: 100%;
         width: 70%;
         cursor: pointer;
         pointer-events: all;
-        opacity: 100%;
+        opacity: var(--opacity);
         transition: opacity 0.25s ease-in-out;
     }
 
     .order a:hover{
-        opacity: 85%;
+        --opacity: 85%;
+        opacity: var(--opacity);
         transition: opacity 0.25s ease-in-out;
     }
 }

@@ -2,13 +2,40 @@
     <div class="collections--container">
         <div class="collections">
             <div class="collection">
-                <nuxt-link :to="'/bonecas#menina'" id="meninas">
+                <nuxt-link :to="'/bonecas#pronta-entrega'" id="gemeos">
                     <div class="border">
                         <div class="image">
                             <picture>
                                 <!-- <nuxt-source
                                     :media="'(max-width: 1023px)'"
                                     :src="'/meninas.webp'"
+                                    :sizes="'xs:200px'"
+                                /> -->
+                                <nuxt-source
+                                    :media="'(max-width: 1023px)'"
+                                    :src="'/gemeos.webp'"
+                                    :sizes="'md:400px'"
+                                />
+                                <nuxt-source
+                                    :media="'(min-width: 1024px)'"
+                                    :src="'/gemeos.webp'"
+                                    :sizes="'xl:600px'"
+                                />
+                                <nuxt-img src="/gemeos.webp" height="400" width="300" loading="lazy" title="Produtos a Pronta-entrega"/>
+                            </picture>
+                        </div>
+                    </div>
+                    <span class="title">Pronta-entrega</span>
+                </nuxt-link>
+            </div>
+            <div class="collection">
+                <nuxt-link :to="'/bonecas#menina'" id="meninas">
+                    <div class="border">
+                        <div class="image">
+                            <picture>
+                                <!-- <nuxt-source
+                                    :media="'(max-width: 1023px)'"
+                                    :src="'/meninos.webp'"
                                     :sizes="'xs:200px'"
                                 /> -->
                                 <nuxt-source
@@ -21,7 +48,7 @@
                                     :src="'/meninas.webp'"
                                     :sizes="'xl:600px'"
                                 />
-                                <nuxt-img src="/meninas.webp" height="400" width="300" loading="lazy" title="Meninas Categoria"/>
+                                <nuxt-img src="/meninas.webp" height="400" width="300" loading="lazy" title="Coleção Meninas"/>
                             </picture>
                         </div>
                     </div>
@@ -35,7 +62,7 @@
                             <picture>
                                 <!-- <nuxt-source
                                     :media="'(max-width: 1023px)'"
-                                    :src="'/meninos.webp'"
+                                    :src="'/gemeos.webp'"
                                     :sizes="'xs:200px'"
                                 /> -->
                                 <nuxt-source
@@ -48,38 +75,11 @@
                                     :src="'/meninos.webp'"
                                     :sizes="'xl:600px'"
                                 />
-                                <nuxt-img src="/meninos.webp" height="400" width="300" loading="lazy" title="Meninos Categoria"/>
+                                <nuxt-img src="/meninos.webp" height="400" width="300" loading="lazy" title="Coleção Meninos"/>
                             </picture>
                         </div>
                     </div>
                     <span class="title">Meninos</span>
-                </nuxt-link>
-            </div>
-            <div class="collection">
-                <nuxt-link :to="'/bonecas#gemeos'" id="gemeos">
-                    <div class="border">
-                        <div class="image">
-                            <picture>
-                                <!-- <nuxt-source
-                                    :media="'(max-width: 1023px)'"
-                                    :src="'/gemeos.webp'"
-                                    :sizes="'xs:200px'"
-                                /> -->
-                                <nuxt-source
-                                    :media="'(max-width: 1023px)'"
-                                    :src="'/gemeos.webp'"
-                                    :sizes="'md:400px'"
-                                />
-                                <nuxt-source
-                                    :media="'(min-width: 1024px)'"
-                                    :src="'/gemeos.webp'"
-                                    :sizes="'xl:600px'"
-                                />
-                                <nuxt-img src="/gemeos.webp" height="400" width="300" loading="lazy" title="Gemeos Categoria"/>
-                            </picture>
-                        </div>
-                    </div>
-                    <span class="title">Gêmeos</span>
                 </nuxt-link>
             </div>
         </div>
@@ -239,6 +239,12 @@
     .border{
         outline: solid 1px var(--main-color);
         box-shadow: 12px 12px 4px 0px rgb(0 0 0 / 25%);
+        transition: box-shadow 0.25s ease-in;
+    }
+
+    .border:hover{
+        box-shadow: 12px 12px 4px 0px rgb(0 0 0 / 35%);
+        transition: box-shadow 0.25s ease-in;
     }
 
     .title{

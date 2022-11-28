@@ -13,13 +13,13 @@
                 <li class="menu__item submenu">
                     <ul>
                         <li>
-                            <NuxtLink to="/bonecas#menina" class="menu__link">Meninas</NuxtLink>
+                            <NuxtLink to="/bonecas#pronta-entrega" class="menu__link">Pronta-entrega</NuxtLink>
                         </li>
                         <li>    
-                            <NuxtLink to="/bonecas#menino" class="menu__link">Meninos</NuxtLink>
+                            <NuxtLink to="/bonecas#menina" class="menu__link">Meninas</NuxtLink>
                         </li>
                         <li>
-                            <NuxtLink to="/bonecas#gemeos" class="menu__link">Gêmeos</NuxtLink>
+                            <NuxtLink to="/bonecas#menino" class="menu__link">Meninos</NuxtLink>
                         </li>
                     </ul>
                 </li>

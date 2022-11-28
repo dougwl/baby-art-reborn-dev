@@ -137,7 +137,10 @@ export default {
                     });
             });
             if(filtered.length > 0) return filtered;
-            else return catalog;
+            else{
+                this.filter = '';
+                return catalog;
+            }
         },
         onRouteChange: function () {
             if(this.$route.hash !== ''){
@@ -176,8 +179,8 @@ export default {
                 case 'menino':
                     this.titulo = 'Meninos';
                     break;
-                case 'gemeos':
-                    this.titulo = 'Gêmeos'
+                case 'pronta-entrega':
+                    this.titulo = 'Pronta-entrega'
                     break;
                 case '':
                     this.titulo = 'Toda Coleção'

@@ -17,7 +17,7 @@
                         <a class="link" href="https://www.instagram.com/babyartreborn" target="_blank" rel="noopener noreferrer">Instagram</a>
                     </li>
                     <li class="social-link">
-                        <a class="link" href="https://www.facebook.com/babyartreborn/" target="_blank" rel="noopener noreferrer">Facebook</a>
+                        <a class="link" href="https://www.facebook.com/people/Baby-Art-Reborn-by-Ledir/100078024152724/" target="_blank" rel="noopener noreferrer">Facebook</a>
                     </li>
                 </ul>
             </li>
@@ -78,7 +78,6 @@ export default {
         }
     },
     mounted(){
-        console.log('emited');
         this.$emit('change-title', 'Contato');
     }
 }

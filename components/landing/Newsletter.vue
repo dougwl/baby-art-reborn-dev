@@ -24,12 +24,12 @@
                 </div>
             </div>
         </div>
-        <form name="newsletter-form" class="newsletter-signup__form" data-netlify="true" netlify-honeypot="form-name" method="post" @submit="handleSubmit" novalidate> 
+        <form name="formulario-newsletter" class="newsletter-signup__form" data-netlify="true" netlify-honeypot="form-name" method="post" @submit="handleSubmit" novalidate> 
 
-            <input type="hidden" name="form-name" value="newsletter-form">
+            <input type="hidden" name="form-name" value="formulario-newsletter">
             <label for="form-name" class="hidden_label visually-hidden">Hidden</label>
 
-            <label for="newsletter-signup-email" class="visually-hidden">Informe seu email.</label>
+            <label for="newsletter-signup-email" class="visually-hidden">Olá, gostaria de me inscrever ao seu newsletter</label>
             <input type="email" name="email" id="newsletter-signup-email" placeholder="Informe o seu email:" required>
 
             <button type="submit" class="newsletter-signup__button">

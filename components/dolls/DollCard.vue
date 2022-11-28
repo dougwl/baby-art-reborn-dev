@@ -1,8 +1,12 @@
 <template>
     <div class="product">
-        <NuxtLink :to="'/bonecas/' + product.handle" :class="{'isAvailable': isAvailable}" prefetch>
+        <NuxtLink :to="'/bonecas/' + product.handle" :class="{
+            'hasStatus': status.active,
+            'pre-order': status.order[0],
+            'available': status.available[0]
+            }" prefetch>
             <div class="tag">
-                <span>Disponível</span>
+                <span>{{status.hint}}</span>
             </div>
             <picture class="photo">
                 <source :media="queries.small.condition" :srcset="queries.small.src">
@@ -47,9 +51,10 @@
 
     .tag{
         display: none;
+        pointer-events: none;
     }
 
-    .isAvailable .tag{
+    .hasStatus .tag{
         display: flex;
         width: 100%;
         height: 100%;
@@ -60,8 +65,9 @@
         flex: 1 0 100%;
     }
 
-    .isAvailable .tag span{
-        width: 100px;
+    .hasStatus .tag span{
+        /* width: 100px; */
+        width: 125px;
         height: 40px;
         color: white;
         background: var(--main-color);
@@ -72,6 +78,15 @@
         right: 0;
         bottom: 0;
         transform: translateY(-42px);
+        text-align: center;
+    }
+
+    .available .tag span{
+        background: var(--main-color);
+    }
+
+    .pre-order .tag span{
+        background: #ddb2b8;
     }
 
     .details{
@@ -149,8 +164,17 @@
             visibility: visible;
         }
 
-        .isAvailable .tag span{
+        .hasStatus .tag span{
+            --opacity: 100%;
+            opacity: var(--opacity);
+            transition: opacity 0.25s ease-in;
             transform: translateY(-37px);
+        }
+
+        .hasStatus:hover .tag span{
+            --opacity: 55%;
+            opacity: var(--opacity);
+            transition: opacity 0.25s ease-in;
         }
     }
 </style>
@@ -192,7 +216,12 @@ export default {
                     src: ''
                 })
             },
-            isAvailable: false
+            status: {
+                active: false,
+                hint: '',
+                order: [false, 'Sob Encomenda'],
+                available: [false, 'Pronta-entrega']
+            },
         }
     },
     methods: {
@@ -201,11 +230,18 @@ export default {
             let target = e.target;
             target.classList.toggle('loading', false);
         },
-        isThisAvailable(){
+        checkForStatus(){
             this.product.tags.forEach(
                 tag => {
                     if(tag.value.toLowerCase() == 'encomenda'){
-                        this.isAvailable = true;
+                        this.status.active = true;
+                        this.status.order[0] = true;
+                        this.status.hint = this.status.order[1];
+                    }
+                    else if(tag.value.toLowerCase() == 'pronta-entrega'){
+                        this.status.active = true;
+                        this.status.available[0] = true;
+                        this.status.hint = this.status.available[1];
                     }
             });
         }
@@ -222,7 +258,7 @@ export default {
                         mediaQueries: this.queries 
                     }); */
                     /* console.log(this.product); */
-                    this.isThisAvailable();
+                    this.checkForStatus();
                 }
             },
             immediate: true   

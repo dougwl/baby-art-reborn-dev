@@ -8,7 +8,7 @@
                 <DollsDollCard v-for="product in this.filteredList" :product="product" :key="product.id" />
              </client-only>
         </div>
-        
+
     </div>
 </template>
 
@@ -123,10 +123,10 @@ export default {
          */
         filterProducts: function (filter, catalog){
             let filtered = [];
-            catalog.forEach( 
+            catalog.forEach(
                 (product) => {
                     let isOnTheList = false;
-                    product.tags.forEach( 
+                    product.tags.forEach(
                         (tag) => {
                             if(tag.value.toLowerCase() == filter.toLowerCase()){
                                 if(!isOnTheList){
@@ -158,7 +158,9 @@ export default {
         await this.$nextTick();
         if(Object.entries(this.$props.fetchedProducts).length == 0){
             request = this.$inventory.retrieve.productsCustom();
+            console.log(request);
             this.productList = await request;
+            console.log(this.product);
         }
         else{
             this.productList = this.fetchedProducts;

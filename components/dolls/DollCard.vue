@@ -196,7 +196,7 @@ export default {
                 image: '',
                 url: ''
             },
-            queries: { 
+            queries: {
                 small: new ShopifyMediaQuery({
                     condition: "(max-width: 375px)",
                     width: 375,
@@ -249,19 +249,19 @@ export default {
     watch: {
         product: {
             handler: function(product, oldProduct){
-                if(product != undefined) { 
+                if(product != undefined) {
                     this.card.title = product.title;
-                    this.card.price = product.variants[0].price;
+                    this.card.price = parseInt(product.variants[0].price.amount);
                     this.card.image = product.images[0];
                     /* this.queries = this.$helpers.getResponsiveImages({
                         imageSource: this.card.image,
-                        mediaQueries: this.queries 
+                        mediaQueries: this.queries
                     }); */
                     /* console.log(this.product); */
                     this.checkForStatus();
                 }
             },
-            immediate: true   
+            immediate: true
         }
     },
 }

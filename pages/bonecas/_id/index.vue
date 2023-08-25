@@ -23,7 +23,7 @@
                             </a>
                         </div>
                         <p class="descricao" :data-expanded="descriptionExpanded">
-                            <span v-html="product.description">         
+                            <span v-html="product.description">
                             </span>
                         </p>
                     </div>
@@ -90,7 +90,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 100%; 
+    width: 100%;
     margin-top: 25px;
     opacity: var(--content-opacity);
     transition: opacity 0.25s ease-in;
@@ -281,7 +281,7 @@
 
     .descricao{
         margin: 0;
-        margin-top: 40px;     
+        margin-top: 40px;
         padding-right: 0 !important;
     }
 }
@@ -409,7 +409,7 @@
 
 <script>
 import { ShopifyMediaQuery, ShopifyQueryMap } from '~/plugins/helpers';
-export default {    
+export default {
     data (){
         return {
             rawData: {},
@@ -441,7 +441,7 @@ export default {
             this.product.id = raw.id;
             this.product.name = raw.title;
             this.product.description = raw.descriptionHtml;
-            this.product.price = prod.price;
+            this.product.price = parseInt(prod.price.amount);
             this.product.weight = prod.weight;
             this.album = raw.images;
             this.product.tags = raw.tags;
@@ -463,10 +463,10 @@ export default {
             let URL = "https://api.whatsapp.com/send/?phone=554788227334&text="
             let fullURL = '';
             let otherSettings = "&type=phone_number&app_absent=0&lang=pt_br";
-            
+
             if(this.onSale) {
                 fullURL = URL + orderText + otherSettings;
-            } 
+            }
             else {
                 fullURL = URL + defaultText + otherSettings;
             }
@@ -496,7 +496,7 @@ export default {
         let prod;
         await this.$nextTick();
         if(this.product.id == undefined && Object.entries(this.$props.fetchedProduct).length == 0){
-            routeName = this.$route.params.id; 
+            routeName = this.$route.params.id;
             try {
                 prod = await this.$inventory.retrieve.product().handleCustom(routeName);;
             } catch (error) {
